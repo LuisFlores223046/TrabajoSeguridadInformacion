@@ -7,7 +7,14 @@ from django.dispatch import receiver
 from django.core.exceptions import ValidationError
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from .validators import alphanumeric_validator, phone_validator
+from django.db.models.signals import post_save, post_delete
 import html
+
+
+@receiver(post_save, sender=Product)
+def log_product_changes(sender, instance, created, **kwargs):
+    action = 'CREATED' if created else 'UPDATED'
+    security_logger.info(f"PRODUCT_{action}: {instance.name} by system")
 
 def validate_image_file(value):
     """Validador personalizado para archivos de imagen"""

@@ -11,12 +11,19 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods, require_POST
 from django.utils.html import escape
 from django.db.models import Q
+
 import time
 import logging
 import json
 
 from .models import Product, Category, Customer, Order, OrderItem
 from .forms import ProductForm, CategoryForm, LoginForm, RegistrationForm, OrderForm, OrderItemForm, UserProfileForm
+
+security_logger = logging.getLogger('security')
+
+def track_security_event(event_type, user, details):
+    """Rastrea eventos de seguridad específicos"""
+    security_logger.warning(f"SECURITY_EVENT: {event_type} - User: {user} - Details: {details}")
 
 # Configurar logging para seguridad
 logger = logging.getLogger(__name__)
@@ -74,6 +81,7 @@ def sanitize_search_input(search_term):
 @csrf_protect
 @require_http_methods(["GET", "POST"])
 @handle_errors
+@ratelimit(key='ip', rate='5/m', method='POST')
 def login_view(request):
     """Procesa inicio de sesión con protecciones adicionales."""
     if request.user.is_authenticated:

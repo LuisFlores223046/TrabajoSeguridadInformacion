@@ -2,6 +2,28 @@ from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 import re
 import html
+import magic
+import bleach
+
+def validate_image_content(value):
+    """Valida el contenido real del archivo, no solo la extensión"""
+    if not value:
+        return
+    
+    # Verificar magic number
+    file_type = magic.from_buffer(value.read(1024), mime=True)
+    value.seek(0)
+    
+    allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+    if file_type not in allowed_types:
+        raise ValidationError(f"Invalid file type: {file_type}")
+
+def sanitize_rich_text(value):
+    """Sanitiza texto enriquecido permitiendo solo tags seguros"""
+    allowed_tags = ['p', 'br', 'strong', 'em']
+    allowed_attributes = {}
+    
+    return bleach.clean(value, tags=allowed_tags, attributes=allowed_attributes)
 
 class SecureInputValidator:
     """Validador personalizado para entradas de usuario seguras"""
@@ -96,6 +118,8 @@ class SecureInputValidator:
             
             return cleaned_value
         return value
+    
+    
 
 # Validadores específicos usando RegexValidator
 alphanumeric_validator = RegexValidator(
