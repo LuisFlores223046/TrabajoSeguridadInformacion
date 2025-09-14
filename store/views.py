@@ -1,75 +1,208 @@
+# store/views.py
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.models import User
-from django.http import JsonResponse
-from django.db import transaction
-from .models import Product, Category, Customer, Order, OrderItem
-from .forms import ProductForm, CategoryForm, LoginForm, RegistrationForm, OrderForm, OrderItemForm
-import time  # Para generar IDs de transacción
-import logging  # Para logging de debug
+from django.http import JsonResponse, Http404
+from django.db import transaction, IntegrityError
+from django.core.exceptions import ValidationError, PermissionDenied
+from django.views.decorators.csrf import csrf_protect
+from django.views.decorators.http import require_http_methods, require_POST
+from django.utils.html import escape
+from django.db.models import Q
+import time
+import logging
+import json
 
-# Configurar logging
+from .models import Product, Category, Customer, Order, OrderItem
+from .forms import ProductForm, CategoryForm, LoginForm, RegistrationForm, OrderForm, OrderItemForm, UserProfileForm
+
+# Configurar logging para seguridad
 logger = logging.getLogger(__name__)
 
-# Función para verificar si un usuario es administrador
-def is_admin(user):
-    """Verifica permisos de administrador."""
-    return user.is_staff
+# Decorador de manejo de errores personalizado
+def handle_errors(view_func):
+    """Decorador para manejo centralizado de errores"""
+    def wrapper(request, *args, **kwargs):
+        try:
+            return view_func(request, *args, **kwargs)
+        except ValidationError as e:
+            logger.warning(f"Validation error in {view_func.__name__}: {str(e)}")
+            messages.error(request, "Invalid input provided. Please check your data.")
+            return redirect('store')
+        except PermissionDenied:
+            logger.warning(f"Permission denied in {view_func.__name__} for user {request.user}")
+            messages.error(request, "You don't have permission to perform this action.")
+            return redirect('store')
+        except IntegrityError as e:
+            logger.error(f"Database integrity error in {view_func.__name__}: {str(e)}")
+            messages.error(request, "Database error occurred. Please try again.")
+            return redirect('store')
+        except Exception as e:
+            logger.error(f"Unexpected error in {view_func.__name__}: {str(e)}")
+            messages.error(request, "An unexpected error occurred. Please try again.")
+            return redirect('store')
+    return wrapper
 
-# Vistas de autenticación
+def is_admin(user):
+    """Verifica permisos de administrador de forma segura."""
+    return user.is_authenticated and user.is_staff
+
+def sanitize_search_input(search_term):
+    """Sanitiza términos de búsqueda para prevenir inyección SQL"""
+    if not search_term:
+        return ""
+    
+    # Escapar HTML y limitar caracteres
+    cleaned = escape(search_term.strip())
+    
+    # Remover caracteres peligrosos para SQL
+    dangerous_chars = ["'", '"', ';', '--', '/*', '*/', 'xp_', 'sp_', 'exec', 'execute', 
+                      'union', 'select', 'insert', 'update', 'delete', 'drop', 'create']
+    
+    cleaned_lower = cleaned.lower()
+    for char in dangerous_chars:
+        if char in cleaned_lower:
+            logger.warning(f"Potential SQL injection attempt: {search_term}")
+            return ""
+    
+    # Limitar longitud
+    return cleaned[:100]
+
+# Vistas de autenticación securizadas
+@csrf_protect
+@require_http_methods(["GET", "POST"])
+@handle_errors
 def login_view(request):
-    """Procesa inicio de sesión y redirecciona según tipo de usuario."""
+    """Procesa inicio de sesión con protecciones adicionales."""
+    if request.user.is_authenticated:
+        return redirect('dashboard' if request.user.is_staff else 'store')
+    
     if request.method == 'POST':
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            
+            # Log intento de login
+            logger.info(f"Login attempt for username: {username}")
+            
             user = authenticate(username=username, password=password)
             if user is not None:
-                login(request, user)
-                # Redirigir al dashboard si es admin, a la tienda si es cliente
-                if user.is_staff:
-                    return redirect('dashboard')
+                if user.is_active:
+                    login(request, user)
+                    logger.info(f"Successful login for user: {username}")
+                    
+                    # Redirección segura
+                    next_url = request.GET.get('next')
+                    if next_url and next_url.startswith('/'):
+                        return redirect(next_url)
+                    
+                    return redirect('dashboard' if user.is_staff else 'store')
                 else:
-                    return redirect('store')
+                    logger.warning(f"Login attempt for inactive user: {username}")
+                    messages.error(request, "Your account has been disabled.")
+            else:
+                logger.warning(f"Failed login attempt for username: {username}")
+                messages.error(request, "Invalid username or password.")
+        else:
+            logger.warning(f"Invalid form submission in login: {form.errors}")
     else:
         form = LoginForm()
+    
     return render(request, 'store/login.html', {'form': form})
 
+@csrf_protect
+@require_http_methods(["GET", "POST"])
+@handle_errors
 def register_view(request):
-    """Procesa registro de nuevos usuarios."""
+    """Procesa registro de nuevos usuarios con validaciones."""
+    if request.user.is_authenticated:
+        return redirect('store')
+    
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            # Por defecto, los usuarios registrados son clientes, no staff
-            user.is_staff = False
-            user.save()
-            login(request, user)
-            return redirect('store')
+            try:
+                with transaction.atomic():
+                    user = form.save()
+                    user.is_staff = False  # Asegurar que no sea staff por defecto
+                    user.save()
+                    
+                    logger.info(f"New user registered: {user.username}")
+                    login(request, user)
+                    messages.success(request, "Account created successfully!")
+                    return redirect('store')
+            except IntegrityError:
+                logger.warning(f"Registration attempt with existing username: {form.cleaned_data.get('username')}")
+                messages.error(request, "Username already exists. Please choose a different one.")
+        else:
+            logger.warning(f"Invalid registration form: {form.errors}")
     else:
         form = RegistrationForm()
+    
     return render(request, 'store/register.html', {'form': form})
 
+@require_POST
 def logout_view(request):
-    """Cierra sesión y redirecciona a login."""
+    """Cierra sesión de forma segura."""
+    username = request.user.username if request.user.is_authenticated else "Anonymous"
     logout(request)
+    logger.info(f"User logged out: {username}")
+    messages.success(request, "You have been logged out successfully.")
     return redirect('login')
 
-# Store main views
+# Vista principal de tienda con búsqueda segura
+@handle_errors
 def store(request):
-    """Muestra productos y categorías disponibles."""
-    products = Product.objects.filter(is_available=True)  # Solo productos disponibles
-    categories = Category.objects.all()
-    context = {'products': products, 'categories': categories}
-    return render(request, 'store/store.html', context)
+    """Muestra productos y categorías con búsqueda segura."""
+    try:
+        # Manejo seguro de parámetros de búsqueda
+        search_query = request.GET.get('search', '')
+        category_filter = request.GET.get('category', '')
+        
+        # Sanitizar entradas
+        search_query = sanitize_search_input(search_query)
+        
+        # Construir queryset base
+        products = Product.objects.filter(is_available=True).select_related('category')
+        
+        # Aplicar filtros de forma segura
+        if search_query:
+            # Usar Q objects para búsqueda segura
+            products = products.filter(
+                Q(name__icontains=search_query) | 
+                Q(description__icontains=search_query) |
+                Q(origin__icontains=search_query)
+            )
+        
+        if category_filter and category_filter.isdigit():
+            products = products.filter(category_id=int(category_filter))
+        
+        categories = Category.objects.all()
+        
+        context = {
+            'products': products[:20],  # Limitar resultados
+            'categories': categories,
+            'search_query': search_query,
+            'selected_category': category_filter
+        }
+        
+        return render(request, 'store/store.html', context)
+        
+    except Exception as e:
+        logger.error(f"Error in store view: {str(e)}")
+        messages.error(request, "Error loading products. Please try again.")
+        return render(request, 'store/store.html', {
+            'products': Product.objects.filter(is_available=True)[:10],
+            'categories': Category.objects.all()
+        })
 
 def customer_product_detail(request, pk):
     """Muestra detalle de producto y productos relacionados."""
     product = get_object_or_404(Product, pk=pk)
-    related_products = Product.objects.filter(category=product.category).exclude(pk=pk)[:4]  # Máximo 4 productos relacionados
+    related_products = Product.objects.filter(category=product.category).exclude(pk=pk)[:4]
     context = {
         'product': product,
         'related_products': related_products
@@ -79,61 +212,65 @@ def customer_product_detail(request, pk):
 def customer_category_detail(request, pk):
     """Muestra categoría y sus productos disponibles."""
     category = get_object_or_404(Category, pk=pk)
-    products = category.products.filter(is_available=True)  # Solo productos disponibles
+    products = category.products.filter(is_available=True)
     context = {
         'category': category,
         'products': products
     }
     return render(request, 'store/customer_category_detail.html', context)
 
-# Cart views
+# Carrito con validaciones mejoradas
 @login_required
+@require_POST
+@csrf_protect
+@handle_errors
 def add_to_cart(request, product_id):
-    """Añade producto al carrito o incrementa cantidad."""
-    product = get_object_or_404(Product, id=product_id)
-    
-    # Verificar si hay suficiente stock
-    if product.stock <= 0 or not product.is_available:
-        messages.warning(request, f"Sorry, {product.name} is out of stock.")
-        # Redireccionar a la página anterior si existe
-        if request.META.get('HTTP_REFERER'):
-            return redirect(request.META.get('HTTP_REFERER'))
+    """Añade producto al carrito con validaciones de seguridad."""
+    try:
+        # Validar ID de producto
+        if not str(product_id).isdigit() or product_id <= 0:
+            raise ValidationError("Invalid product ID")
+        
+        product = get_object_or_404(Product, id=product_id, is_available=True)
+        
+        # Verificar stock
+        if product.stock <= 0:
+            messages.warning(request, f"Sorry, {product.name} is out of stock.")
+            return redirect(request.META.get('HTTP_REFERER', 'store'))
+        
+        with transaction.atomic():
+            customer = request.user.customer
+            order, created = Order.objects.get_or_create(
+                customer=customer, 
+                complete=False,
+                defaults={'status': 'pending'}
+            )
+            
+            order_item, item_created = OrderItem.objects.get_or_create(
+                order=order,
+                product=product,
+                defaults={'quantity': 1}
+            )
+            
+            if not item_created:
+                if order_item.quantity < product.stock:
+                    order_item.quantity += 1
+                    order_item.save()
+                    messages.success(request, f"{product.name} added to your cart.")
+                else:
+                    messages.warning(request, f"Sorry, we only have {product.stock} units available.")
+            else:
+                messages.success(request, f"{product.name} added to your cart.")
+        
+        return redirect(request.META.get('HTTP_REFERER', 'store'))
+        
+    except Exception as e:
+        logger.error(f"Error adding to cart: {str(e)}")
+        messages.error(request, "Error adding product to cart. Please try again.")
         return redirect('store')
-    
-    # Obtener o crear un pedido en estado pendiente para el usuario
-    customer = request.user.customer
-    order, created = Order.objects.get_or_create(
-        customer=customer, 
-        complete=False,
-        defaults={'status': 'pending'}
-    )
-    
-    # Buscar si el producto ya está en el carrito
-    order_item, created = OrderItem.objects.get_or_create(
-        order=order,
-        product=product,
-        defaults={'quantity': 1}
-    )
-    
-    # Si el producto ya estaba en el carrito, aumentar la cantidad
-    if not created:
-        # Verificar que no exceda el stock disponible
-        if order_item.quantity < product.stock:
-            order_item.quantity += 1
-            order_item.save()
-            messages.success(request, f"{product.name} added to your cart.")
-        else:
-            messages.warning(request, f"Sorry, we only have {product.stock} units of {product.name} available.")
-    else:
-        messages.success(request, f"{product.name} added to your cart.")
-    
-    # Redireccionar a la página anterior si existe
-    if request.META.get('HTTP_REFERER'):
-        return redirect(request.META.get('HTTP_REFERER'))
-    
-    return redirect('customer_product_detail', pk=product_id)
 
 @login_required
+@handle_errors
 def update_cart(request, product_id, action):
     """Actualiza cantidad de producto en carrito."""
     product = get_object_or_404(Product, id=product_id)
@@ -145,7 +282,6 @@ def update_cart(request, product_id, action):
         
         if order_item:
             if action == 'increase':
-                # Verificar que no exceda el stock disponible
                 if order_item.quantity < product.stock:
                     order_item.quantity += 1
                     order_item.save()
@@ -165,6 +301,7 @@ def update_cart(request, product_id, action):
     return redirect('cart')
 
 @login_required
+@handle_errors
 def remove_from_cart(request, product_id):
     """Elimina producto del carrito."""
     product = get_object_or_404(Product, id=product_id)
@@ -178,6 +315,7 @@ def remove_from_cart(request, product_id):
     return redirect('cart')
 
 @login_required
+@handle_errors
 def cart(request):
     """Muestra carrito de compras actual."""
     customer = request.user.customer
@@ -197,88 +335,103 @@ def cart(request):
     return render(request, 'store/cart.html', context)
 
 @login_required
+@csrf_protect
+@handle_errors
 def checkout(request):
-    """Procesa página de pago y finalización de pedido."""
-    customer = request.user.customer
-    order = Order.objects.filter(customer=customer, complete=False).first()
-    
-    if request.method == 'POST':
-        # Procesar la orden cuando se envía el formulario
-        if order:
+    """Procesa checkout con validaciones de seguridad mejoradas."""
+    try:
+        customer = request.user.customer
+        order = Order.objects.filter(customer=customer, complete=False).first()
+        
+        if request.method == 'POST':
+            if not order or not order.orderitem_set.exists():
+                messages.warning(request, "Your cart is empty.")
+                return redirect('cart')
+            
+            # Validar dirección de envío
+            shipping_address = request.POST.get('shipping_address', '').strip()
+            if not shipping_address:
+                messages.error(request, "Shipping address is required.")
+                return redirect('checkout')
+            
+            # Sanitizar dirección
+            from .validators import SecureInputValidator
             try:
-                # Usar transacción atómica para asegurar consistencia en las operaciones de DB
+                shipping_address = SecureInputValidator.validate_address(shipping_address)
+            except ValidationError as e:
+                messages.error(request, f"Invalid shipping address: {str(e)}")
+                return redirect('checkout')
+            
+            try:
                 with transaction.atomic():
-                    # Verificar que todos los productos tengan stock suficiente
-                    inventory_issue = False
+                    # Verificar inventario
                     order_items = OrderItem.objects.select_related('product').filter(order=order)
                     
                     for item in order_items:
-                        # Obtener producto fresco de la base de datos
-                        product = Product.objects.get(id=item.product.id)
-                        logger.info(f"Verificando producto: {product.name}, Stock actual: {product.stock}, Cantidad solicitada: {item.quantity}")
+                        product = Product.objects.select_for_update().get(id=item.product.id)
                         
                         if item.quantity > product.stock or not product.is_available:
-                            inventory_issue = True
-                            messages.warning(request, f"Sorry, {product.name} is no longer available in the quantity you requested. Available: {product.stock}")
+                            messages.warning(
+                                request, 
+                                f"Sorry, {product.name} is no longer available in the requested quantity. Available: {product.stock}"
+                            )
+                            return redirect('cart')
                     
-                    if inventory_issue:
-                        return redirect('cart')
-                    
-                    # Actualizar inventario reduciendo la cantidad de cada producto
-                    logger.info("Actualizando inventario...")
+                    # Actualizar inventario
                     for item in order_items:
-                        # Obtener producto fresco nuevamente para asegurar datos actualizados
-                        product = Product.objects.get(id=item.product.id)
-                        old_stock = product.stock
-                        product.stock = max(0, product.stock - item.quantity)  # Evitar negativos
+                        product = Product.objects.select_for_update().get(id=item.product.id)
+                        product.stock = max(0, product.stock - item.quantity)
                         
-                        # Verificar si el producto se ha agotado
                         if product.stock <= 0:
-                            product.is_available = False  # Marcar como no disponible
+                            product.is_available = False
                         
                         product.save()
-                        logger.info(f"Producto: {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
+                        logger.info(f"Inventory updated: {product.name}, new stock: {product.stock}")
                     
-                    # Completar el pedido
+                    # Completar orden
                     order.complete = True
                     order.status = 'processing'
-                    order.transaction_id = f"TX-{int(time.time())}"  # Generar ID único basado en timestamp
-                    order.shipping_address = request.POST.get('shipping_address', '')
+                    order.transaction_id = f"TX-{int(time.time())}-{order.id}"
+                    order.shipping_address = shipping_address
                     order.save()
-                    logger.info(f"Orden #{order.id} completada con éxito.")
                     
+                    logger.info(f"Order completed: #{order.id} by user {request.user.username}")
                     messages.success(request, "Your order has been placed successfully!")
-                    return redirect('store')
+                    return redirect('my_orders')
                     
             except Exception as e:
-                logger.error(f"Error en checkout: {str(e)}")
+                logger.error(f"Error in checkout: {str(e)}")
                 messages.error(request, "There was an error processing your order. Please try again.")
                 return redirect('cart')
-    
-    # Preparar datos para mostrar en la página de checkout
-    if order:
-        cart_items = order.orderitem_set.all()
-        cart_total = order.get_cart_total
-    else:
-        cart_items = []
-        cart_total = 0
-    
-    context = {
-        'cart_items': cart_items,
-        'cart_total': cart_total
-    }
-    return render(request, 'store/checkout.html', context)
+        
+        # Preparar datos para mostrar
+        if order:
+            cart_items = order.orderitem_set.select_related('product').all()
+            cart_total = order.get_cart_total
+        else:
+            cart_items = []
+            cart_total = 0
+        
+        context = {
+            'cart_items': cart_items,
+            'cart_total': cart_total
+        }
+        return render(request, 'store/checkout.html', context)
+        
+    except Exception as e:
+        logger.error(f"Error in checkout view: {str(e)}")
+        messages.error(request, "Error loading checkout page.")
+        return redirect('cart')
 
 # Admin dashboard
 @user_passes_test(is_admin)
+@handle_errors
 def dashboard(request):
     """Dashboard administrativo con estadísticas."""
-    # Contadores para las tarjetas de estadísticas
     product_count = Product.objects.count()
     category_count = Category.objects.count()
     order_count = Order.objects.count()
     
-    # Datos para las tablas de resumen
     products = Product.objects.all().order_by('-created_at')
     orders = Order.objects.all().order_by('-date_ordered')
     
@@ -291,7 +444,6 @@ def dashboard(request):
     }
     return render(request, 'store/dashboard/dashboard.html', context)
 
-# Nueva vista para listar usuarios
 @user_passes_test(is_admin)
 def user_list(request):
     """Lista todos los usuarios registrados."""
@@ -312,14 +464,24 @@ def product_detail(request, pk):
     return render(request, 'store/dashboard/product_detail.html', {'product': product})
 
 @user_passes_test(is_admin)
+@csrf_protect
+@handle_errors
 def product_create(request):
-    """Crea nuevo producto."""
+    """Crea nuevo producto con validaciones de seguridad."""
     if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES)  # request.FILES para manejar la imagen
+        form = ProductForm(request.POST, request.FILES)
         if form.is_valid():
-            product = form.save()
-            messages.success(request, f'Product "{product.name}" created successfully!')
-            return redirect('product_detail', pk=product.pk)
+            try:
+                with transaction.atomic():
+                    product = form.save()
+                    logger.info(f"Product created: {product.name} by user {request.user.username}")
+                    messages.success(request, f'Product "{product.name}" created successfully!')
+                    return redirect('product_detail', pk=product.pk)
+            except Exception as e:
+                logger.error(f"Error creating product: {str(e)}")
+                messages.error(request, "Error creating product. Please try again.")
+        else:
+            logger.warning(f"Invalid product form: {form.errors}")
     else:
         form = ProductForm()
     
@@ -329,30 +491,51 @@ def product_create(request):
     })
 
 @user_passes_test(is_admin)
+@csrf_protect
+@handle_errors
 def product_update(request, pk):
-    """Actualiza producto existente."""
-    product = get_object_or_404(Product, pk=pk)
-    
-    if request.method == 'POST':
-        form = ProductForm(request.POST, request.FILES, instance=product)
-        if form.is_valid():
-            product = form.save()
-            # Asegurarnos de que si hay stock disponible, el producto esté marcado como disponible
-            if product.stock > 0 and not product.is_available:
-                product.is_available = True
-                product.save()
-            messages.success(request, f'Product "{product.name}" updated successfully!')
-            return redirect('product_detail', pk=product.pk)
-    else:
-        form = ProductForm(instance=product)
-    
-    return render(request, 'store/dashboard/product_form.html', {
-        'form': form,
-        'product': product,
-        'title': f'Edit {product.name}'
-    })
+    """Actualiza producto con validaciones."""
+    try:
+        if not str(pk).isdigit() or pk <= 0:
+            raise Http404("Invalid product ID")
+        
+        product = get_object_or_404(Product, pk=pk)
+        
+        if request.method == 'POST':
+            form = ProductForm(request.POST, request.FILES, instance=product)
+            if form.is_valid():
+                try:
+                    with transaction.atomic():
+                        updated_product = form.save()
+                        
+                        if updated_product.stock > 0 and not updated_product.is_available:
+                            updated_product.is_available = True
+                            updated_product.save()
+                        
+                        logger.info(f"Product updated: {updated_product.name} by user {request.user.username}")
+                        messages.success(request, f'Product "{updated_product.name}" updated successfully!')
+                        return redirect('product_detail', pk=updated_product.pk)
+                except Exception as e:
+                    logger.error(f"Error updating product: {str(e)}")
+                    messages.error(request, "Error updating product. Please try again.")
+            else:
+                logger.warning(f"Invalid product update form: {form.errors}")
+        else:
+            form = ProductForm(instance=product)
+        
+        return render(request, 'store/dashboard/product_form.html', {
+            'form': form,
+            'product': product,
+            'title': f'Edit {product.name}'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in product_update: {str(e)}")
+        messages.error(request, "Error loading product. Please try again.")
+        return redirect('product_list')
 
 @user_passes_test(is_admin)
+@handle_errors
 def product_delete(request, pk):
     """Elimina producto con confirmación."""
     product = get_object_or_404(Product, pk=pk)
@@ -376,13 +559,15 @@ def category_list(request):
 def category_detail(request, pk):
     """Detalle de categoría y sus productos."""
     category = get_object_or_404(Category, pk=pk)
-    products = category.products.all()  # Todos los productos de esta categoría
+    products = category.products.all()
     return render(request, 'store/dashboard/category_detail.html', {
         'category': category,
         'products': products
     })
 
 @user_passes_test(is_admin)
+@csrf_protect
+@handle_errors
 def category_create(request):
     """Crea nueva categoría."""
     if request.method == 'POST':
@@ -400,6 +585,8 @@ def category_create(request):
     })
 
 @user_passes_test(is_admin)
+@csrf_protect
+@handle_errors
 def category_update(request, pk):
     """Actualiza categoría existente."""
     category = get_object_or_404(Category, pk=pk)
@@ -420,6 +607,7 @@ def category_update(request, pk):
     })
 
 @user_passes_test(is_admin)
+@handle_errors
 def category_delete(request, pk):
     """Elimina categoría con confirmación."""
     category = get_object_or_404(Category, pk=pk)
@@ -446,6 +634,8 @@ def order_detail(request, pk):
     return render(request, 'store/dashboard/order_detail.html', {'order': order})
 
 @user_passes_test(is_admin)
+@csrf_protect
+@handle_errors
 def order_update(request, pk):
     """Actualiza estado y dirección de orden."""
     order = get_object_or_404(Order, pk=pk)
@@ -457,57 +647,49 @@ def order_update(request, pk):
             new_status = form.cleaned_data['status']
             
             try:
-                # Usar transacción atómica para asegurar consistencia
                 with transaction.atomic():
-                    # Si el pedido cambia de cancelado a otro estado, verificar disponibilidad de productos
                     if old_status == 'cancelled' and new_status != 'cancelled':
                         order_items = OrderItem.objects.select_related('product').filter(order=order)
                         inventory_issue = False
                         
-                        # Verificar disponibilidad de todos los productos
                         for item in order_items:
-                            # Obtener producto fresco de la base de datos
                             product = Product.objects.get(id=item.product.id)
                             if product.stock < item.quantity:
                                 inventory_issue = True
                                 messages.warning(request, f"Not enough stock available for {product.name}. Available: {product.stock}")
                         
-                        # Si hay problemas de inventario, no permitir el cambio
                         if inventory_issue:
                             return redirect('order_detail', pk=order.pk)
                         
-                        # Si no hay problemas, reducir el inventario nuevamente
                         for item in order_items:
                             product = Product.objects.get(id=item.product.id)
                             old_stock = product.stock
-                            product.stock = max(0, product.stock - item.quantity)  # Evitar negativos
+                            product.stock = max(0, product.stock - item.quantity)
                             if product.stock <= 0:
                                 product.stock = 0
                                 product.is_available = False
                             product.save()
-                            logger.info(f"Orden cambiada de cancelado: Producto {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
+                            logger.info(f"Order uncancelled: Product {product.name}, old stock: {old_stock}, new stock: {product.stock}")
                     
-                    # Si el pedido está siendo cancelado, devolvemos los productos al inventario
                     elif old_status != 'cancelled' and new_status == 'cancelled':
                         order_items = OrderItem.objects.select_related('product').filter(order=order)
                         for item in order_items:
                             product = Product.objects.get(id=item.product.id)
                             old_stock = product.stock
                             product.stock += item.quantity
-                            product.is_available = True  # Hacer disponible de nuevo si se había agotado
+                            product.is_available = True
                             product.save()
-                            logger.info(f"Orden cancelada: Producto {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
+                            logger.info(f"Order cancelled: Product {product.name}, old stock: {old_stock}, new stock: {product.stock}")
                     
                     form.save()
                     messages.success(request, f'Order #{order.id} updated successfully!')
                     
-                    # Si la solicitud es AJAX, devolver una respuesta JSON
                     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
                         return JsonResponse({'status': 'success'})
                     return redirect('order_detail', pk=order.pk)
             
             except Exception as e:
-                logger.error(f"Error al actualizar orden: {str(e)}")
+                logger.error(f"Error updating order: {str(e)}")
                 messages.error(request, "There was an error updating the order status. Please try again.")
                 return redirect('order_detail', pk=order.pk)
     else:
@@ -520,6 +702,7 @@ def order_update(request, pk):
     })
 
 @user_passes_test(is_admin)
+@handle_errors
 def order_delete(request, pk):
     """Elimina orden con confirmación."""
     order = get_object_or_404(Order, pk=pk)
@@ -527,16 +710,15 @@ def order_delete(request, pk):
     if request.method == 'POST':
         try:
             with transaction.atomic():
-                # Si se elimina una orden completada, restaurar el inventario
                 if order.complete and order.status != 'cancelled':
                     order_items = OrderItem.objects.select_related('product').filter(order=order)
                     for item in order_items:
                         product = Product.objects.get(id=item.product.id)
                         old_stock = product.stock
                         product.stock += item.quantity
-                        product.is_available = True  # Hacer disponible de nuevo si se había agotado
+                        product.is_available = True
                         product.save()
-                        logger.info(f"Orden eliminada: Producto {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
+                        logger.info(f"Order deleted: Product {product.name}, old stock: {old_stock}, new stock: {product.stock}")
                 
                 order_id = order.id
                 order.delete()
@@ -544,13 +726,15 @@ def order_delete(request, pk):
                 return redirect('order_list')
         
         except Exception as e:
-            logger.error(f"Error al eliminar orden: {str(e)}")
+            logger.error(f"Error deleting order: {str(e)}")
             messages.error(request, "There was an error deleting the order. Please try again.")
             return redirect('order_detail', pk=order.pk)
     
     return render(request, 'store/dashboard/order_confirm_delete.html', {'order': order})
 
 @user_passes_test(is_admin)
+@csrf_protect
+@handle_errors
 def add_order_item(request, pk):
     """Añade producto a una orden."""
     order = get_object_or_404(Order, pk=pk)
@@ -563,33 +747,30 @@ def add_order_item(request, pk):
             
             try:
                 with transaction.atomic():
-                    # Obtener producto fresco de la base de datos
                     product = Product.objects.get(id=product.id)
                     
-                    # Verificar si hay suficiente stock
                     if product.stock < quantity and order.complete and order.status != 'cancelled':
                         messages.warning(request, f"Not enough stock available for {product.name}. Available: {product.stock}")
                         return redirect('order_detail', pk=order.pk)
                     
-                    item = form.save(commit=False)  # No guardar inmediatamente
-                    item.order = order  # Asignar la orden al ítem
-                    item.save()  # Ahora guardar
+                    item = form.save(commit=False)
+                    item.order = order
+                    item.save()
                     
-                    # Reducir el stock si la orden está completada y no cancelada
                     if order.complete and order.status != 'cancelled':
                         old_stock = product.stock
-                        product.stock = max(0, product.stock - quantity)  # Evitar negativos
+                        product.stock = max(0, product.stock - quantity)
                         if product.stock <= 0:
                             product.stock = 0
                             product.is_available = False
                         product.save()
-                        logger.info(f"Ítem añadido a orden completada: Producto {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
+                        logger.info(f"Item added to completed order: Product {product.name}, old stock: {old_stock}, new stock: {product.stock}")
                     
                     messages.success(request, 'Item added to the order successfully!')
                     return redirect('order_detail', pk=order.pk)
             
             except Exception as e:
-                logger.error(f"Error al añadir ítem: {str(e)}")
+                logger.error(f"Error adding item: {str(e)}")
                 messages.error(request, "There was an error adding the item to the order. Please try again.")
                 return redirect('order_detail', pk=order.pk)
     else:
@@ -602,6 +783,8 @@ def add_order_item(request, pk):
     })
 
 @user_passes_test(is_admin)
+@csrf_protect
+@handle_errors
 def edit_order_item(request, pk):
     """Edita producto de una orden."""
     item = get_object_or_404(OrderItem, pk=pk)
@@ -616,35 +799,31 @@ def edit_order_item(request, pk):
             
             try:
                 with transaction.atomic():
-                    # Obtener producto fresco de la base de datos
                     product = Product.objects.get(id=product_id)
                     
-                    # Si la orden está completada y no cancelada, ajustar el inventario
                     if order.complete and order.status != 'cancelled':
                         quantity_difference = new_quantity - old_quantity
                         
-                        # Verificar si hay suficiente stock para el aumento de cantidad
                         if quantity_difference > 0 and product.stock < quantity_difference:
                             messages.warning(request, f"Not enough stock available for {product.name}. Available: {product.stock}")
                             return redirect('order_detail', pk=order.pk)
                         
-                        # Ajustar el inventario
                         old_stock = product.stock
-                        product.stock = max(0, product.stock - quantity_difference)  # Evitar negativos
+                        product.stock = max(0, product.stock - quantity_difference)
                         if product.stock <= 0:
                             product.stock = 0
                             product.is_available = False
                         elif product.stock > 0:
                             product.is_available = True
                         product.save()
-                        logger.info(f"Ítem editado en orden completada: Producto {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
+                        logger.info(f"Item edited in completed order: Product {product.name}, old stock: {old_stock}, new stock: {product.stock}")
                     
                     form.save()
                     messages.success(request, 'Order item updated successfully!')
                     return redirect('order_detail', pk=item.order.pk)
             
             except Exception as e:
-                logger.error(f"Error al editar ítem: {str(e)}")
+                logger.error(f"Error editing item: {str(e)}")
                 messages.error(request, "There was an error updating the order item. Please try again.")
                 return redirect('order_detail', pk=order.pk)
     else:
@@ -658,6 +837,7 @@ def edit_order_item(request, pk):
     })
 
 @user_passes_test(is_admin)
+@handle_errors
 def delete_order_item(request, pk):
     """Elimina producto de una orden."""
     item = get_object_or_404(OrderItem, pk=pk)
@@ -666,22 +846,20 @@ def delete_order_item(request, pk):
     if request.method == 'POST':
         try:
             with transaction.atomic():
-                # Si la orden está completada y no cancelada, restaurar el inventario
                 if order.complete and order.status != 'cancelled':
-                    # Obtener producto fresco de la base de datos
                     product = Product.objects.get(id=item.product.id)
                     old_stock = product.stock
                     product.stock += item.quantity
-                    product.is_available = True  # Hacer disponible de nuevo
+                    product.is_available = True
                     product.save()
-                    logger.info(f"Ítem eliminado de orden completada: Producto {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
+                    logger.info(f"Item deleted from completed order: Product {product.name}, old stock: {old_stock}, new stock: {product.stock}")
                 
                 item.delete()
                 messages.success(request, 'Order item removed successfully!')
                 return redirect('order_detail', pk=order.pk)
         
         except Exception as e:
-            logger.error(f"Error al eliminar ítem: {str(e)}")
+            logger.error(f"Error deleting item: {str(e)}")
             messages.error(request, "There was an error removing the order item. Please try again.")
             return redirect('order_detail', pk=order.pk)
     
@@ -691,31 +869,59 @@ def delete_order_item(request, pk):
     })
 
 @login_required
+@csrf_protect
+@handle_errors
 def my_account(request):
-    """Gestiona perfil del usuario."""
-    customer = request.user.customer
-    
-    if request.method == 'POST':
-        # Actualizar usuario
-        user = request.user
-        user.first_name = request.POST.get('first_name')
-        user.last_name = request.POST.get('last_name')
-        user.email = request.POST.get('email')
-        user.save()
+    """Gestiona perfil del usuario con validaciones de seguridad."""
+    try:
+        customer = request.user.customer
         
-        # Actualizar cliente
-        customer.phone = request.POST.get('phone')
-        customer.address = request.POST.get('address')
-        customer.save()
+        if request.method == 'POST':
+            form = UserProfileForm(request.POST)
+            if form.is_valid():
+                try:
+                    with transaction.atomic():
+                        user = request.user
+                        user.first_name = form.cleaned_data['first_name']
+                        user.last_name = form.cleaned_data['last_name']
+                        user.email = form.cleaned_data['email']
+                        user.save()
+                        
+                        customer.phone = form.cleaned_data['phone']
+                        customer.address = form.cleaned_data['address']
+                        customer.save()
+                        
+                        logger.info(f"User profile updated: {user.username}")
+                        messages.success(request, "Your account information has been updated successfully!")
+                        return redirect('my_account')
+                        
+                except Exception as e:
+                    logger.error(f"Error updating user profile: {str(e)}")
+                    messages.error(request, "Error updating profile. Please try again.")
+            else:
+                logger.warning(f"Invalid profile form: {form.errors}")
+                messages.error(request, "Please correct the errors below.")
+        else:
+            initial_data = {
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+                'phone': customer.phone or '',
+                'address': customer.address or ''
+            }
+            form = UserProfileForm(initial=initial_data)
         
-        messages.success(request, "Your account information has been updated successfully!")
-        return redirect('my_account')
-    
-    context = {
-        'user': request.user,
-        'customer': customer
-    }
-    return render(request, 'store/my_account.html', context)
+        context = {
+            'form': form,
+            'user': request.user,
+            'customer': customer
+        }
+        return render(request, 'store/my_account.html', context)
+        
+    except Exception as e:
+        logger.error(f"Error in my_account view: {str(e)}")
+        messages.error(request, "Error loading account information.")
+        return redirect('store')
 
 @login_required
 def my_orders(request):
@@ -732,7 +938,7 @@ def my_orders(request):
 def order_customer_detail(request, pk):
     """Detalle de pedido específico."""
     customer = request.user.customer
-    order = get_object_or_404(Order, pk=pk, customer=customer)  # Asegurar que el pedido pertenece al cliente
+    order = get_object_or_404(Order, pk=pk, customer=customer)
     context = {
         'order': order
     }
