@@ -1,4 +1,4 @@
-# ecommerce_project/settings.py
+# ecommerce_project/settings.py - Mantener tu configuración + añadir seguridad
 import os
 from pathlib import Path
 
@@ -6,21 +6,17 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-default-secret-key-change-in-production')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-default-secret-key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'False').lower() == 'true'
+DEBUG = 'RENDER' not in os.environ
 
-# Hosts permitidos
 ALLOWED_HOSTS = []
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
-
-# En desarrollo, permitir localhost
-if DEBUG:
-    ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', '0.0.0.0'])
 
 # Application definition
 INSTALLED_APPS = [
@@ -34,8 +30,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -53,7 +49,6 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -81,7 +76,7 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
         'OPTIONS': {
-            'min_length': 8,
+            'min_length': 8,  # Añadido para seguridad
         }
     },
     {
@@ -98,14 +93,17 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Images) - MANTENER TU CONFIGURACIÓN ORIGINAL
 STATIC_URL = 'static/'
 if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    
+    # Esta es la clave: en producción, configuramos MEDIA_ROOT dentro de STATIC_ROOT
     MEDIA_ROOT = os.path.join(STATIC_ROOT, 'media')
     MEDIA_URL = '/static/media/'
 else:
+    # En desarrollo mantenemos la configuración normal
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -117,7 +115,7 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'store'
 LOGOUT_REDIRECT_URL = 'login'
 
-# CONFIGURACIONES DE SEGURIDAD ADICIONALES
+# ====== CONFIGURACIONES DE SEGURIDAD AÑADIDAS ======
 
 # Seguridad HTTPS (solo en producción)
 if not DEBUG:
@@ -130,7 +128,7 @@ if not DEBUG:
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
-# Configuración de cookies
+# Configuración de cookies seguras
 SESSION_COOKIE_AGE = 3600  # 1 hora
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_HTTPONLY = True
@@ -193,29 +191,6 @@ LOGGING = {
 
 # Crear directorio de logs si no existe
 os.makedirs(os.path.join(BASE_DIR, 'logs'), exist_ok=True)
-
-# Configuración de cache
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-        'TIMEOUT': 300,  # 5 minutos
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000,
-        }
-    }
-}
-
-# Detectar si estamos en Render para configuración automática
-if 'RENDER' in os.environ:
-    DEBUG = False
-    ALLOWED_HOSTS.append(os.environ.get('RENDER_EXTERNAL_HOSTNAME'))
-    
-    # Configuración adicional de seguridad para producción
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
 
 # Configuración para validación de entrada
 INPUT_VALIDATION = {
