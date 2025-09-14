@@ -1,0 +1,96 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block title %}Coffee Shop Store{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+             style="background-image: url('https://images.unsplash.com/photo-1500353391678-d7b57979d6d2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'); background-size: cover; height: 400px;">
+            <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                    <div class="text-white">
+                        <h1 class="mb-3">Discover Premium Coffee</h1>
+                        <h4 class="mb-4">Expertly roasted beans from around the world</h4>
+                        <a class="btn btn-outline-light btn-lg" href="#products" role="button">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <h2 class="text-center mb-4">Coffee Categories</h2>
+        <div class="row justify-content-center">
+            {% for category in categories %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">{{ category.name }}</h5>
+                            <p class="card-text">{{ category.description|truncatechars:100 }}</p>
+                            <a href="{% url 'customer_category_detail' category.id %}" class="btn btn-primary">Browse Products</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info">No categories available yet.</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div id="products" class="row mb-4">
+    <div class="col-md-12">
+        <h2 class="text-center mb-4">Featured Products</h2>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" class="card-img-top product-img" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x200?text=Coffee+Product" class="card-img-top product-img" alt="{{ product.name }}" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <i class="fas fa-globe me-1"></i> {{ product.origin }} | 
+                                    <i class="fas fa-coffee me-1"></i> {{ product.get_roast_level_display }}
+                                </small>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="h5 mb-0">${{ product.price }}</span>
+                                <div class="btn-group">
+                                    <a href="{% url 'customer_product_detail' product.id %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-eye me-1"></i>Details
+                                    </a>
+                                    {% if product.is_available %}
+                                    <a href="{% url 'add_to_cart' product.id %}" class="btn btn-sm btn-success">
+                                        <i class="fas fa-cart-plus me-1"></i>Add to Cart
+                                    </a>
+                                    {% else %}
+                                    <button class="btn btn-sm btn-secondary" disabled>
+                                        <i class="fas fa-times me-1"></i>Out of Stock
+                                    </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info">No products available yet.</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

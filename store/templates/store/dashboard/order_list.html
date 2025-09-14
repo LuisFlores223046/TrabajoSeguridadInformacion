@@ -1,0 +1,293 @@
+{% extends 'store/dashboard/admin_base.html' %}
+{% load static %}
+
+{% block title %}Orders{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Asegura que la tabla tenga suficiente espacio vertical */
+    .table-responsive {
+        min-height: 500px; /* Altura mínima para asegurar espacio suficiente */
+        overflow: visible !important; /* Esto es clave: permite que los menús se muestren fuera del contenedor */
+    }
+    
+    /* Asegura que los menús desplegables aparezcan por encima */
+    .dropdown-menu {
+        z-index: 1050;
+    }
+    
+    /* Asegura que el botón activo de filtro se destaque */
+    .filter-btn.active {
+        box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    }
+    
+    /* Estilos para la notificación de éxito */
+    .status-update-notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #28a745;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        z-index: 1060;
+        display: none;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Notificación para actualización de estado -->
+<div id="statusUpdateNotification" class="status-update-notification">
+    Status updated successfully!
+</div>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Customer Orders</h1>
+    <div class="btn-group">
+        <button type="button" class="btn btn-outline-primary active filter-btn" data-filter="all">
+            All Orders
+        </button>
+        <button type="button" class="btn btn-outline-warning filter-btn" data-filter="pending">
+            Pending
+        </button>
+        <button type="button" class="btn btn-outline-info filter-btn" data-filter="processing">
+            Processing
+        </button>
+        <button type="button" class="btn btn-outline-primary filter-btn" data-filter="shipped">
+            Shipped
+        </button>
+        <button type="button" class="btn btn-outline-success filter-btn" data-filter="delivered">
+            Delivered
+        </button>
+        <button type="button" class="btn btn-outline-danger filter-btn" data-filter="cancelled">
+            Cancelled
+        </button>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped" id="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order #</th>
+                        <th>Customer</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                        <tr class="order-row" data-status="{{ order.status }}" id="order-row-{{ order.id }}">
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.customer.user.username }}</td>
+                            <td>{{ order.date_ordered|date:"F j, Y, g:i a" }}</td>
+                            <td id="status-cell-{{ order.id }}">
+                                {% if order.status == 'pending' %}
+                                    <span class="badge bg-warning">Pending</span>
+                                {% elif order.status == 'processing' %}
+                                    <span class="badge bg-info">Processing</span>
+                                {% elif order.status == 'shipped' %}
+                                    <span class="badge bg-primary">Shipped</span>
+                                {% elif order.status == 'delivered' %}
+                                    <span class="badge bg-success">Delivered</span>
+                                {% elif order.status == 'cancelled' %}
+                                    <span class="badge bg-danger">Cancelled</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ order.get_cart_items }}</td>
+                            <td>${{ order.get_cart_total }}</td>
+                            <td>
+                                <div class="d-flex">
+                                    <a href="{% url 'order_detail' order.id %}" class="btn btn-sm btn-outline-primary me-2">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton{{ order.id }}" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fas fa-cog"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ order.id }}">
+                                            <li>
+                                                <button type="button" class="dropdown-item status-update-btn" 
+                                                        data-order-id="{{ order.id }}" data-status="pending" 
+                                                        data-shipping-address="{{ order.shipping_address|default:'' }}">
+                                                    <i class="fas fa-clock text-warning me-2"></i>Mark as Pending
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="dropdown-item status-update-btn" 
+                                                        data-order-id="{{ order.id }}" data-status="processing" 
+                                                        data-shipping-address="{{ order.shipping_address|default:'' }}">
+                                                    <i class="fas fa-cogs text-info me-2"></i>Mark as Processing
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="dropdown-item status-update-btn" 
+                                                        data-order-id="{{ order.id }}" data-status="shipped" 
+                                                        data-shipping-address="{{ order.shipping_address|default:'' }}">
+                                                    <i class="fas fa-truck text-primary me-2"></i>Mark as Shipped
+                                                </button>
+                                            </li>
+                                            <li>
+                                                <button type="button" class="dropdown-item status-update-btn" 
+                                                        data-order-id="{{ order.id }}" data-status="delivered" 
+                                                        data-shipping-address="{{ order.shipping_address|default:'' }}">
+                                                    <i class="fas fa-check-circle text-success me-2"></i>Mark as Delivered
+                                                </button>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            <li>
+                                                <button type="button" class="dropdown-item status-update-btn" 
+                                                        data-order-id="{{ order.id }}" data-status="cancelled" 
+                                                        data-shipping-address="{{ order.shipping_address|default:'' }}">
+                                                    <i class="fas fa-times-circle text-danger me-2"></i>Mark as Cancelled
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7" class="text-center">No orders available yet.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Filtrar órdenes por estado
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const orderRows = document.querySelectorAll('.order-row');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remover clase active de todos los botones
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Añadir clase active al botón seleccionado
+                this.classList.add('active');
+                
+                const filter = this.dataset.filter;
+                
+                orderRows.forEach(row => {
+                    if (filter === 'all' || row.dataset.status === filter) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Actualización de estado mediante AJAX
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || '{{ csrf_token }}';
+        const statusButtons = document.querySelectorAll('.status-update-btn');
+        const notification = document.getElementById('statusUpdateNotification');
+        
+        statusButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const orderId = this.dataset.orderId;
+                const status = this.dataset.status;
+                const shippingAddress = this.dataset.shippingAddress;
+                
+                // Crear un formulario dinámico para enviar
+                const form = new FormData();
+                form.append('status', status);
+                form.append('shipping_address', shippingAddress);
+                
+                // Enviar la solicitud AJAX
+                fetch(`/admin-dashboard/orders/${orderId}/edit/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                    },
+                    body: form
+                })
+                .then(response => {
+                    if (response.ok) {
+                        // Actualizar el estado visualmente en la tabla
+                        updateStatusCell(orderId, status);
+                        
+                        // Actualizar el atributo data-status de la fila
+                        const row = document.getElementById(`order-row-${orderId}`);
+                        if (row) {
+                            row.dataset.status = status;
+                        }
+                        
+                        // Mostrar notificación de éxito
+                        showNotification();
+                        
+                        // Cerrar el menú desplegable
+                        const dropdownMenu = button.closest('.dropdown-menu');
+                        if (dropdownMenu) {
+                            const dropdown = dropdownMenu.previousElementSibling;
+                            bootstrap.Dropdown.getInstance(dropdown).hide();
+                        }
+                    } else {
+                        console.error('Error updating order status');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+        
+        // Función para actualizar la celda de estado visualmente
+        function updateStatusCell(orderId, status) {
+            const statusCell = document.getElementById(`status-cell-${orderId}`);
+            let badgeClass = '';
+            let statusText = '';
+            
+            switch(status) {
+                case 'pending':
+                    badgeClass = 'bg-warning';
+                    statusText = 'Pending';
+                    break;
+                case 'processing':
+                    badgeClass = 'bg-info';
+                    statusText = 'Processing';
+                    break;
+                case 'shipped':
+                    badgeClass = 'bg-primary';
+                    statusText = 'Shipped';
+                    break;
+                case 'delivered':
+                    badgeClass = 'bg-success';
+                    statusText = 'Delivered';
+                    break;
+                case 'cancelled':
+                    badgeClass = 'bg-danger';
+                    statusText = 'Cancelled';
+                    break;
+            }
+            
+            if (statusCell) {
+                statusCell.innerHTML = `<span class="badge ${badgeClass}">${statusText}</span>`;
+            }
+        }
+        
+        // Función para mostrar notificación
+        function showNotification() {
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000); // Ocultar después de 3 segundos
+        }
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

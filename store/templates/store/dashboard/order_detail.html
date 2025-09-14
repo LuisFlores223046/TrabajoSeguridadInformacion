@@ -1,0 +1,246 @@
+{% extends 'store/dashboard/admin_base.html' %}
+{% load static %}
+
+{% block title %}Order #{{ order.id }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .status-card {
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+    .status-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+    .status-card.active {
+        border: 2px solid #0d6efd;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Order #{{ order.id }}</h1>
+    <div>
+        <a href="{% url 'order_delete' order.id %}" class="btn btn-danger">
+            <i class="fas fa-trash me-1"></i> Delete Order
+        </a>
+    </div>
+</div>
+
+<!-- Status Management Cards -->
+<div class="card mb-4">
+    <div class="card-header">
+        <h5 class="mb-0">Order Status Management</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="{% url 'order_update' order.id %}" id="status-form">
+            {% csrf_token %}
+            <input type="hidden" name="shipping_address" value="{{ order.shipping_address|default:'' }}">
+            <input type="hidden" name="status" id="status-input" value="{{ order.status }}">
+            
+            <div class="row">
+                <div class="col-md-2 mb-3">
+                    <div class="card text-center status-card {% if order.status == 'pending' %}active{% endif %}" data-status="pending">
+                        <div class="card-body">
+                            <i class="fas fa-clock fa-2x mb-2 text-warning"></i>
+                            <h5>Pending</h5>
+                            <p class="small text-muted">Order received</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-2 mb-3">
+                    <div class="card text-center status-card {% if order.status == 'processing' %}active{% endif %}" data-status="processing">
+                        <div class="card-body">
+                            <i class="fas fa-cogs fa-2x mb-2 text-info"></i>
+                            <h5>Processing</h5>
+                            <p class="small text-muted">Preparing order</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-2 mb-3">
+                    <div class="card text-center status-card {% if order.status == 'shipped' %}active{% endif %}" data-status="shipped">
+                        <div class="card-body">
+                            <i class="fas fa-truck fa-2x mb-2 text-primary"></i>
+                            <h5>Shipped</h5>
+                            <p class="small text-muted">On the way</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-2 mb-3">
+                    <div class="card text-center status-card {% if order.status == 'delivered' %}active{% endif %}" data-status="delivered">
+                        <div class="card-body">
+                            <i class="fas fa-check-circle fa-2x mb-2 text-success"></i>
+                            <h5>Delivered</h5>
+                            <p class="small text-muted">Order completed</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-2 mb-3">
+                    <div class="card text-center status-card {% if order.status == 'cancelled' %}active{% endif %}" data-status="cancelled">
+                        <div class="card-body">
+                            <i class="fas fa-times-circle fa-2x mb-2 text-danger"></i>
+                            <h5>Cancelled</h5>
+                            <p class="small text-muted">Order cancelled</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save me-1"></i> Save Status
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Order Information</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th style="width: 30%;">Customer</th>
+                            <td>{{ order.customer.user.get_full_name|default:order.customer.user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Order Date</th>
+                            <td>{{ order.date_ordered|date:"F j, Y, g:i a" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Transaction ID</th>
+                            <td>{{ order.transaction_id|default:"Not available" }}</td>
+                        </tr>
+                        <tr>
+                            <th>Complete</th>
+                            <td>
+                                {% if order.complete %}
+                                    <span class="badge bg-success">Yes</span>
+                                {% else %}
+                                    <span class="badge bg-warning">No</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Shipping Information</h5>
+                <a href="{% url 'order_update' order.id %}" class="btn btn-sm btn-outline-primary">
+                    <i class="fas fa-edit me-1"></i> Edit
+                </a>
+            </div>
+            <div class="card-body">
+                {% if order.shipping_address %}
+                    <p>{{ order.shipping_address|linebreaks }}</p>
+                {% else %}
+                    <p class="text-muted">No shipping address provided.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card mb-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Order Items</h5>
+        <a href="{% url 'add_order_item' order.id %}" class="btn btn-sm btn-success">
+            <i class="fas fa-plus me-1"></i> Add Item
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">Image</th>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Subtotal</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in order.orderitem_set.all %}
+                        <tr>
+                            <td>
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 50px; height: 50px; object-fit: cover;">
+                                {% else %}
+                                    <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <i class="fas fa-coffee"></i>
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td>{{ item.product.name }}</td>
+                            <td>${{ item.product.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td>${{ item.get_total }}</td>
+                            <td>
+                                <a href="{% url 'edit_order_item' item.id %}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="{% url 'delete_order_item' item.id %}" class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center">No items in this order yet.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot>
+                    <tr class="table-active">
+                        <th colspan="4" class="text-end">Order Total:</th>
+                        <th>${{ order.get_cart_total }}</th>
+                        <td></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Manejar clicks en las tarjetas de estado
+        const statusCards = document.querySelectorAll('.status-card');
+        const statusInput = document.getElementById('status-input');
+        
+        statusCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // Remover la clase 'active' de todas las tarjetas
+                statusCards.forEach(c => c.classList.remove('active'));
+                
+                // Añadir la clase 'active' a la tarjeta seleccionada
+                this.classList.add('active');
+                
+                // Actualizar el valor del input oculto
+                statusInput.value = this.dataset.status;
+            });
+        });
+    });
+</script>
+{% endblock %}
+
+{% endblock %}

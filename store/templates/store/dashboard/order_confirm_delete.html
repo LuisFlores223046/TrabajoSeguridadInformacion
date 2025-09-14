@@ -1,0 +1,37 @@
+{% extends 'store/dashboard/admin_base.html' %}
+{% load static %}
+
+{% block title %}Delete Order #{{ order.id }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Confirm Delete</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">Are you sure you want to delete Order #{{ order.id }}?</p>
+                
+                <div class="alert alert-warning">
+                    <strong>Warning:</strong> This will permanently delete the order and all its items. 
+                    This action cannot be undone.
+                </div>
+                
+                <p><strong>Customer:</strong> {{ order.customer.user.get_full_name|default:order.customer.user.username }}</p>
+                <p><strong>Date:</strong> {{ order.date_ordered|date:"F j, Y" }}</p>
+                <p><strong>Total Items:</strong> {{ order.get_cart_items }}</p>
+                <p><strong>Total Amount:</strong> ${{ order.get_cart_total }}</p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

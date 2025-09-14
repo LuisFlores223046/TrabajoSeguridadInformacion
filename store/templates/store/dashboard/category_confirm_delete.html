@@ -1,0 +1,36 @@
+{% extends 'store/dashboard/admin_base.html' %}
+{% load static %}
+
+{% block title %}Delete {{ category.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Confirm Delete</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">Are you sure you want to delete the category <strong>"{{ category.name }}"</strong>?</p>
+                
+                {% if category.products.count > 0 %}
+                    <div class="alert alert-warning">
+                        <strong>Warning:</strong> This category contains {{ category.products.count }} product{{ category.products.count|pluralize }}. 
+                        Deleting this category will also delete all associated products.
+                    </div>
+                {% endif %}
+                
+                <p>This action cannot be undone.</p>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'category_detail' category.id %}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

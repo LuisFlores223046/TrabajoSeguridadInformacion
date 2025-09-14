@@ -1,0 +1,39 @@
+{% extends 'store/dashboard/admin_base.html' %}
+{% load static %}
+
+{% block title %}Delete Order Item{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Confirm Delete</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">Are you sure you want to remove this item from Order #{{ order.id }}?</p>
+                
+                <div class="d-flex align-items-center mb-3">
+                    {% if item.product.image %}
+                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="img-thumbnail me-3" style="max-height: 100px;">
+                    {% endif %}
+                    <div>
+                        <p class="mb-1"><strong>Product:</strong> {{ item.product.name }}</p>
+                        <p class="mb-1"><strong>Price:</strong> ${{ item.product.price }}</p>
+                        <p class="mb-1"><strong>Quantity:</strong> {{ item.quantity }}</p>
+                        <p class="mb-0"><strong>Subtotal:</strong> ${{ item.get_total }}</p>
+                    </div>
+                </div>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'order_detail' order.id %}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Remove Item</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

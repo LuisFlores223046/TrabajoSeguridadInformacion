@@ -1,0 +1,39 @@
+{% extends 'store/dashboard/admin_base.html' %}
+{% load static %}
+
+{% block title %}Delete {{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-header bg-danger text-white">
+                <h4 class="mb-0">Confirm Delete</h4>
+            </div>
+            <div class="card-body">
+                <p class="lead">Are you sure you want to delete the product <strong>"{{ product.name }}"</strong>?</p>
+                <p>This action cannot be undone.</p>
+                
+                <div class="d-flex align-items-center mb-3">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="img-thumbnail me-3" style="max-height: 100px;">
+                    {% endif %}
+                    <div>
+                        <p class="mb-1"><strong>Price:</strong> ${{ product.price }}</p>
+                        <p class="mb-1"><strong>Category:</strong> {{ product.category.name }}</p>
+                        <p class="mb-0"><strong>Origin:</strong> {{ product.origin }}</p>
+                    </div>
+                </div>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a href="{% url 'product_detail' product.id %}" class="btn btn-outline-secondary">Cancel</a>
+                        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

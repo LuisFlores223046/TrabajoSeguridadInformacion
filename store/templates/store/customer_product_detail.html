@@ -1,0 +1,85 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'store' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'customer_category_detail' product.category.id %}">{{ product.category.name }}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ product.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="row">
+        <div class="col-md-5">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+            {% else %}
+                <img src="https://via.placeholder.com/500x500?text=Coffee+Product" class="img-fluid rounded" alt="{{ product.name }}">
+            {% endif %}
+        </div>
+        <div class="col-md-7">
+            <h1 class="mb-3">{{ product.name }}</h1>
+            
+            <div class="mb-3">
+                <span class="badge bg-secondary me-2">{{ product.get_roast_level_display }}</span>
+                <span class="badge bg-secondary me-2">{{ product.get_format_display }}</span>
+                <span class="badge bg-secondary me-2">{{ product.origin }}</span>
+                <span class="badge bg-secondary me-2">{{ product.weight }}g</span>
+                <span class="badge {% if product.is_available %}bg-success{% else %}bg-danger{% endif %}">
+                    {% if product.is_available %}Available{% else %}Not Available{% endif %}
+                </span>
+            </div>
+            
+            <h3 class="mb-3">${{ product.price }}</h3>
+            
+            <p class="mb-4">{{ product.description }}</p>
+            
+            <div class="mb-4">
+                <h5>Details</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Origin:</strong> {{ product.origin }}</li>
+                    <li><strong>Roast Level:</strong> {{ product.get_roast_level_display }}</li>
+                    <li><strong>Format:</strong> {{ product.get_format_display }}</li>
+                    <li><strong>Weight:</strong> {{ product.weight }}g</li>
+                </ul>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-block mb-4">
+                <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary btn-lg" {% if not product.is_available %}disabled{% endif %}>
+                    <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                </a>
+            </div>
+        </div>
+    </div>
+
+    {% if related_products %}
+    <div class="row mt-5">
+        <div class="col-12">
+            <h3 class="mb-4">Related Products</h3>
+            <div class="row">
+                {% for related in related_products %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100">
+                        {% if related.image %}
+                            <img src="{{ related.image.url }}" class="card-img-top product-img" alt="{{ related.name }}" style="height: 180px; object-fit: cover;">
+                        {% else %}
+                            <img src="https://via.placeholder.com/300x200?text=Coffee+Product" class="card-img-top product-img" alt="{{ related.name }}" style="height: 180px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ related.name }}</h5>
+                            <p class="card-text">${{ related.price }}</p>
+                            <a href="{% url 'customer_product_detail' related.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
