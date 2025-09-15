@@ -10,6 +10,9 @@ from django.views.decorators.http import require_http_methods
 from .models import Product, Category, Customer, Order, OrderItem
 from .forms import (ProductForm, CategoryForm, LoginForm, RegistrationForm, 
                    OrderForm, OrderItemForm, ProfileUpdateForm)
+from .forms import (ProductForm, CategoryForm, LoginForm, RegistrationForm, 
+                   OrderForm, OrderItemForm, ProfileUpdateForm, CheckoutForm)
+from django.conf import settings
 from .decorators import ip_rate_limit, user_rate_limit
 import time
 import logging
@@ -101,14 +104,58 @@ def store(request):
     return render(request, 'store/store.html', context)
 
 def customer_product_detail(request, pk):
-    """Muestra detalle de producto y productos relacionados."""
-    product = get_object_or_404(Product, pk=pk)
-    related_products = Product.objects.filter(category=product.category).exclude(pk=pk)[:4]
-    context = {
-        'product': product,
-        'related_products': related_products
-    }
-    return render(request, 'store/customer_product_detail.html', context)
+    """Muestra detalle de producto y productos relacionados con manejo robusto de errores."""
+    try:
+        # DEBUG: Log de entrada
+        logger.info(f"customer_product_detail llamado con pk={pk}")
+        
+        # Verificar que pk es un número válido
+        try:
+            pk = int(pk)
+            logger.info(f"pk convertido a entero: {pk}")
+        except (ValueError, TypeError):
+            logger.error(f"pk inválido: {pk} no es un número")
+            raise Http404("Invalid product ID")
+        
+        # Intentar obtener el producto
+        logger.info(f"Buscando producto con pk={pk}")
+        product = get_object_or_404(Product, pk=pk)
+        logger.info(f"Producto encontrado: {product.name} (ID: {pk})")
+        
+        # Obtener productos relacionados de forma segura
+        try:
+            related_products = Product.objects.filter(
+                category=product.category,
+                is_available=True
+            ).exclude(pk=pk)[:4]
+            logger.info(f"Productos relacionados encontrados: {related_products.count()}")
+        except Exception as e:
+            logger.error(f"Error obteniendo productos relacionados: {str(e)}")
+            related_products = []
+        
+        context = {
+            'product': product,
+            'related_products': related_products
+        }
+        
+        logger.info(f"Renderizando template para producto {pk}")
+        return render(request, 'store/customer_product_detail.html', context)
+        
+    except Http404:
+        # Re-lanzar Http404 para manejo correcto
+        logger.warning(f"Producto con pk={pk} no encontrado - Http404")
+        raise
+    except Exception as e:
+        # Log del error específico
+        logger.error(f"Error inesperado en customer_product_detail para pk={pk}: {str(e)}")
+        
+        # En desarrollo, mostrar error detallado
+        if getattr(settings, 'DEBUG', False):
+            raise e
+        
+        # En producción, mostrar página 404 personalizada
+        from django.http import Http404
+        raise Http404(f"Product with ID {pk} not found")
 
 def customer_category_detail(request, pk):
     """Muestra categoría y sus productos disponibles."""
@@ -247,63 +294,92 @@ def cart(request):
 @login_required
 @user_rate_limit('2/m', method='POST')  # Máximo 2 checkouts por minuto por usuario
 def checkout(request):
-    """Procesa página de pago y finalización de pedido."""
+    """Procesa página de pago y finalización de pedido con validaciones mejoradas."""
     customer = request.user.customer
     order = Order.objects.filter(customer=customer, complete=False).first()
     
     if request.method == 'POST':
-        # Procesar la orden cuando se envía el formulario
-        if order:
-            try:
-                # Usar transacción atómica para asegurar consistencia
-                with transaction.atomic():
-                    # Verificar que todos los productos tengan stock suficiente
-                    inventory_issue = False
-                    order_items = OrderItem.objects.select_related('product').filter(order=order)
-                    
-                    for item in order_items:
-                        # Obtener producto fresco de la base de datos
-                        product = Product.objects.get(id=item.product.id)
-                        logger.info(f"Verificando producto: {product.name}, Stock actual: {product.stock}, Cantidad solicitada: {item.quantity}")
+        # Usar el formulario de checkout con validaciones
+        form = CheckoutForm(request.POST)
+        
+        if form.is_valid():
+            # Procesar la orden cuando el formulario es válido
+            if order:
+                try:
+                    # Usar transacción atómica para asegurar consistencia
+                    with transaction.atomic():
+                        # Verificar que todos los productos tengan stock suficiente
+                        inventory_issue = False
+                        order_items = OrderItem.objects.select_related('product').filter(order=order)
                         
-                        if item.quantity > product.stock or not product.is_available:
-                            inventory_issue = True
-                            messages.warning(request, f"Sorry, {product.name} is no longer available in the quantity you requested. Available: {product.stock}")
-                    
-                    if inventory_issue:
-                        logger.warning(f"Checkout fallido por problemas de inventario para usuario {request.user.username}")
-                        return redirect('cart')
-                    
-                    # Actualizar inventario reduciendo la cantidad de cada producto
-                    logger.info("Actualizando inventario...")
-                    for item in order_items:
-                        # Obtener producto fresco nuevamente
-                        product = Product.objects.get(id=item.product.id)
-                        old_stock = product.stock
-                        product.stock = max(0, product.stock - item.quantity)
+                        if not order_items.exists():
+                            messages.error(request, "Your cart is empty.")
+                            return redirect('cart')
                         
-                        # Verificar si el producto se ha agotado
-                        if product.stock <= 0:
-                            product.is_available = False
+                        for item in order_items:
+                            # Obtener producto fresco de la base de datos
+                            product = Product.objects.get(id=item.product.id)
+                            logger.info(f"Verificando producto: {product.name}, Stock actual: {product.stock}, Cantidad solicitada: {item.quantity}")
+                            
+                            if item.quantity > product.stock or not product.is_available:
+                                inventory_issue = True
+                                messages.warning(request, f"Sorry, {product.name} is no longer available in the quantity you requested. Available: {product.stock}")
                         
-                        product.save()
-                        logger.info(f"Producto: {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
-                    
-                    # Completar el pedido
-                    order.complete = True
-                    order.status = 'processing'
-                    order.transaction_id = f"TX-{int(time.time())}"
-                    order.shipping_address = request.POST.get('shipping_address', '')
-                    order.save()
-                    logger.info(f"Orden #{order.id} completada exitosamente para usuario {request.user.username}")
-                    
-                    messages.success(request, "Your order has been placed successfully!")
-                    return redirect('store')
-                    
-            except Exception as e:
-                logger.error(f"Error en checkout para usuario {request.user.username}: {str(e)}")
-                messages.error(request, "There was an error processing your order. Please try again.")
+                        if inventory_issue:
+                            logger.warning(f"Checkout fallido por problemas de inventario para usuario {request.user.username}")
+                            return redirect('cart')
+                        
+                        # Actualizar inventario reduciendo la cantidad de cada producto
+                        logger.info("Actualizando inventario...")
+                        for item in order_items:
+                            # Obtener producto fresco nuevamente
+                            product = Product.objects.get(id=item.product.id)
+                            old_stock = product.stock
+                            product.stock = max(0, product.stock - item.quantity)
+                            
+                            # Verificar si el producto se ha agotado
+                            if product.stock <= 0:
+                                product.is_available = False
+                            
+                            product.save()
+                            logger.info(f"Producto: {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
+                        
+                        # Actualizar información del cliente con datos validados
+                        user = request.user
+                        user.first_name = form.cleaned_data['first_name']
+                        user.last_name = form.cleaned_data['last_name']
+                        user.email = form.cleaned_data['email']
+                        user.save()
+                        
+                        customer.phone = form.cleaned_data['phone']
+                        customer.save()
+                        
+                        # Completar el pedido
+                        order.complete = True
+                        order.status = 'processing'
+                        order.transaction_id = f"TX-{int(time.time())}"
+                        order.shipping_address = form.cleaned_data['shipping_address']
+                        order.save()
+                        
+                        logger.info(f"Orden #{order.id} completada exitosamente para usuario {request.user.username}")
+                        logger.info(f"Datos del checkout - Teléfono: {form.cleaned_data['phone']}, Dirección: {form.cleaned_data['shipping_address'][:50]}...")
+                        
+                        messages.success(request, "Your order has been placed successfully! Thank you for your purchase.")
+                        return redirect('store')
+                        
+                except Exception as e:
+                    logger.error(f"Error en checkout para usuario {request.user.username}: {str(e)}")
+                    messages.error(request, "There was an error processing your order. Please try again.")
+                    return redirect('cart')
+            else:
+                messages.error(request, "Your cart is empty.")
                 return redirect('cart')
+        else:
+            # Formulario inválido - mostrar errores
+            logger.warning(f"Formulario de checkout inválido para usuario {request.user.username}: {form.errors}")
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.title()}: {error}")
     
     # Preparar datos para mostrar en la página de checkout
     if order:
@@ -779,7 +855,7 @@ def delete_order_item(request, pk):
 @login_required
 @user_rate_limit('5/m', method='POST')  # Máximo 5 actualizaciones de perfil por minuto
 def my_account(request):
-    """Gestiona perfil del usuario con formulario mejorado y rate limiting."""
+    """Gestiona perfil del usuario con formulario mejorado y validaciones estrictas."""
     customer = request.user.customer
     
     if request.method == 'POST':
@@ -788,16 +864,22 @@ def my_account(request):
             # Guardar datos del usuario
             user = form.save()
             
-            # Actualizar datos del cliente
+            # Actualizar datos del cliente con validaciones
             customer.phone = form.cleaned_data.get('phone', '')
             customer.address = form.cleaned_data.get('address', '')
             customer.save()
             
             messages.success(request, "Your account information has been updated successfully!")
             logger.info(f"Usuario {request.user.username} actualizó su perfil desde IP: {request.META.get('REMOTE_ADDR')}")
+            logger.info(f"Nuevos datos - Teléfono: {customer.phone}, Dirección: {customer.address[:50] if customer.address else 'No address'}...")
             return redirect('my_account')
         else:
             logger.warning(f"Error al actualizar perfil de usuario {request.user.username} desde IP: {request.META.get('REMOTE_ADDR')}")
+            logger.warning(f"Errores del formulario: {form.errors}")
+            # Mostrar errores específicos al usuario
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field.title()}: {error}")
     else:
         # Precargar el formulario con datos existentes
         initial_data = {
@@ -812,25 +894,4 @@ def my_account(request):
         'customer': customer
     }
     return render(request, 'store/my_account.html', context)
-
-@login_required
-def my_orders(request):
-    """Lista pedidos del usuario."""
-    customer = request.user.customer
-    orders = Order.objects.filter(customer=customer).order_by('-date_ordered')
-    
-    context = {
-        'orders': orders
-    }
-    return render(request, 'store/my_orders.html', context)
-
-@login_required
-def order_customer_detail(request, pk):
-    """Detalle de pedido específico del cliente."""
-    customer = request.user.customer
-    order = get_object_or_404(Order, pk=pk, customer=customer)  # Asegurar que el pedido pertenece al cliente
-    context = {
-        'order': order
-    }
-    return render(request, 'store/order_customer_detail.html', context)
 

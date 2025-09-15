@@ -27,6 +27,52 @@ def clean_user_input(text):
         return bleach.clean(text, tags=[], strip=True)
     return text
 
+def validate_name(name):
+    """Validador para nombres y apellidos - solo letras y espacios"""
+    if name:
+        # Solo letras, espacios y acentos
+        if not re.match(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$', name.strip()):
+            raise ValidationError("Only letters and spaces are allowed.")
+        
+        # No más de 3 espacios consecutivos
+        if '   ' in name:
+            raise ValidationError("Too many consecutive spaces.")
+        
+        # No espacios al inicio o final
+        if name != name.strip():
+            raise ValidationError("Names cannot start or end with spaces.")
+    
+    return name.strip()
+
+def validate_phone(phone):
+    """Validador para teléfonos - solo 10 dígitos"""
+    if phone:
+        # Eliminar espacios, guiones y paréntesis
+        clean_phone = re.sub(r'[\s\-\(\)]', '', phone)
+        
+        # Solo números y exactamente 10 dígitos
+        if not re.match(r'^\d{10}$', clean_phone):
+            raise ValidationError("Phone number must be exactly 10 digits.")
+        
+        return clean_phone
+    return phone
+
+def validate_address(address):
+    """Validador para direcciones - solo caracteres seguros"""
+    if address:
+        # Solo letras, números, espacios y algunos símbolos seguros
+        if not re.match(r'^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\s,.\-#]+$', address.strip()):
+            raise ValidationError("Address can only contain letters, numbers, spaces, commas, periods, hyphens and #.")
+        
+        # Limpiar HTML malicioso
+        clean_address = clean_user_input(address.strip())
+        
+        if len(clean_address) > 500:
+            raise ValidationError("Address cannot exceed 500 characters.")
+        
+        return clean_address
+    return address
+
 class CategoryForm(forms.ModelForm):
     """Formulario para crear y editar categorías"""
     class Meta:
@@ -166,8 +212,7 @@ class RegistrationForm(UserCreationForm):
         required=True, 
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'pattern': r'[A-Za-z\s]+',
-            'title': 'Only letters and spaces allowed'
+            'placeholder': 'First Name'
         })
     )
     last_name = forms.CharField(
@@ -175,14 +220,16 @@ class RegistrationForm(UserCreationForm):
         required=True, 
         widget=forms.TextInput(attrs={
             'class': 'form-control',
-            'pattern': r'[A-Za-z\s]+',
-            'title': 'Only letters and spaces allowed'
+            'placeholder': 'Last Name'
         })
     )
     email = forms.EmailField(
         max_length=254, 
         required=True, 
-        widget=forms.EmailInput(attrs={'class': 'form-control'})
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Email Address'
+        })
     )
     
     class Meta:
@@ -192,9 +239,19 @@ class RegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         """Añade clases Bootstrap a los campos heredados"""
         super().__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class': 'form-control', 'maxlength': 150})
-        self.fields['password1'].widget.attrs.update({'class': 'form-control'})
-        self.fields['password2'].widget.attrs.update({'class': 'form-control'})
+        self.fields['username'].widget.attrs.update({
+            'class': 'form-control', 
+            'maxlength': 150,
+            'placeholder': 'Username'
+        })
+        self.fields['password1'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Password'
+        })
+        self.fields['password2'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Confirm Password'
+        })
     
     def clean_email(self):
         """Validar que el email sea único"""
@@ -208,20 +265,14 @@ class RegistrationForm(UserCreationForm):
         """Validar y limpiar nombre"""
         first_name = self.cleaned_data.get('first_name')
         if first_name:
-            cleaned_name = clean_user_input(first_name.strip())
-            if not cleaned_name.replace(' ', '').isalpha():
-                raise ValidationError("First name can only contain letters and spaces.")
-            return cleaned_name
+            return validate_name(first_name)
         return first_name
     
     def clean_last_name(self):
         """Validar y limpiar apellido"""
         last_name = self.cleaned_data.get('last_name')
         if last_name:
-            cleaned_name = clean_user_input(last_name.strip())
-            if not cleaned_name.replace(' ', '').isalpha():
-                raise ValidationError("Last name can only contain letters and spaces.")
-            return cleaned_name
+            return validate_name(last_name)
         return last_name
     
     def clean_username(self):
@@ -238,14 +289,14 @@ class RegistrationForm(UserCreationForm):
 class ProfileUpdateForm(forms.ModelForm):
     """Formulario seguro para actualizar perfil de usuario"""
     
-    # Campos adicionales para el modelo Customer
     phone = forms.CharField(
         max_length=15, 
         required=False,
         widget=forms.TextInput(attrs={
             'class': 'form-control', 
-            'pattern': r'[\+]?[0-9\s\-\(\)]+',
-            'title': 'Enter a valid phone number'
+            'placeholder': '1234567890',
+            'pattern': r'\d{10}',
+            'title': 'Enter exactly 10 digits'
         })
     )
     address = forms.CharField(
@@ -254,7 +305,8 @@ class ProfileUpdateForm(forms.ModelForm):
         widget=forms.Textarea(attrs={
             'class': 'form-control', 
             'rows': 3,
-            'maxlength': 500
+            'maxlength': 500,
+            'placeholder': 'Enter your complete address'
         })
     )
     
@@ -265,16 +317,17 @@ class ProfileUpdateForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={
                 'class': 'form-control', 
                 'maxlength': 30,
-                'pattern': r'[A-Za-z\s]+',
-                'title': 'Only letters and spaces allowed'
+                'placeholder': 'First Name'
             }),
             'last_name': forms.TextInput(attrs={
                 'class': 'form-control', 
                 'maxlength': 30,
-                'pattern': r'[A-Za-z\s]+',
-                'title': 'Only letters and spaces allowed'
+                'placeholder': 'Last Name'
             }),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Email Address'
+            }),
         }
     
     def clean_email(self):
@@ -289,44 +342,104 @@ class ProfileUpdateForm(forms.ModelForm):
         """Validar y limpiar nombre"""
         first_name = self.cleaned_data.get('first_name')
         if first_name:
-            cleaned_name = clean_user_input(first_name.strip())
-            if not cleaned_name.replace(' ', '').isalpha():
-                raise ValidationError("First name can only contain letters and spaces.")
-            if len(cleaned_name) > 30:
-                raise ValidationError("First name cannot exceed 30 characters.")
-            return cleaned_name
+            return validate_name(first_name)
         return first_name
     
     def clean_last_name(self):
         """Validar y limpiar apellido"""
         last_name = self.cleaned_data.get('last_name')
         if last_name:
-            cleaned_name = clean_user_input(last_name.strip())
-            if not cleaned_name.replace(' ', '').isalpha():
-                raise ValidationError("Last name can only contain letters and spaces.")
-            if len(cleaned_name) > 30:
-                raise ValidationError("Last name cannot exceed 30 characters.")
-            return cleaned_name
+            return validate_name(last_name)
         return last_name
     
     def clean_phone(self):
-        """Validar formato de teléfono"""
+        """Validar formato de teléfono - exactamente 10 dígitos"""
         phone = self.cleaned_data.get('phone')
         if phone:
-            cleaned_phone = clean_user_input(phone.strip())
-            if not re.match(r'^[\+]?[0-9\s\-\(\)]+$', cleaned_phone):
-                raise ValidationError("Phone number contains invalid characters.")
-            return cleaned_phone
+            return validate_phone(phone)
         return phone
     
     def clean_address(self):
         """Validar y limpiar dirección"""
         address = self.cleaned_data.get('address')
         if address:
-            cleaned_address = clean_user_input(address.strip())
-            if len(cleaned_address) > 500:
-                raise ValidationError("Address cannot exceed 500 characters.")
-            return cleaned_address
+            return validate_address(address)
+        return address
+
+class CheckoutForm(forms.Form):
+    """Formulario específico para el checkout con validaciones estrictas"""
+    first_name = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'First Name'
+        })
+    )
+    last_name = forms.CharField(
+        max_length=30,
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Last Name'
+        })
+    )
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Email Address'
+        })
+    )
+    phone = forms.CharField(
+        max_length=10,
+        min_length=10,
+        required=True,
+        widget=forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': '1234567890',
+            'pattern': r'\d{10}',
+            'title': 'Enter exactly 10 digits (numbers only)',
+            'inputmode': 'numeric',
+            'oninput': 'this.value = this.value.replace(/[^0-9]/g, "").substring(0, 10)'
+        })
+    )
+    shipping_address = forms.CharField(
+        max_length=500,
+        required=True,
+        widget=forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 3,
+            'placeholder': 'Enter your complete shipping address'
+        })
+    )
+    
+    def clean_first_name(self):
+        """Validar nombre en checkout"""
+        first_name = self.cleaned_data.get('first_name')
+        if first_name:
+            return validate_name(first_name)
+        return first_name
+    
+    def clean_last_name(self):
+        """Validar apellido en checkout"""
+        last_name = self.cleaned_data.get('last_name')
+        if last_name:
+            return validate_name(last_name)
+        return last_name
+    
+    def clean_phone(self):
+        """Validar teléfono en checkout - exactamente 10 dígitos"""
+        phone = self.cleaned_data.get('phone')
+        if phone:
+            return validate_phone(phone)
+        return phone
+    
+    def clean_shipping_address(self):
+        """Validar dirección de envío"""
+        address = self.cleaned_data.get('shipping_address')
+        if address:
+            return validate_address(address)
         return address
 
 class OrderForm(forms.ModelForm):
@@ -343,7 +456,7 @@ class OrderForm(forms.ModelForm):
         """Limpiar dirección de envío"""
         address = self.cleaned_data.get('shipping_address')
         if address:
-            return clean_user_input(address.strip())
+            return validate_address(address)
         return address
 
 class OrderItemForm(forms.ModelForm):
