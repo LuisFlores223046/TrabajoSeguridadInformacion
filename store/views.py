@@ -326,21 +326,19 @@ def cart(request):
     }
     return render(request, 'store/cart.html', context)
 
-# REEMPLAZA la función checkout en store/views.py con esta versión SEGURA:
+# ACTUALIZA la función checkout en store/views.py con esta versión final:
 
 @login_required
 @user_rate_limit('2/m', method='POST')
 def checkout(request):
-    """Procesa página de pago con validaciones estrictas de seguridad."""
+    """Procesa página de pago con validaciones estrictas de seguridad y notificaciones mejoradas."""
     customer = request.user.customer
     order = Order.objects.filter(customer=customer, complete=False).first()
     
     if request.method == 'POST':
-        # ✅ Crear formulario con datos POST
         form = CheckoutForm(request.POST)
         
         if form.is_valid():
-            # ✅ SOLO usar form.cleaned_data (datos ya validados y sanitizados)
             validated_data = form.cleaned_data
             
             if order:
@@ -375,7 +373,7 @@ def checkout(request):
                             product.save()
                             logger.info(f"Producto: {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
                         
-                        # ✅ Crear dirección de envío con datos YA SANITIZADOS
+                        # Crear dirección de envío con datos sanitizados
                         shipping_info = (
                             f"Name: {validated_data['first_name']} {validated_data['last_name']}\n"
                             f"Email: {validated_data['email']}\n"
@@ -391,25 +389,32 @@ def checkout(request):
                         order.save()
                         
                         logger.info(f"Orden #{order.id} completada exitosamente para usuario {request.user.username}")
-                        messages.success(request, "Your order has been placed successfully! Thank you for your purchase.")
+                        
+                        # Mensaje de éxito mejorado con emoji
+                        messages.success(request, f"🎉 Order #{order.id} placed successfully! Thank you for your purchase. You will receive a confirmation email shortly.")
                         return redirect('store')
                         
                 except Exception as e:
                     logger.error(f"Error en checkout para usuario {request.user.username}: {str(e)}")
-                    messages.error(request, "There was an error processing your order. Please try again.")
+                    messages.error(request, "⚠️ There was an error processing your order. Please try again or contact support if the problem persists.")
                     return redirect('cart')
             else:
-                messages.error(request, "Your cart is empty.")
+                messages.error(request, "Your cart is empty. Please add some products before checkout.")
                 return redirect('cart')
         else:
-            # ✅ Mostrar errores de validación
+            # Los errores se manejan en el template con JavaScript
             logger.warning(f"Formulario de checkout inválido para usuario {request.user.username}: {form.errors}")
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f"{field.replace('_', ' ').title()}: {error}")
     else:
-        # ✅ Para GET, crear formulario vacío
-        form = CheckoutForm()
+        # Para GET, crear formulario con datos del usuario si están disponibles
+        initial_data = {}
+        if hasattr(request.user, 'customer'):
+            initial_data = {
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'email': request.user.email,
+                'phone': request.user.customer.phone if request.user.customer.phone else '',
+            }
+        form = CheckoutForm(initial=initial_data)
     
     # Preparar datos para mostrar
     if order:
@@ -420,7 +425,7 @@ def checkout(request):
         cart_total = 0
     
     context = {
-        'form': form,  # ✅ Pasar el formulario al template
+        'form': form,
         'cart_items': cart_items,
         'cart_total': cart_total
     }

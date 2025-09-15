@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Tus estilos CSS */
         body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,11 +19,132 @@
         .navbar-brand, .nav-link {
             color: #e6ccb2 !important;
         }
-        /* Resto de tus estilos... */
+        .navbar-brand {
+            font-weight: bold;
+        }
+        
+        /* Sistema de notificaciones global */
+        .notification-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            max-width: 400px;
+            pointer-events: none;
+        }
+
+        .notification {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: 10px;
+            padding: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            pointer-events: auto;
+            transform: translateX(450px);
+            opacity: 0;
+            transition: all 0.3s ease-in-out;
+            border-left: 4px solid #dc3545;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification.success { border-left-color: #28a745; }
+        .notification.warning { border-left-color: #ffc107; }
+        .notification.info { border-left-color: #17a2b8; }
+        .notification.error { border-left-color: #dc3545; }
+
+        .notification-icon {
+            font-size: 18px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .notification.success .notification-icon { color: #28a745; }
+        .notification.warning .notification-icon { color: #ffc107; }
+        .notification.info .notification-icon { color: #17a2b8; }
+        .notification.error .notification-icon { color: #dc3545; }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .notification-message {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            padding: 0;
+            font-size: 16px;
+            line-height: 1;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .notification-close:hover {
+            color: #666;
+        }
+
+        .notification-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.1);
+            width: 100%;
+            transform-origin: left;
+            animation: progress 5s linear forwards;
+        }
+
+        .notification.success .notification-progress { background: #28a745; }
+        .notification.warning .notification-progress { background: #ffc107; }
+        .notification.info .notification-progress { background: #17a2b8; }
+        .notification.error .notification-progress { background: #dc3545; }
+
+        @keyframes progress {
+            from { transform: scaleX(1); }
+            to { transform: scaleX(0); }
+        }
+
+        /* Ocultar alertas tradicionales de Bootstrap cuando usamos notificaciones */
+        .alert.auto-hide {
+            display: none;
+        }
+        
+        /* Footer mejorado */
+        .footer {
+            background-color: #5c3d2e;
+            color: #e6ccb2;
+            margin-top: 4rem;
+        }
     </style>
     {% block extra_css %}{% endblock %}
 </head>
 <body>
+    <!-- Contenedor global de notificaciones -->
+    <div class="notification-container" id="globalNotificationContainer"></div>
+
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
@@ -39,7 +159,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'store' %}">Home</a>
                     </li>
-                    <!-- Puedes añadir más enlaces para clientes aquí -->
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     {% if user.is_authenticated %}
@@ -76,17 +195,21 @@
         </div>
     </nav>
 
-    <!-- Messages -->
-    <div class="container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+    <!-- Datos de Django para notificaciones globales -->
+    <script type="application/json" id="global-django-data">
+    {
+        "messages": [
+            {% if messages %}
+                {% for message in messages %}
+                    {
+                        "text": "{{ message.message|escapejs }}",
+                        "tags": "{{ message.tags }}"
+                    }{% if not forloop.last %},{% endif %}
+                {% endfor %}
+            {% endif %}
+        ]
+    }
+    </script>
 
     <!-- Main Content -->
     <div class="container my-4">
@@ -116,6 +239,109 @@
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Sistema de notificaciones global -->
+    <script>
+    // Sistema de notificaciones global reutilizable
+    window.NotificationSystem = {
+        container: null,
+        
+        init: function() {
+            this.container = document.getElementById('globalNotificationContainer') || 
+                           document.getElementById('notificationContainer');
+            
+            // Procesar mensajes de Django al cargar la página
+            this.processDjangoMessages();
+        },
+        
+        show: function(message, type, duration) {
+            if (!this.container) return;
+            
+            const notification = this.createNotification(message, type, duration);
+            this.container.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            setTimeout(() => this.hide(notification), duration || 5000);
+            
+            return notification;
+        },
+        
+        createNotification: function(message, type, duration) {
+            const notification = document.createElement('div');
+            notification.className = 'notification ' + type;
+            
+            const icons = {
+                success: 'fas fa-check-circle',
+                error: 'fas fa-exclamation-circle',
+                warning: 'fas fa-exclamation-triangle',
+                info: 'fas fa-info-circle'
+            };
+            
+            const titles = {
+                success: 'Success',
+                error: 'Error',
+                warning: 'Warning',
+                info: 'Information'
+            };
+            
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="${icons[type] || icons.error}"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">${titles[type]}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="notification-close" onclick="window.NotificationSystem.hide(this.parentElement)">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="notification-progress"></div>
+            `;
+            
+            return notification;
+        },
+        
+        hide: function(notification) {
+            if (!notification.parentElement) return;
+            
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 300);
+        },
+        
+        processDjangoMessages: function() {
+            const dataElement = document.getElementById('global-django-data');
+            if (!dataElement) return;
+            
+            try {
+                const data = JSON.parse(dataElement.textContent);
+                
+                data.messages.forEach(msg => {
+                    let messageType = msg.tags;
+                    
+                    if (msg.text.includes('Too many requests') || 
+                        msg.text.includes('Rate limit') || 
+                        msg.text.includes('Try again later')) {
+                        messageType = 'warning';
+                    }
+                    
+                    this.show(msg.text, messageType, 6000);
+                });
+            } catch (e) {
+                console.error('Error processing Django messages:', e);
+            }
+        }
+    };
+    
+    // Inicializar cuando el DOM esté listo
+    document.addEventListener('DOMContentLoaded', function() {
+        window.NotificationSystem.init();
+    });
+    </script>
+    
     {% block extra_js %}{% endblock %}
 </body>
 </html>
