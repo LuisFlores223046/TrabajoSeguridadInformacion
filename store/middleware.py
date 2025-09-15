@@ -67,6 +67,7 @@ class BruteForceProtectionMiddleware:
             if (request.method == 'POST' and 
                 request.path in ['/login/', '/admin/login/'] and 
                 response.status_code == 200 and 
+                hasattr(response, 'content') and 
                 b'error' in response.content.lower()):
                 
                 self.record_failed_attempt(ip)
@@ -86,22 +87,28 @@ class BruteForceProtectionMiddleware:
     
     def is_ip_blocked(self, ip):
         """Verificar si una IP está bloqueada"""
-        cache_key = f"brute_force_block:{ip}"
-        return cache.get(cache_key, False)
+        try:
+            cache_key = f"brute_force_block:{ip}"
+            return cache.get(cache_key, False)
+        except Exception:
+            return False
     
     def record_failed_attempt(self, ip):
         """Registrar un intento fallido"""
-        cache_key = f"brute_force_attempts:{ip}"
-        attempts = cache.get(cache_key, 0) + 1
-        
-        # Guardar intentos por 1 hora
-        cache.set(cache_key, attempts, 3600)
-        
-        if attempts >= self.max_attempts:
-            # Bloquear IP
-            block_key = f"brute_force_block:{ip}"
-            cache.set(block_key, True, self.lockout_time)
-            logger.warning(f"IP {ip} bloqueada por {self.max_attempts} intentos fallidos")
+        try:
+            cache_key = f"brute_force_attempts:{ip}"
+            attempts = cache.get(cache_key, 0) + 1
+            
+            # Guardar intentos por 1 hora
+            cache.set(cache_key, attempts, 3600)
+            
+            if attempts >= self.max_attempts:
+                # Bloquear IP
+                block_key = f"brute_force_block:{ip}"
+                cache.set(block_key, True, self.lockout_time)
+                logger.warning(f"IP {ip} bloqueada por {self.max_attempts} intentos fallidos")
+        except Exception as e:
+            logger.error(f"Error en record_failed_attempt: {e}")
 
 class SuspiciousActivityMiddleware:
     """Middleware para detectar actividad sospechosa"""
@@ -155,7 +162,7 @@ class SuspiciousActivityMiddleware:
         return ip
 
 class RequestLoggingMiddleware:
-    """Middleware para logging detallado de requests"""
+    """Middleware para logging detallado de requests - CORREGIDO"""
     
     def __init__(self, get_response):
         self.get_response = get_response
@@ -165,9 +172,18 @@ class RequestLoggingMiddleware:
         
         # Log de request entrante
         ip = self.get_client_ip(request)
-        user = request.user if request.user.is_authenticated else 'Anonymous'
         
-        logger.info(f"Request: {request.method} {request.path} from {ip} by {user}")
+        # CORREGIDO: Verificar si request.user existe y está autenticado
+        try:
+            user = getattr(request, 'user', None)
+            if user and hasattr(user, 'is_authenticated') and user.is_authenticated:
+                username = user.username
+            else:
+                username = 'Anonymous'
+        except Exception:
+            username = 'Anonymous'
+        
+        logger.info(f"Request: {request.method} {request.path} from {ip} by {username}")
         
         response = self.get_response(request)
         
