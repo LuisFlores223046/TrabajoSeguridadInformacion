@@ -19,18 +19,27 @@
                         
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label class="form-label">First Name</label>
-                                <input type="text" name="first_name" class="form-control" value="{{ user.first_name }}" required>
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name</label>
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                    <div class="text-danger">{{ form.first_name.errors }}</div>
+                                {% endif %}
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Last Name</label>
-                                <input type="text" name="last_name" class="form-control" value="{{ user.last_name }}" required>
+                                <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name</label>
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                    <div class="text-danger">{{ form.last_name.errors }}</div>
+                                {% endif %}
                             </div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="email" name="email" class="form-control" value="{{ user.email }}" required>
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Email</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="text-danger">{{ form.email.errors }}</div>
+                            {% endif %}
                         </div>
                         
                         <div class="mb-3">
@@ -40,19 +49,63 @@
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Phone Number</label>
-                            <input type="tel" name="phone" class="form-control" value="{{ customer.phone|default:'' }}">
+                            <label for="{{ form.phone.id_for_label }}" class="form-label">Phone Number</label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}
+                                <div class="text-danger">{{ form.phone.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">Enter your phone number with country code if applicable.</div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Address</label>
-                            <textarea name="address" class="form-control" rows="3">{{ customer.address|default:'' }}</textarea>
+                            <label for="{{ form.address.id_for_label }}" class="form-label">Address</label>
+                            {{ form.address }}
+                            {% if form.address.errors %}
+                                <div class="text-danger">{{ form.address.errors }}</div>
+                            {% endif %}
+                            <div class="form-text">Enter your complete address for shipping purposes.</div>
                         </div>
+                        
+                        <!-- Mostrar errores no relacionados con campos específicos -->
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
                         
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-primary">Update Information</button>
                         </div>
                     </form>
+                </div>
+            </div>
+            
+            <!-- Información adicional de seguridad -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Security Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p><strong>Last Login:</strong> 
+                                {% if user.last_login %}
+                                    {{ user.last_login|date:"F j, Y, g:i a" }}
+                                {% else %}
+                                    Never
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <p><strong>Member Since:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Security Tip:</strong> Keep your account information up to date and use a strong password. 
+                        If you notice any suspicious activity, please contact us immediately.
+                    </div>
                 </div>
             </div>
         </div>

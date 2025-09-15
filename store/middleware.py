@@ -1,190 +1,152 @@
-# store/middleware.py
+"""
+Middleware personalizado para seguridad adicional
+"""
 import logging
 import time
-import re
-from datetime import datetime
-from django.http import HttpResponseForbidden
 from django.core.cache import cache
+from django.http import HttpResponseForbidden
+from django.shortcuts import render
 from django.conf import settings
 
-security_logger = logging.getLogger('security')
+logger = logging.getLogger(__name__)
 
-class SecurityLoggingMiddleware:
-    """
-    Middleware para logging y monitoreo de seguridad
-    """
+class SecurityHeadersMiddleware:
+    """Middleware para añadir headers de seguridad adicionales"""
     
     def __init__(self, get_response):
         self.get_response = get_response
-        
-        # Patrones sospechosos en URLs
-        self.suspicious_patterns = [
-            r'\.\./',           # Directory traversal
-            r'\.\.\\',          # Directory traversal (Windows)
-            r'<script',         # XSS
-            r'javascript:',     # XSS
-            r'eval\(',          # Code injection
-            r'union\s+select',  # SQL injection
-            r'drop\s+table',    # SQL injection
-            r'insert\s+into',   # SQL injection
-            r'update\s+.*set',  # SQL injection
-            r'delete\s+from',   # SQL injection
-            r'exec\s*\(',       # Command injection
-            r'system\s*\(',     # Command injection
-            r'wp-admin',        # WordPress admin
-            r'phpmyadmin',      # phpMyAdmin
-            r'admin\.php',      # Generic admin
-            r'config\.php',     # Config files
-            r'\.env',           # Environment files
-            r'\.git',           # Git files
-            r'\.svn',           # SVN files
-        ]
-        
-        # User agents sospechosos
-        self.suspicious_agents = [
-            'sqlmap', 'nikto', 'nmap', 'burp', 'w3af',
-            'acunetix', 'nessus', 'openvas', 'metasploit',
-            'dirb', 'dirbuster', 'gobuster', 'wfuzz'
-        ]
-    
+
     def __call__(self, request):
-        start_time = time.time()
-        
-        # Obtener información del cliente
-        client_ip = self.get_client_ip(request)
-        user_agent = request.META.get('HTTP_USER_AGENT', '')
-        
-        # Verificar patrones sospechosos
-        self.check_suspicious_request(request, client_ip, user_agent)
-        
-        # Rate limiting
-        if self.is_rate_limited(request, client_ip):
-            security_logger.warning(f"Rate limit exceeded for IP: {client_ip}")
-            return HttpResponseForbidden("Too many requests")
-        
-        # Procesar request
         response = self.get_response(request)
         
-        # Log del tiempo de procesamiento
-        processing_time = time.time() - start_time
-        if processing_time > 5:  # Más de 5 segundos
-            security_logger.warning(
-                f"Slow response: {request.path} took {processing_time:.2f}s "
-                f"for IP: {client_ip}"
-            )
-        
-        # Añadir headers de seguridad
-        self.add_security_headers(response)
-        
-        return response
-    
-    def get_client_ip(self, request):
-        """Obtiene la IP real del cliente"""
-        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-        if x_forwarded_for:
-            ip = x_forwarded_for.split(',')[0].strip()
-        else:
-            ip = request.META.get('REMOTE_ADDR')
-        return ip
-    
-    def check_suspicious_request(self, request, client_ip, user_agent):
-        """Verifica si el request es sospechoso"""
-        
-        # Verificar URL sospechosa
-        url = request.get_full_path().lower()
-        for pattern in self.suspicious_patterns:
-            if re.search(pattern, url, re.IGNORECASE):
-                security_logger.warning(
-                    f"Suspicious URL pattern '{pattern}' detected in: {url} "
-                    f"from IP: {client_ip}"
-                )
-                break
-        
-        # Verificar User-Agent sospechoso
-        for agent in self.suspicious_agents:
-            if agent in user_agent.lower():
-                security_logger.warning(
-                    f"Suspicious User-Agent: {user_agent} from IP: {client_ip}"
-                )
-                break
-        
-        # Verificar método HTTP inusual
-        if request.method not in ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS']:
-            security_logger.warning(
-                f"Unusual HTTP method: {request.method} from IP: {client_ip}"
-            )
-        
-        # Verificar headers sospechosos
-        suspicious_headers = request.META.get('HTTP_X_REQUESTED_WITH', '')
-        if 'xmlhttprequest' not in suspicious_headers.lower() and request.is_ajax():
-            security_logger.info(f"AJAX request without proper header from IP: {client_ip}")
-    
-    def is_rate_limited(self, request, client_ip):
-        """Implementa rate limiting básico"""
-        if not getattr(settings, 'SECURITY_SETTINGS', {}).get('ENABLE_RATE_LIMITING', False):
-            return False
-        
-        # Límites por IP
-        cache_key = f"rate_limit_{client_ip}"
-        current_requests = cache.get(cache_key, 0)
-        
-        # Límite: 100 requests por minuto por IP
-        if current_requests >= 100:
-            return True
-        
-        # Incrementar contador
-        cache.set(cache_key, current_requests + 1, 60)  # 60 segundos
-        return False
-    
-    def add_security_headers(self, response):
-        """Añade headers de seguridad a la respuesta"""
-        
-        # Content Security Policy básico
-        csp = (
-            "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
-            "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
-            "img-src 'self' data: https:; "
-            "font-src 'self' https://cdnjs.cloudflare.com; "
-            "connect-src 'self'; "
-            "frame-ancestors 'none';"
-        )
-        response['Content-Security-Policy'] = csp
-        
-        # Otros headers de seguridad
+        # Headers de seguridad adicionales
         response['X-Content-Type-Options'] = 'nosniff'
         response['X-Frame-Options'] = 'DENY'
         response['X-XSS-Protection'] = '1; mode=block'
         response['Referrer-Policy'] = 'strict-origin-when-cross-origin'
-        response['Permissions-Policy'] = 'geolocation=(), microphone=(), camera=()'
+        
+        # Content Security Policy básico
+        if not settings.DEBUG:
+            csp = (
+                "default-src 'self'; "
+                "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
+                "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
+                "img-src 'self' data: https:; "
+                "font-src 'self' https://cdnjs.cloudflare.com; "
+                "connect-src 'self'; "
+                "frame-ancestors 'none';"
+            )
+            response['Content-Security-Policy'] = csp
         
         return response
 
-
-class RequestSizeMiddleware:
-    """
-    Middleware para controlar el tamaño de requests
-    """
+class BruteForceProtectionMiddleware:
+    """Middleware para protección contra ataques de fuerza bruta"""
     
     def __init__(self, get_response):
         self.get_response = get_response
-        self.max_request_size = 10 * 1024 * 1024  # 10MB
-    
+        self.max_attempts = getattr(settings, 'BRUTE_FORCE_MAX_ATTEMPTS', 10)
+        self.lockout_time = getattr(settings, 'BRUTE_FORCE_LOCKOUT_TIME', 300)  # 5 minutos
+
     def __call__(self, request):
-        # Verificar tamaño del request
-        if hasattr(request, 'META') and 'CONTENT_LENGTH' in request.META:
-            content_length = int(request.META['CONTENT_LENGTH'])
-            if content_length > self.max_request_size:
-                security_logger.warning(
-                    f"Request too large: {content_length} bytes from IP: "
-                    f"{self.get_client_ip(request)}"
-                )
-                return HttpResponseForbidden("Request too large")
+        # Solo aplicar a rutas de login y admin
+        protected_paths = ['/login/', '/admin/', '/admin-dashboard/']
+        
+        if any(request.path.startswith(path) for path in protected_paths):
+            ip = self.get_client_ip(request)
+            
+            # Verificar si la IP está bloqueada
+            if self.is_ip_blocked(ip):
+                logger.warning(f"IP bloqueada por fuerza bruta: {ip}")
+                return HttpResponseForbidden("Too many failed attempts. Please try again later.")
+            
+            # Si es un POST fallido (login incorrecto), incrementar contador
+            response = self.get_response(request)
+            
+            # Verificar si el login falló (puedes ajustar esta lógica según tus necesidades)
+            if (request.method == 'POST' and 
+                request.path in ['/login/', '/admin/login/'] and 
+                response.status_code == 200 and 
+                b'error' in response.content.lower()):
+                
+                self.record_failed_attempt(ip)
+            
+            return response
         
         return self.get_response(request)
     
     def get_client_ip(self, request):
-        """Obtiene la IP del cliente"""
+        """Obtener la IP real del cliente"""
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip = x_forwarded_for.split(',')[0].strip()
+        else:
+            ip = request.META.get('REMOTE_ADDR')
+        return ip
+    
+    def is_ip_blocked(self, ip):
+        """Verificar si una IP está bloqueada"""
+        cache_key = f"brute_force_block:{ip}"
+        return cache.get(cache_key, False)
+    
+    def record_failed_attempt(self, ip):
+        """Registrar un intento fallido"""
+        cache_key = f"brute_force_attempts:{ip}"
+        attempts = cache.get(cache_key, 0) + 1
+        
+        # Guardar intentos por 1 hora
+        cache.set(cache_key, attempts, 3600)
+        
+        if attempts >= self.max_attempts:
+            # Bloquear IP
+            block_key = f"brute_force_block:{ip}"
+            cache.set(block_key, True, self.lockout_time)
+            logger.warning(f"IP {ip} bloqueada por {self.max_attempts} intentos fallidos")
+
+class SuspiciousActivityMiddleware:
+    """Middleware para detectar actividad sospechosa"""
+    
+    def __init__(self, get_response):
+        self.get_response = get_response
+        self.suspicious_patterns = [
+            'union select', 'drop table', 'script>', '<iframe',
+            'javascript:', 'vbscript:', 'onload=', 'onerror=',
+            '../../../', '..\\..\\..\\', 'cmd.exe', '/etc/passwd'
+        ]
+
+    def __call__(self, request):
+        # Verificar patrones sospechosos en parámetros GET y POST
+        self.check_suspicious_patterns(request)
+        
+        response = self.get_response(request)
+        return response
+    
+    def check_suspicious_patterns(self, request):
+        """Verificar patrones sospechosos en la request"""
+        ip = self.get_client_ip(request)
+        user_agent = request.META.get('HTTP_USER_AGENT', '')
+        
+        # Verificar en parámetros GET
+        for param, value in request.GET.items():
+            if self.contains_suspicious_pattern(str(value).lower()):
+                logger.warning(f"Patrón sospechoso en GET desde {ip}: {param}={value}")
+        
+        # Verificar en parámetros POST
+        for param, value in request.POST.items():
+            if self.contains_suspicious_pattern(str(value).lower()):
+                logger.warning(f"Patrón sospechoso en POST desde {ip}: {param}=[REDACTED]")
+        
+        # Verificar User-Agent sospechoso
+        suspicious_agents = ['sqlmap', 'nikto', 'nessus', 'burp', 'zaproxy']
+        if any(agent in user_agent.lower() for agent in suspicious_agents):
+            logger.warning(f"User-Agent sospechoso desde {ip}: {user_agent}")
+    
+    def contains_suspicious_pattern(self, text):
+        """Verificar si el texto contiene patrones sospechosos"""
+        return any(pattern in text for pattern in self.suspicious_patterns)
+    
+    def get_client_ip(self, request):
+        """Obtener la IP real del cliente"""
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             ip = x_forwarded_for.split(',')[0].strip()
@@ -192,72 +154,31 @@ class RequestSizeMiddleware:
             ip = request.META.get('REMOTE_ADDR')
         return ip
 
-
-class SQLInjectionProtectionMiddleware:
-    """
-    Middleware para detectar intentos de inyección SQL
-    """
+class RequestLoggingMiddleware:
+    """Middleware para logging detallado de requests"""
     
     def __init__(self, get_response):
         self.get_response = get_response
-        
-        # Patrones de inyección SQL más comunes
-        self.sql_patterns = [
-            r"union\s+(all\s+)?select",
-            r"(select|insert|update|delete|drop|create|alter)\s+.*(from|into|table|database)",
-            r"(exec|execute)\s*\(",
-            r"(sp_|xp_)\w+",
-            r"(script|javascript|vbscript|onload|onerror)",
-            r"(eval|expression)\s*\(",
-            r"(declare|cast|convert)\s*\(",
-            r"(waitfor|delay)\s+",
-            r"(information_schema|sysobjects|syscolumns)",
-            r"(concat|char|ascii|substring)\s*\(",
-            r"(benchmark|sleep)\s*\(",
-            r"(load_file|into\s+outfile)",
-        ]
-    
+
     def __call__(self, request):
-        # Verificar parámetros GET
-        for key, value in request.GET.items():
-            if self.contains_sql_injection(value):
-                self.log_sql_injection_attempt(request, key, value, 'GET')
-                return HttpResponseForbidden("Suspicious input detected")
+        start_time = time.time()
         
-        # Verificar parámetros POST
-        if hasattr(request, 'POST'):
-            for key, value in request.POST.items():
-                if self.contains_sql_injection(value):
-                    self.log_sql_injection_attempt(request, key, value, 'POST')
-                    return HttpResponseForbidden("Suspicious input detected")
+        # Log de request entrante
+        ip = self.get_client_ip(request)
+        user = request.user if request.user.is_authenticated else 'Anonymous'
         
-        return self.get_response(request)
-    
-    def contains_sql_injection(self, value):
-        """Verifica si el valor contiene patrones de inyección SQL"""
-        if not isinstance(value, str):
-            return False
+        logger.info(f"Request: {request.method} {request.path} from {ip} by {user}")
         
-        value_lower = value.lower()
-        for pattern in self.sql_patterns:
-            if re.search(pattern, value_lower, re.IGNORECASE):
-                return True
-        return False
-    
-    def log_sql_injection_attempt(self, request, field, value, method):
-        """Log del intento de inyección SQL"""
-        client_ip = self.get_client_ip(request)
-        user = request.user.username if request.user.is_authenticated else 'anonymous'
+        response = self.get_response(request)
         
-        security_logger.critical(
-            f"SQL Injection attempt detected! "
-            f"User: {user}, IP: {client_ip}, "
-            f"Method: {method}, Field: {field}, "
-            f"Value: {value[:100]}..."  # Solo los primeros 100 caracteres
-        )
+        # Log de response
+        duration = time.time() - start_time
+        logger.info(f"Response: {response.status_code} for {request.path} ({duration:.2f}s)")
+        
+        return response
     
     def get_client_ip(self, request):
-        """Obtiene la IP del cliente"""
+        """Obtener la IP real del cliente"""
         x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
         if x_forwarded_for:
             ip = x_forwarded_for.split(',')[0].strip()
