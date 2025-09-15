@@ -326,20 +326,38 @@ def cart(request):
     }
     return render(request, 'store/cart.html', context)
 
-# ACTUALIZA la función checkout en store/views.py con esta versión final:
+# REEMPLAZA la función checkout en views.py con esta versión de debug:
 
 @login_required
 @user_rate_limit('2/m', method='POST')
 def checkout(request):
-    """Procesa página de pago con validaciones estrictas de seguridad y notificaciones mejoradas."""
-    customer = request.user.customer
+    """Procesa página de pago con debug mejorado."""
+    # ✅ DEBUG: Verificar autenticación
+    logger.info(f"Checkout accessed by: {request.user.username if request.user.is_authenticated else 'Anonymous'}")
+    logger.info(f"User is authenticated: {request.user.is_authenticated}")
+    
+    if not request.user.is_authenticated:
+        logger.error("Usuario no autenticado intentando acceder a checkout")
+        messages.error(request, "Please log in to proceed with checkout.")
+        return redirect('login')
+    
+    try:
+        customer = request.user.customer
+        logger.info(f"Customer found: {customer}")
+    except Exception as e:
+        logger.error(f"Error obteniendo customer: {e}")
+        messages.error(request, "There was an error with your account. Please try logging in again.")
+        return redirect('login')
+    
     order = Order.objects.filter(customer=customer, complete=False).first()
+    logger.info(f"Order found: {order}")
     
     if request.method == 'POST':
         form = CheckoutForm(request.POST)
         
         if form.is_valid():
             validated_data = form.cleaned_data
+            logger.info(f"Form data validated for user: {request.user.username}")
             
             if order:
                 try:
@@ -390,22 +408,22 @@ def checkout(request):
                         
                         logger.info(f"Orden #{order.id} completada exitosamente para usuario {request.user.username}")
                         
-                        # Mensaje de éxito mejorado con emoji
-                        messages.success(request, f"🎉 Order #{order.id} placed successfully! Thank you for your purchase. You will receive a confirmation email shortly.")
+                        # Mensaje de éxito mejorado
+                        messages.success(request, f"🎉 Order #{order.id} placed successfully! Thank you for your purchase.")
                         return redirect('store')
                         
                 except Exception as e:
                     logger.error(f"Error en checkout para usuario {request.user.username}: {str(e)}")
-                    messages.error(request, "⚠️ There was an error processing your order. Please try again or contact support if the problem persists.")
+                    messages.error(request, "⚠️ There was an error processing your order. Please try again.")
                     return redirect('cart')
             else:
                 messages.error(request, "Your cart is empty. Please add some products before checkout.")
                 return redirect('cart')
         else:
-            # Los errores se manejan en el template con JavaScript
+            # Los errores se manejan en el template
             logger.warning(f"Formulario de checkout inválido para usuario {request.user.username}: {form.errors}")
     else:
-        # Para GET, crear formulario con datos del usuario si están disponibles
+        # Para GET, crear formulario con datos del usuario
         initial_data = {}
         if hasattr(request.user, 'customer'):
             initial_data = {
@@ -420,9 +438,11 @@ def checkout(request):
     if order:
         cart_items = order.orderitem_set.all()
         cart_total = order.get_cart_total
+        logger.info(f"Cart items: {cart_items.count()}, Total: {cart_total}")
     else:
         cart_items = []
         cart_total = 0
+        logger.warning(f"No active order found for user {request.user.username}")
     
     context = {
         'form': form,

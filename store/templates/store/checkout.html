@@ -93,7 +93,6 @@
         bottom: 0;
         left: 0;
         height: 3px;
-        background: rgba(0, 0, 0, 0.1);
         width: 100%;
         transform-origin: left;
         animation: progress 5s linear forwards;
@@ -120,11 +119,6 @@
         25% { transform: translateX(-5px); }
         75% { transform: translateX(5px); }
     }
-    
-    /* Ocultar mensajes de Django tradicionales */
-    .alert.django-message {
-        display: none;
-    }
 </style>
 {% endblock %}
 
@@ -132,7 +126,7 @@
 <!-- Contenedor de notificaciones -->
 <div class="notification-container" id="notificationContainer"></div>
 
-<!-- Datos de Django para JavaScript (SIN MEZCLAR CÓDIGO) -->
+<!-- Datos de Django para JavaScript -->
 <script type="application/json" id="django-data">
 {
     "form_errors": {
@@ -311,7 +305,6 @@
 </div>
 
 <script>
-// JavaScript 100% PURO - SIN MEZCLAR CON DJANGO
 document.addEventListener('DOMContentLoaded', function() {
     // Leer datos de Django desde el JSON
     const djangoData = JSON.parse(document.getElementById('django-data').textContent);
@@ -431,6 +424,4 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 </script>
-{% endblock %}
-
 {% endblock %}
