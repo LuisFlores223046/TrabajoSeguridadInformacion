@@ -157,15 +157,50 @@ def customer_product_detail(request, pk):
         from django.http import Http404
         raise Http404(f"Product with ID {pk} not found")
 
+logger = logging.getLogger(__name__)
+
 def customer_category_detail(request, pk):
-    """Muestra categoría y sus productos disponibles."""
-    category = get_object_or_404(Category, pk=pk)
-    products = category.products.filter(is_available=True)
-    context = {
-        'category': category,
-        'products': products
-    }
-    return render(request, 'store/customer_category_detail.html', context)
+    """Muestra categoría y sus productos disponibles con manejo robusto de errores."""
+    try:
+        # Validar que pk sea un número válido
+        try:
+            pk = int(pk)
+        except (ValueError, TypeError):
+            logger.warning(f"ID de categoría inválido: {pk} desde IP: {request.META.get('REMOTE_ADDR')}")
+            raise Http404("Invalid category ID")
+        
+        # Log para debugging
+        logger.info(f"Buscando categoría con ID: {pk}")
+        
+        # Intentar obtener la categoría
+        category = get_object_or_404(Category, pk=pk)
+        
+        # Obtener productos de la categoría
+        products = category.products.filter(is_available=True)
+        
+        logger.info(f"Categoría encontrada: {category.name} con {products.count()} productos")
+        
+        context = {
+            'category': category,
+            'products': products
+        }
+        return render(request, 'store/customer_category_detail.html', context)
+        
+    except Http404:
+        # Log específico para 404
+        logger.warning(f"Categoría con ID {pk} no encontrada - Http404 desde IP: {request.META.get('REMOTE_ADDR')}")
+        # Re-lanzar para que Django maneje el 404
+        raise
+    except Exception as e:
+        # Log para otros errores
+        logger.error(f"Error inesperado en customer_category_detail para pk={pk}: {str(e)}")
+        
+        # En desarrollo, mostrar error detallado
+        if getattr(settings, 'DEBUG', False):
+            raise e
+        
+        # En producción, mostrar 404
+        raise Http404(f"Category with ID {pk} not found")
 
 # =============================================================================
 # VISTAS DEL CARRITO
@@ -291,26 +326,27 @@ def cart(request):
     }
     return render(request, 'store/cart.html', context)
 
-# REEMPLAZA tu función checkout en views.py con esta versión SEGURA:
+# REEMPLAZA la función checkout en store/views.py con esta versión SEGURA:
 
 @login_required
-@user_rate_limit('2/m', method='POST')  # Máximo 2 checkouts por minuto por usuario
+@user_rate_limit('2/m', method='POST')
 def checkout(request):
-    """Procesa página de pago y finalización de pedido SIN modificar datos del usuario."""
+    """Procesa página de pago con validaciones estrictas de seguridad."""
     customer = request.user.customer
     order = Order.objects.filter(customer=customer, complete=False).first()
     
     if request.method == 'POST':
-        # Usar el formulario de checkout con validaciones
+        # ✅ Crear formulario con datos POST
         form = CheckoutForm(request.POST)
         
         if form.is_valid():
-            # Procesar la orden cuando el formulario es válido
+            # ✅ SOLO usar form.cleaned_data (datos ya validados y sanitizados)
+            validated_data = form.cleaned_data
+            
             if order:
                 try:
-                    # Usar transacción atómica para asegurar consistencia
                     with transaction.atomic():
-                        # Verificar que todos los productos tengan stock suficiente
+                        # Verificar inventario
                         inventory_issue = False
                         order_items = OrderItem.objects.select_related('product').filter(order=order)
                         
@@ -319,54 +355,42 @@ def checkout(request):
                             return redirect('cart')
                         
                         for item in order_items:
-                            # Obtener producto fresco de la base de datos
                             product = Product.objects.get(id=item.product.id)
-                            logger.info(f"Verificando producto: {product.name}, Stock actual: {product.stock}, Cantidad solicitada: {item.quantity}")
-                            
                             if item.quantity > product.stock or not product.is_available:
                                 inventory_issue = True
                                 messages.warning(request, f"Sorry, {product.name} is no longer available in the quantity you requested. Available: {product.stock}")
                         
                         if inventory_issue:
-                            logger.warning(f"Checkout fallido por problemas de inventario para usuario {request.user.username}")
                             return redirect('cart')
                         
-                        # Actualizar inventario reduciendo la cantidad de cada producto
-                        logger.info("Actualizando inventario...")
+                        # Actualizar inventario
                         for item in order_items:
-                            # Obtener producto fresco nuevamente
                             product = Product.objects.get(id=item.product.id)
                             old_stock = product.stock
                             product.stock = max(0, product.stock - item.quantity)
                             
-                            # Verificar si el producto se ha agotado
                             if product.stock <= 0:
                                 product.is_available = False
                             
                             product.save()
                             logger.info(f"Producto: {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
                         
-                        # IMPORTANTE: NO actualizar datos del usuario aquí
-                        # Solo usar los datos validados para la orden, no para modificar el perfil
-                        
-                        # Crear la dirección de envío combinando todos los datos validados
+                        # ✅ Crear dirección de envío con datos YA SANITIZADOS
                         shipping_info = (
-                            f"Name: {form.cleaned_data['first_name']} {form.cleaned_data['last_name']}\n"
-                            f"Email: {form.cleaned_data['email']}\n"
-                            f"Phone: {form.cleaned_data['phone']}\n"
-                            f"Address: {form.cleaned_data['shipping_address']}"
+                            f"Name: {validated_data['first_name']} {validated_data['last_name']}\n"
+                            f"Email: {validated_data['email']}\n"
+                            f"Phone: {validated_data['phone']}\n"
+                            f"Address: {validated_data['shipping_address']}"
                         )
                         
                         # Completar el pedido
                         order.complete = True
                         order.status = 'processing'
                         order.transaction_id = f"TX-{int(time.time())}"
-                        order.shipping_address = shipping_info  # Guardar info completa en la orden
+                        order.shipping_address = shipping_info
                         order.save()
                         
                         logger.info(f"Orden #{order.id} completada exitosamente para usuario {request.user.username}")
-                        logger.info(f"Datos del checkout - Teléfono: {form.cleaned_data['phone']}, Dirección validada guardada")
-                        
                         messages.success(request, "Your order has been placed successfully! Thank you for your purchase.")
                         return redirect('store')
                         
@@ -378,13 +402,16 @@ def checkout(request):
                 messages.error(request, "Your cart is empty.")
                 return redirect('cart')
         else:
-            # Formulario inválido - mostrar errores
+            # ✅ Mostrar errores de validación
             logger.warning(f"Formulario de checkout inválido para usuario {request.user.username}: {form.errors}")
             for field, errors in form.errors.items():
                 for error in errors:
-                    messages.error(request, f"{field.title()}: {error}")
+                    messages.error(request, f"{field.replace('_', ' ').title()}: {error}")
+    else:
+        # ✅ Para GET, crear formulario vacío
+        form = CheckoutForm()
     
-    # Preparar datos para mostrar en la página de checkout
+    # Preparar datos para mostrar
     if order:
         cart_items = order.orderitem_set.all()
         cart_total = order.get_cart_total
@@ -393,6 +420,7 @@ def checkout(request):
         cart_total = 0
     
     context = {
+        'form': form,  # ✅ Pasar el formulario al template
         'cart_items': cart_items,
         'cart_total': cart_total
     }

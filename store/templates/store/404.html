@@ -67,28 +67,9 @@
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
             color: white;
         }
-        .coffee-beans {
-            position: absolute;
-            opacity: 0.1;
-            font-size: 2rem;
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        .beans-1 { top: 10%; left: 10%; animation-delay: 0s; }
-        .beans-2 { top: 20%; right: 10%; animation-delay: 2s; }
-        .beans-3 { bottom: 20%; left: 15%; animation-delay: 4s; }
-        .beans-4 { bottom: 10%; right: 20%; animation-delay: 1s; }
     </style>
 </head>
 <body>
-    <div class="coffee-beans beans-1"><i class="fas fa-coffee"></i></div>
-    <div class="coffee-beans beans-2"><i class="fas fa-coffee"></i></div>
-    <div class="coffee-beans beans-3"><i class="fas fa-coffee"></i></div>
-    <div class="coffee-beans beans-4"><i class="fas fa-coffee"></i></div>
-    
     <div class="container">
         <div class="error-container">
             <div class="error-icon">
@@ -115,6 +96,15 @@
                     Tip: Check the URL for typos or use the navigation menu
                 </small>
             </div>
+            
+            <!-- DEBUG INFO (solo se muestra en desarrollo) -->
+            {% if debug %}
+            <div class="mt-4 p-3 bg-light rounded">
+                <h6>Debug Info:</h6>
+                <p><strong>Request URL:</strong> {{ request.path }}</p>
+                <p><strong>DEBUG:</strong> {{ debug }}</p>
+            </div>
+            {% endif %}
         </div>
     </div>
     

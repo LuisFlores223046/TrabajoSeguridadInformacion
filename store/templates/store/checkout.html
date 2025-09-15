@@ -3,33 +3,13 @@
 
 {% block title %}Checkout{% endblock %}
 
-{% block extra_css %}
-<style>
-    .form-control.is-invalid {
-        border-color: #dc3545;
-    }
-    .invalid-feedback {
-        display: block;
-        color: #dc3545;
-        font-size: 0.875em;
-        margin-top: 0.25rem;
-    }
-    .field-error {
-        border-color: #dc3545 !important;
-        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 <div class="container">
     <h1 class="mb-4">Checkout</h1>
     
     {% if cart_items %}
     <div class="row">
-        <!-- Información de envío -->
         <div class="col-md-7">
-            <!-- ADVERTENCIA SOBRE DATOS -->
             <div class="alert alert-info mb-4">
                 <i class="fas fa-info-circle me-2"></i>
                 <strong>Important:</strong> The information below is only for this order and will not change your account profile. 
@@ -46,85 +26,58 @@
                         
                         <div class="row mb-3">
                             <div class="col-md-6">
-                                <label class="form-label">First Name <span class="text-danger">*</span></label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    name="first_name"
-                                    value="{{ user.first_name }}" 
-                                    required
-                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+"
-                                    title="Only letters and spaces allowed"
-                                    maxlength="30"
-                                    oninput="validateName(this)"
-                                >
-                                <div class="invalid-feedback" id="first_name_error"></div>
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">First Name <span class="text-danger">*</span></label>
+                                {{ form.first_name }}
+                                {% if form.first_name.errors %}
+                                    <div class="invalid-feedback d-block">{{ form.first_name.errors.0 }}</div>
+                                {% endif %}
                                 <small class="text-muted">For this order only</small>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Last Name <span class="text-danger">*</span></label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    name="last_name"
-                                    value="{{ user.last_name }}" 
-                                    required
-                                    pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+"
-                                    title="Only letters and spaces allowed"
-                                    maxlength="30"
-                                    oninput="validateName(this)"
-                                >
-                                <div class="invalid-feedback" id="last_name_error"></div>
+                                <label for="{{ form.last_name.id_for_label }}" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                {{ form.last_name }}
+                                {% if form.last_name.errors %}
+                                    <div class="invalid-feedback d-block">{{ form.last_name.errors.0 }}</div>
+                                {% endif %}
                                 <small class="text-muted">For this order only</small>
                             </div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Email <span class="text-danger">*</span></label>
-                            <input 
-                                type="email" 
-                                class="form-control" 
-                                name="email"
-                                value="{{ user.email }}" 
-                                required
-                            >
-                            <div class="invalid-feedback" id="email_error"></div>
+                            <label for="{{ form.email.id_for_label }}" class="form-label">Email <span class="text-danger">*</span></label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                                <div class="invalid-feedback d-block">{{ form.email.errors.0 }}</div>
+                            {% endif %}
                             <small class="text-muted">For order confirmation only</small>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Phone Number <span class="text-danger">*</span></label>
-                            <input 
-                                type="tel" 
-                                class="form-control" 
-                                name="phone"
-                                value="{{ user.customer.phone|default:'' }}" 
-                                required
-                                pattern="\d{10}"
-                                title="Enter exactly 10 digits (numbers only)"
-                                maxlength="10"
-                                inputmode="numeric"
-                                placeholder="1234567890"
-                                oninput="validatePhone(this)"
-                            >
-                            <div class="invalid-feedback" id="phone_error"></div>
+                            <label for="{{ form.phone.id_for_label }}" class="form-label">Phone Number <span class="text-danger">*</span></label>
+                            {{ form.phone }}
+                            {% if form.phone.errors %}
+                                <div class="invalid-feedback d-block">{{ form.phone.errors.0 }}</div>
+                            {% endif %}
                             <div class="form-text">Enter exactly 10 digits without spaces or symbols</div>
                         </div>
                         
                         <div class="mb-3">
-                            <label class="form-label">Shipping Address <span class="text-danger">*</span></label>
-                            <textarea 
-                                class="form-control" 
-                                rows="3" 
-                                name="shipping_address" 
-                                required
-                                maxlength="500"
-                                placeholder="Enter your complete shipping address"
-                                oninput="validateAddress(this)"
-                            >{{ user.customer.address|default:'' }}</textarea>
-                            <div class="invalid-feedback" id="address_error"></div>
+                            <label for="{{ form.shipping_address.id_for_label }}" class="form-label">Shipping Address <span class="text-danger">*</span></label>
+                            {{ form.shipping_address }}
+                            {% if form.shipping_address.errors %}
+                                <div class="invalid-feedback d-block">{{ form.shipping_address.errors.0 }}</div>
+                            {% endif %}
                             <div class="form-text">Use only letters, numbers, spaces, commas (,), periods (.), hyphens (-), and # symbol</div>
                         </div>
+                        
+                        <!-- Mostrar errores no relacionados con campos específicos -->
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
                         
                         <button type="submit" class="btn btn-success btn-lg w-100" id="submit-btn">
                             <i class="fas fa-lock me-2"></i>Place Order
@@ -225,182 +178,18 @@
     </div>
     {% endif %}
 </div>
-{% endblock %}
 
-{% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('checkout-form');
     const submitBtn = document.getElementById('submit-btn');
     
-    // Validación en tiempo real
-    function validateName(input) {
-        const value = input.value;
-        const errorDiv = document.getElementById(input.name + '_error');
-        
-        // Remover caracteres no permitidos INMEDIATAMENTE
-        const cleanValue = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]/g, '');
-        if (value !== cleanValue) {
-            input.value = cleanValue;
-            showError(input, errorDiv, 'Only letters and spaces are allowed.');
-            setTimeout(() => {
-                if (input.value === cleanValue && cleanValue.length >= 2) {
-                    clearError(input, errorDiv);
-                }
-            }, 1000);
-            return false;
-        }
-        
-        // Validar formato
-        if (cleanValue.length === 0) {
-            showError(input, errorDiv, 'This field is required.');
-            return false;
-        } else if (cleanValue.length < 2) {
-            showError(input, errorDiv, 'Name must be at least 2 characters.');
-            return false;
-        } else if (cleanValue.length > 30) {
-            showError(input, errorDiv, 'Name cannot exceed 30 characters.');
-            return false;
-        } else if (/\s{3,}/.test(cleanValue)) {
-            showError(input, errorDiv, 'Too many consecutive spaces.');
-            return false;
-        } else {
-            clearError(input, errorDiv);
-            return true;
-        }
-    }
-    
-    function validatePhone(input) {
-        const value = input.value;
-        const errorDiv = document.getElementById('phone_error');
-        
-        // Remover todo lo que no sean números INMEDIATAMENTE
-        const cleanValue = value.replace(/[^0-9]/g, '');
-        if (value !== cleanValue) {
-            input.value = cleanValue;
-        }
-        
-        // Limitar a 10 dígitos
-        if (cleanValue.length > 10) {
-            input.value = cleanValue.substring(0, 10);
-        }
-        
-        // Validar longitud
-        if (cleanValue.length === 0) {
-            showError(input, errorDiv, 'Phone number is required.');
-            return false;
-        } else if (cleanValue.length !== 10) {
-            showError(input, errorDiv, 'Phone number must be exactly 10 digits.');
-            return false;
-        } else {
-            clearError(input, errorDiv);
-            return true;
-        }
-    }
-    
-    function validateAddress(input) {
-        const value = input.value;
-        const errorDiv = document.getElementById('address_error');
-        
-        // Caracteres permitidos: letras, números, espacios, comas, puntos, guiones, #
-        const allowedPattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\s,.\-#]*$/;
-        
-        if (!allowedPattern.test(value)) {
-            // Remover caracteres no permitidos INMEDIATAMENTE
-            const cleanValue = value.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\s,.\-#]/g, '');
-            input.value = cleanValue;
-            showError(input, errorDiv, 'Invalid characters removed. Only letters, numbers, spaces, commas, periods, hyphens and # allowed.');
-            setTimeout(() => {
-                if (input.value === cleanValue && cleanValue.trim().length > 0) {
-                    clearError(input, errorDiv);
-                }
-            }, 2000);
-            return false;
-        }
-        
-        if (value.trim().length === 0) {
-            showError(input, errorDiv, 'Shipping address is required.');
-            return false;
-        } else if (value.length > 500) {
-            showError(input, errorDiv, 'Address cannot exceed 500 characters.');
-            return false;
-        } else {
-            clearError(input, errorDiv);
-            return true;
-        }
-    }
-    
-    function showError(input, errorDiv, message) {
-        input.classList.add('is-invalid', 'field-error');
-        errorDiv.textContent = message;
-        errorDiv.style.display = 'block';
-    }
-    
-    function clearError(input, errorDiv) {
-        input.classList.remove('is-invalid', 'field-error');
-        errorDiv.textContent = '';
-        errorDiv.style.display = 'none';
-    }
-    
-    // Validación al enviar el formulario
+    // Prevenir envío doble
     form.addEventListener('submit', function(e) {
-        const firstNameInput = form.querySelector('input[name="first_name"]');
-        const lastNameInput = form.querySelector('input[name="last_name"]');
-        const phoneInput = form.querySelector('input[name="phone"]');
-        const addressInput = form.querySelector('textarea[name="shipping_address"]');
-        const emailInput = form.querySelector('input[name="email"]');
-        
-        let isValid = true;
-        
-        // Validar todos los campos
-        if (!validateName(firstNameInput)) isValid = false;
-        if (!validateName(lastNameInput)) isValid = false;
-        if (!validatePhone(phoneInput)) isValid = false;
-        if (!validateAddress(addressInput)) isValid = false;
-        
-        // Validar email
-        if (!emailInput.validity.valid || emailInput.value.trim() === '') {
-            showError(emailInput, document.getElementById('email_error'), 'Please enter a valid email address.');
-            isValid = false;
-        } else {
-            clearError(emailInput, document.getElementById('email_error'));
-        }
-        
-        if (!isValid) {
-            e.preventDefault();
-            
-            // Mostrar mensaje de error general
-            let errorAlert = document.getElementById('form-error-alert');
-            if (!errorAlert) {
-                errorAlert = document.createElement('div');
-                errorAlert.id = 'form-error-alert';
-                errorAlert.className = 'alert alert-danger';
-                errorAlert.innerHTML = '<i class="fas fa-exclamation-triangle me-2"></i>Please correct the errors above before submitting.';
-                form.insertBefore(errorAlert, form.firstChild);
-            }
-            
-            // Scroll al primer error
-            const firstError = document.querySelector('.is-invalid');
-            if (firstError) {
-                firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }
-        } else {
-            // Remover mensaje de error si existe
-            const errorAlert = document.getElementById('form-error-alert');
-            if (errorAlert) {
-                errorAlert.remove();
-            }
-            
-            // Deshabilitar botón para prevenir doble envío
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
-        }
+        // Deshabilitar botón para prevenir doble envío
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
     });
-    
-    // Exponer funciones globalmente para los eventos oninput
-    window.validateName = validateName;
-    window.validatePhone = validatePhone;
-    window.validateAddress = validateAddress;
 });
 </script>
 {% endblock %}

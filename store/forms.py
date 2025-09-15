@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 import bleach
 import re
+import html
 from .models import Product, Category, Customer, Order, OrderItem
 
 def validate_image(image):
@@ -366,6 +367,11 @@ class ProfileUpdateForm(forms.ModelForm):
             return validate_address(address)
         return address
 
+# AÑADE estas mejoras al CheckoutForm en store/forms.py
+
+import bleach
+import html
+
 class CheckoutForm(forms.Form):
     """Formulario específico para el checkout con validaciones estrictas"""
     first_name = forms.CharField(
@@ -415,31 +421,99 @@ class CheckoutForm(forms.Form):
     )
     
     def clean_first_name(self):
-        """Validar nombre en checkout"""
+        """Validar y sanitizar nombre"""
         first_name = self.cleaned_data.get('first_name')
         if first_name:
-            return validate_name(first_name)
+            # Sanitizar HTML malicioso
+            first_name = html.escape(first_name)
+            first_name = bleach.clean(first_name, tags=[], strip=True)
+            
+            # Validar que solo contenga letras y espacios
+            if not re.match(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$', first_name.strip()):
+                raise ValidationError("Name can only contain letters and spaces.")
+            
+            # Validar longitud
+            if len(first_name.strip()) < 2:
+                raise ValidationError("Name must be at least 2 characters long.")
+            
+            # Verificar que no tenga demasiados espacios consecutivos
+            if '   ' in first_name:
+                raise ValidationError("Too many consecutive spaces.")
+            
+            return first_name.strip()
         return first_name
     
     def clean_last_name(self):
-        """Validar apellido en checkout"""
+        """Validar y sanitizar apellido"""
         last_name = self.cleaned_data.get('last_name')
         if last_name:
-            return validate_name(last_name)
+            # Sanitizar HTML malicioso
+            last_name = html.escape(last_name)
+            last_name = bleach.clean(last_name, tags=[], strip=True)
+            
+            # Validar que solo contenga letras y espacios
+            if not re.match(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$', last_name.strip()):
+                raise ValidationError("Name can only contain letters and spaces.")
+            
+            # Validar longitud
+            if len(last_name.strip()) < 2:
+                raise ValidationError("Name must be at least 2 characters long.")
+            
+            # Verificar que no tenga demasiados espacios consecutivos
+            if '   ' in last_name:
+                raise ValidationError("Too many consecutive spaces.")
+            
+            return last_name.strip()
         return last_name
+    
+    def clean_email(self):
+        """Validar y sanitizar email"""
+        email = self.cleaned_data.get('email')
+        if email:
+            # Sanitizar HTML malicioso
+            email = html.escape(email)
+            email = bleach.clean(email, tags=[], strip=True)
+            
+            return email.lower().strip()
+        return email
     
     def clean_phone(self):
         """Validar teléfono en checkout - exactamente 10 dígitos"""
         phone = self.cleaned_data.get('phone')
         if phone:
-            return validate_phone(phone)
+            # Sanitizar HTML malicioso
+            phone = html.escape(phone)
+            phone = bleach.clean(phone, tags=[], strip=True)
+            
+            # Remover todo lo que no sean números
+            clean_phone = re.sub(r'[^0-9]', '', phone)
+            
+            if len(clean_phone) != 10:
+                raise ValidationError("Phone number must be exactly 10 digits.")
+            
+            return clean_phone
         return phone
     
     def clean_shipping_address(self):
-        """Validar dirección de envío"""
+        """Validar y sanitizar dirección de envío"""
         address = self.cleaned_data.get('shipping_address')
         if address:
-            return validate_address(address)
+            # Sanitizar HTML malicioso
+            address = html.escape(address)
+            address = bleach.clean(address, tags=[], strip=True)
+            
+            # Validar que solo contenga caracteres seguros
+            if not re.match(r'^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\s,.\-#]+$', address.strip()):
+                raise ValidationError("Address contains invalid characters. Only letters, numbers, spaces, commas, periods, hyphens and # allowed.")
+            
+            # Validar longitud
+            if len(address.strip()) < 5:
+                raise ValidationError("Address must be at least 5 characters long.")
+            
+            if len(address) > 500:
+                raise ValidationError("Address cannot exceed 500 characters.")
+            
+            return address.strip()
         return address
 
 class OrderForm(forms.ModelForm):
