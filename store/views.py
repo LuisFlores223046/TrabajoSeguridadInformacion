@@ -895,3 +895,24 @@ def my_account(request):
     }
     return render(request, 'store/my_account.html', context)
 
+@login_required
+def my_orders(request):
+    """Lista pedidos del usuario."""
+    customer = request.user.customer
+    orders = Order.objects.filter(customer=customer).order_by('-date_ordered')
+    
+    context = {
+        'orders': orders
+    }
+    return render(request, 'store/my_orders.html', context)
+
+@login_required
+def order_customer_detail(request, pk):
+    """Detalle de pedido específico del cliente."""
+    customer = request.user.customer
+    order = get_object_or_404(Order, pk=pk, customer=customer)  # Asegurar que el pedido pertenece al cliente
+    context = {
+        'order': order
+    }
+    return render(request, 'store/order_customer_detail.html', context)
+
