@@ -29,9 +29,16 @@
     <div class="row">
         <!-- Información de envío -->
         <div class="col-md-7">
+            <!-- ADVERTENCIA SOBRE DATOS -->
+            <div class="alert alert-info mb-4">
+                <i class="fas fa-info-circle me-2"></i>
+                <strong>Important:</strong> The information below is only for this order and will not change your account profile. 
+                To update your profile permanently, visit <a href="{% url 'my_account' %}" class="alert-link">My Account</a>.
+            </div>
+            
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5 class="mb-0">Shipping Information</h5>
+                    <h5 class="mb-0">Shipping Information for This Order</h5>
                 </div>
                 <div class="card-body">
                     <form method="post" id="checkout-form" novalidate>
@@ -52,6 +59,7 @@
                                     oninput="validateName(this)"
                                 >
                                 <div class="invalid-feedback" id="first_name_error"></div>
+                                <small class="text-muted">For this order only</small>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Last Name <span class="text-danger">*</span></label>
@@ -67,6 +75,7 @@
                                     oninput="validateName(this)"
                                 >
                                 <div class="invalid-feedback" id="last_name_error"></div>
+                                <small class="text-muted">For this order only</small>
                             </div>
                         </div>
                         
@@ -80,6 +89,7 @@
                                 required
                             >
                             <div class="invalid-feedback" id="email_error"></div>
+                            <small class="text-muted">For order confirmation only</small>
                         </div>
                         
                         <div class="mb-3">
@@ -228,10 +238,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const value = input.value;
         const errorDiv = document.getElementById(input.name + '_error');
         
-        // Remover caracteres no permitidos
+        // Remover caracteres no permitidos INMEDIATAMENTE
         const cleanValue = value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]/g, '');
         if (value !== cleanValue) {
             input.value = cleanValue;
+            showError(input, errorDiv, 'Only letters and spaces are allowed.');
+            setTimeout(() => {
+                if (input.value === cleanValue && cleanValue.length >= 2) {
+                    clearError(input, errorDiv);
+                }
+            }, 1000);
+            return false;
         }
         
         // Validar formato
@@ -257,7 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const value = input.value;
         const errorDiv = document.getElementById('phone_error');
         
-        // Remover todo lo que no sean números
+        // Remover todo lo que no sean números INMEDIATAMENTE
         const cleanValue = value.replace(/[^0-9]/g, '');
         if (value !== cleanValue) {
             input.value = cleanValue;
@@ -289,10 +306,15 @@ document.addEventListener('DOMContentLoaded', function() {
         const allowedPattern = /^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\s,.\-#]*$/;
         
         if (!allowedPattern.test(value)) {
-            // Remover caracteres no permitidos
+            // Remover caracteres no permitidos INMEDIATAMENTE
             const cleanValue = value.replace(/[^a-zA-Z0-9áéíóúÁÉÍÓÚñÑüÜ\s,.\-#]/g, '');
             input.value = cleanValue;
-            showError(input, errorDiv, 'Address contains invalid characters.');
+            showError(input, errorDiv, 'Invalid characters removed. Only letters, numbers, spaces, commas, periods, hyphens and # allowed.');
+            setTimeout(() => {
+                if (input.value === cleanValue && cleanValue.trim().length > 0) {
+                    clearError(input, errorDiv);
+                }
+            }, 2000);
             return false;
         }
         

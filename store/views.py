@@ -291,10 +291,12 @@ def cart(request):
     }
     return render(request, 'store/cart.html', context)
 
+# REEMPLAZA tu función checkout en views.py con esta versión SEGURA:
+
 @login_required
 @user_rate_limit('2/m', method='POST')  # Máximo 2 checkouts por minuto por usuario
 def checkout(request):
-    """Procesa página de pago y finalización de pedido con validaciones mejoradas."""
+    """Procesa página de pago y finalización de pedido SIN modificar datos del usuario."""
     customer = request.user.customer
     order = Order.objects.filter(customer=customer, complete=False).first()
     
@@ -344,25 +346,26 @@ def checkout(request):
                             product.save()
                             logger.info(f"Producto: {product.name}, Stock anterior: {old_stock}, Stock nuevo: {product.stock}")
                         
-                        # Actualizar información del cliente con datos validados
-                        user = request.user
-                        user.first_name = form.cleaned_data['first_name']
-                        user.last_name = form.cleaned_data['last_name']
-                        user.email = form.cleaned_data['email']
-                        user.save()
+                        # IMPORTANTE: NO actualizar datos del usuario aquí
+                        # Solo usar los datos validados para la orden, no para modificar el perfil
                         
-                        customer.phone = form.cleaned_data['phone']
-                        customer.save()
+                        # Crear la dirección de envío combinando todos los datos validados
+                        shipping_info = (
+                            f"Name: {form.cleaned_data['first_name']} {form.cleaned_data['last_name']}\n"
+                            f"Email: {form.cleaned_data['email']}\n"
+                            f"Phone: {form.cleaned_data['phone']}\n"
+                            f"Address: {form.cleaned_data['shipping_address']}"
+                        )
                         
                         # Completar el pedido
                         order.complete = True
                         order.status = 'processing'
                         order.transaction_id = f"TX-{int(time.time())}"
-                        order.shipping_address = form.cleaned_data['shipping_address']
+                        order.shipping_address = shipping_info  # Guardar info completa en la orden
                         order.save()
                         
                         logger.info(f"Orden #{order.id} completada exitosamente para usuario {request.user.username}")
-                        logger.info(f"Datos del checkout - Teléfono: {form.cleaned_data['phone']}, Dirección: {form.cleaned_data['shipping_address'][:50]}...")
+                        logger.info(f"Datos del checkout - Teléfono: {form.cleaned_data['phone']}, Dirección validada guardada")
                         
                         messages.success(request, "Your order has been placed successfully! Thank you for your purchase.")
                         return redirect('store')
