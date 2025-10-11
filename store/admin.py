@@ -103,7 +103,7 @@ class CustomerAdmin(admin.ModelAdmin):
         if obj.encrypted_phone:
             # Campo encrypted_phone
             html += '<div style="margin-bottom: 15px;">'
-            html += '<strong style="color: #856404;">Campo: encrypted_phone</strong><br>'
+            html += '<strong style="color: #856404;">Campo (AES): encrypted_phone</strong><br>'
             html += '<div style="background: #fff; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; margin-top: 5px;">'
             html += f'<code style="word-break: break-all; color: #212529;">{obj.encrypted_phone}</code>'
             html += '</div>'
@@ -112,7 +112,7 @@ class CustomerAdmin(admin.ModelAdmin):
             
             # Campo phone_key
             html += '<div style="margin-bottom: 15px;">'
-            html += '<strong style="color: #0c5460;">Campo(AES): phone_key</strong><br>'
+            html += '<strong style="color: #0c5460;">Campo(RSA): phone_key</strong><br>'
             html += '<div style="background: #fff; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; margin-top: 5px;">'
             html += f'<code style="word-break: break-all; color: #212529;">{obj.phone_key}</code>'
             html += '</div>'
@@ -121,7 +121,7 @@ class CustomerAdmin(admin.ModelAdmin):
             
             # Campo phone_iv
             html += '<div>'
-            html += '<strong style="color: #004085;">Campo(RSA): phone_iv</strong><br>'
+            html += '<strong style="color: #004085;">Campo(Auxiliar de AES): phone_iv</strong><br>'
             html += '<div style="background: #fff; padding: 10px; border: 1px solid #dee2e6; border-radius: 4px; margin-top: 5px;">'
             html += f'<code style="color: #212529;">{obj.phone_iv}</code>'
             html += '</div>'
