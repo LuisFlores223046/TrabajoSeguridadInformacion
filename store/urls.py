@@ -68,5 +68,17 @@ account_urlpatterns = [
     path('my-orders/<int:pk>/', views.order_customer_detail, name="order_customer_detail"),  # Detalle de pedido
 ]
 
+from .urls_encryption import encryption_urlpatterns
+
+urlpatterns = (
+    auth_urlpatterns + 
+    customer_urlpatterns + 
+    admin_urlpatterns + 
+    order_urlpatterns + 
+    cart_urlpatterns + 
+    account_urlpatterns +
+    encryption_urlpatterns  # ← NUEVO
+)
+
 # Modificar la línea final de urlpatterns para incluir las nuevas URLs
 urlpatterns = auth_urlpatterns + customer_urlpatterns + admin_urlpatterns + order_urlpatterns + cart_urlpatterns + account_urlpatterns

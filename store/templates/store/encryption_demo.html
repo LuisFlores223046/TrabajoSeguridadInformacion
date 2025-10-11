@@ -1,0 +1,468 @@
+{% extends 'store/main.html' %}
+{% load static %}
+
+{% block title %}Demostración de Cifrado Híbrido AES-RSA{% endblock %}
+
+{% block extra_css %}
+<style>
+    .encryption-box {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 15px;
+        padding: 30px;
+        color: white;
+        margin-bottom: 30px;
+    }
+    
+    .key-info {
+        background: white;
+        color: #333;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+    }
+    
+    .encrypted-output {
+        background: #f8f9fa;
+        border: 2px dashed #6c757d;
+        border-radius: 8px;
+        padding: 15px;
+        font-family: 'Courier New', monospace;
+        font-size: 12px;
+        word-break: break-all;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    
+    .process-step {
+        background: #e3f2fd;
+        border-left: 4px solid #2196F3;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+    }
+    
+    .algorithm-badge {
+        background: #28a745;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+    
+    .stats-card {
+        background: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+    
+    .comparison-table {
+        font-size: 12px;
+    }
+    
+    .comparison-table td {
+        vertical-align: middle;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Header -->
+    <div class="encryption-box text-center">
+        <h1 class="mb-3">
+            <i class="fas fa-shield-alt me-2"></i>
+            Demostración de Cifrado Híbrido AES-RSA
+        </h1>
+        <p class="lead">Sistema de cifrado de clave pública implementado en aplicación web Django</p>
+        <div class="mt-3">
+            <span class="algorithm-badge">RSA-2048</span>
+            <span class="algorithm-badge" style="background: #dc3545;">AES-256</span>
+            <span class="algorithm-badge" style="background: #ffc107; color: #333;">Híbrido</span>
+        </div>
+    </div>
+
+    <!-- Información de Claves RSA -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-key me-2"></i>
+                Información de Claves RSA del Servidor
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Algoritmo</h5>
+                    <p><strong>{{ public_key_info.algorithm }}</strong></p>
+                    
+                    <h5>Tamaño de Clave</h5>
+                    <p><strong>{{ public_key_info.key_size }} bits</strong> - Seguridad Alta</p>
+                    
+                    <h5>Exponente Público</h5>
+                    <p><strong>{{ public_key_info.public_exponent }}</strong> (Estándar)</p>
+                </div>
+                <div class="col-md-6">
+                    <h5>Clave Pública (PEM)</h5>
+                    <div class="encrypted-output" style="max-height: 150px;">
+                        {{ public_key_info.pem }}
+                    </div>
+                    <small class="text-muted">
+                        <i class="fas fa-info-circle me-1"></i>
+                        Esta clave pública puede compartirse de forma segura
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demostración Interactiva -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-flask me-2"></i>
+                Prueba el Cifrado Híbrido
+            </h4>
+        </div>
+        <div class="card-body">
+            <form id="encryption-demo-form">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="demo-text" class="form-label">Texto a Cifrar</label>
+                    <textarea 
+                        class="form-control" 
+                        id="demo-text" 
+                        rows="3" 
+                        placeholder="Escribe cualquier texto para cifrarlo...">{{ demo_text }}</textarea>
+                    <small class="text-muted">Puedes escribir cualquier cosa: números de teléfono, direcciones, mensajes secretos, etc.</small>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex">
+                    <button type="button" class="btn btn-primary" id="encrypt-btn">
+                        <i class="fas fa-lock me-2"></i>Cifrar Texto
+                    </button>
+                    <button type="button" class="btn btn-warning" id="decrypt-btn" disabled>
+                        <i class="fas fa-unlock me-2"></i>Descifrar Texto
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="clear-btn">
+                        <i class="fas fa-eraser me-2"></i>Limpiar
+                    </button>
+                </div>
+            </form>
+
+            <!-- Resultados del Cifrado -->
+            <div id="encryption-results" style="display: none;" class="mt-4">
+                <h5>Resultados del Cifrado</h5>
+                
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-card text-center">
+                            <h6>Texto Original</h6>
+                            <h3 id="original-length">0</h3>
+                            <small>caracteres</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card text-center">
+                            <h6>Datos Cifrados</h6>
+                            <h3 id="encrypted-length">0</h3>
+                            <small>caracteres (Base64)</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card text-center">
+                            <h6>Tiempo de Cifrado</h6>
+                            <h3 id="encryption-time">0</h3>
+                            <small>milisegundos</small>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="mt-3">Datos Cifrados con AES:</h6>
+                <div class="encrypted-output" id="encrypted-data-output"></div>
+
+                <h6 class="mt-3">Clave AES Cifrada con RSA:</h6>
+                <div class="encrypted-output" id="encrypted-key-output"></div>
+
+                <h6 class="mt-3">Vector de Inicialización (IV):</h6>
+                <div class="encrypted-output" id="iv-output"></div>
+
+                <h6 class="mt-4">Proceso de Cifrado:</h6>
+                <div id="encryption-process"></div>
+            </div>
+
+            <!-- Resultados del Descifrado -->
+            <div id="decryption-results" style="display: none;" class="mt-4">
+                <h5>Resultados del Descifrado</h5>
+                
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>
+                    <strong>Texto Descifrado:</strong>
+                    <p class="mb-0 mt-2" id="decrypted-text-output" style="font-size: 16px;"></p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="stats-card text-center">
+                            <h6>Caracteres Recuperados</h6>
+                            <h3 id="decrypted-length">0</h3>
+                            <small>caracteres</small>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="stats-card text-center">
+                            <h6>Tiempo de Descifrado</h6>
+                            <h3 id="decryption-time">0</h3>
+                            <small>milisegundos</small>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="mt-3">Proceso de Descifrado:</h6>
+                <div id="decryption-process"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Explicación Técnica -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">
+                <i class="fas fa-book me-2"></i>
+                ¿Cómo Funciona el Cifrado Híbrido?
+            </h4>
+        </div>
+        <div class="card-body">
+            <h5>Conceptos Clave:</h5>
+            
+            <div class="process-step">
+                <h6><strong>1. RSA (Rivest-Shamir-Adleman)</strong></h6>
+                <p>
+                    <strong>Tipo:</strong> Cifrado Asimétrico (Clave Pública/Privada)<br>
+                    <strong>Uso:</strong> Cifrar la clave AES<br>
+                    <strong>Ventaja:</strong> No necesitas compartir la clave privada<br>
+                    <strong>Desventaja:</strong> Lento, solo puede cifrar datos pequeños (~190 bytes)
+                </p>
+            </div>
+
+            <div class="process-step">
+                <h6><strong>2. AES (Advanced Encryption Standard)</strong></h6>
+                <p>
+                    <strong>Tipo:</strong> Cifrado Simétrico (Una sola clave)<br>
+                    <strong>Uso:</strong> Cifrar los datos reales (texto, direcciones, etc.)<br>
+                    <strong>Ventaja:</strong> Muy rápido, puede cifrar datos grandes<br>
+                    <strong>Desventaja:</strong> Debes compartir la clave de forma segura
+                </p>
+            </div>
+
+            <div class="process-step">
+                <h6><strong>3. Sistema Híbrido: Lo Mejor de Ambos Mundos</strong></h6>
+                <p>
+                    <strong>Solución:</strong> Combinar RSA + AES<br>
+                    1. Generar clave AES aleatoria<br>
+                    2. Cifrar datos con AES (rápido)<br>
+                    3. Cifrar la clave AES con RSA (seguro)<br>
+                    4. Enviar ambos juntos<br>
+                    <br>
+                    <strong>Resultado:</strong> Velocidad de AES + Seguridad de RSA
+                </p>
+            </div>
+
+            <h5 class="mt-4">Aplicación en esta App:</h5>
+            <ul>
+                <li>Números de teléfono cifrados con AES-256</li>
+                <li>Direcciones postales cifradas con AES-256</li>
+                <li>Claves AES protegidas con RSA-2048</li>
+                <li>Almacenamiento seguro en Base64</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Estado de Cifrado del Usuario -->
+    {% if encryption_status %}
+    <div class="card">
+        <div class="card-header bg-warning">
+            <h4 class="mb-0">
+                <i class="fas fa-user-shield me-2"></i>
+                Estado de Tu Información Cifrada
+            </h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Teléfono</h6>
+                    {% if encryption_status.phone_encrypted %}
+                        <span class="badge bg-success">
+                            <i class="fas fa-check me-1"></i>Cifrado
+                        </span>
+                        <small class="text-muted">({{ encryption_status.phone_size }} caracteres cifrados)</small>
+                    {% else %}
+                        <span class="badge bg-secondary">
+                            <i class="fas fa-times me-1"></i>Sin cifrar
+                        </span>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <h6>Dirección</h6>
+                    {% if encryption_status.address_encrypted %}
+                        <span class="badge bg-success">
+                            <i class="fas fa-check me-1"></i>Cifrado
+                        </span>
+                        <small class="text-muted">({{ encryption_status.address_size }} caracteres cifrados)</small>
+                    {% else %}
+                        <span class="badge bg-secondary">
+                            <i class="fas fa-times me-1"></i>Sin cifrar
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="mt-3">
+                <a href="{% url 'my_account' %}" class="btn btn-primary">
+                    <i class="fas fa-edit me-2"></i>Actualizar Información Personal
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let encryptedData = null;
+    
+    const encryptBtn = document.getElementById('encrypt-btn');
+    const decryptBtn = document.getElementById('decrypt-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const demoText = document.getElementById('demo-text');
+    
+    // Cifrar texto
+    encryptBtn.addEventListener('click', async function() {
+        const text = demoText.value.trim();
+        
+        if (!text) {
+            alert('Por favor ingresa un texto para cifrar');
+            return;
+        }
+        
+        encryptBtn.disabled = true;
+        encryptBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Cifrando...';
+        
+        try {
+            const response = await fetch('/encrypt-demo-text/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ text: text })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                encryptedData = data;
+                displayEncryptionResults(data);
+                decryptBtn.disabled = false;
+            } else {
+                alert('Error: ' + data.error);
+            }
+        } catch (error) {
+            alert('Error de red: ' + error);
+        } finally {
+            encryptBtn.disabled = false;
+            encryptBtn.innerHTML = '<i class="fas fa-lock me-2"></i>Cifrar Texto';
+        }
+    });
+    
+    // Descifrar texto
+    decryptBtn.addEventListener('click', async function() {
+        if (!encryptedData) {
+            alert('Primero debes cifrar un texto');
+            return;
+        }
+        
+        decryptBtn.disabled = true;
+        decryptBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Descifrando...';
+        
+        try {
+            const response = await fetch('/decrypt-demo-text/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    encrypted_data: encryptedData.encrypted_data,
+                    encrypted_key: encryptedData.encrypted_key,
+                    iv: encryptedData.iv
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (data.success) {
+                displayDecryptionResults(data);
+            } else {
+                alert('Error: ' + data.error);
+            }
+        } catch (error) {
+            alert('Error de red: ' + error);
+        } finally {
+            decryptBtn.disabled = false;
+            decryptBtn.innerHTML = '<i class="fas fa-unlock me-2"></i>Descifrar Texto';
+        }
+    });
+    
+    // Limpiar
+    clearBtn.addEventListener('click', function() {
+        demoText.value = '{{ demo_text }}';
+        document.getElementById('encryption-results').style.display = 'none';
+        document.getElementById('decryption-results').style.display = 'none';
+        decryptBtn.disabled = true;
+        encryptedData = null;
+    });
+    
+    function displayEncryptionResults(data) {
+        document.getElementById('encryption-results').style.display = 'block';
+        document.getElementById('decryption-results').style.display = 'none';
+        
+        document.getElementById('original-length').textContent = data.original_length;
+        document.getElementById('encrypted-length').textContent = data.encrypted_data_length;
+        document.getElementById('encryption-time').textContent = data.encryption_time_ms;
+        
+        document.getElementById('encrypted-data-output').textContent = data.encrypted_data;
+        document.getElementById('encrypted-key-output').textContent = data.encrypted_key;
+        document.getElementById('iv-output').textContent = data.iv;
+        
+        let processHTML = '';
+        data.process_explanation.forEach(step => {
+            processHTML += `<div class="process-step"><small>${step}</small></div>`;
+        });
+        document.getElementById('encryption-process').innerHTML = processHTML;
+        
+        // Scroll suave al resultado
+        document.getElementById('encryption-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    
+    function displayDecryptionResults(data) {
+        document.getElementById('decryption-results').style.display = 'block';
+        
+        document.getElementById('decrypted-text-output').textContent = data.decrypted_text;
+        document.getElementById('decrypted-length').textContent = data.decrypted_length;
+        document.getElementById('decryption-time').textContent = data.decryption_time_ms;
+        
+        let processHTML = '';
+        data.process_explanation.forEach(step => {
+            processHTML += `<div class="process-step"><small>${step}</small></div>`;
+        });
+        document.getElementById('decryption-process').innerHTML = processHTML;
+        
+        // Scroll suave al resultado
+        document.getElementById('decryption-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+});
+</script>
+{% endblock %}

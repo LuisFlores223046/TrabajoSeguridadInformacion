@@ -27,6 +27,7 @@ def product_image_path(instance, filename):
     clean_filename = re.sub(r'[^\w\-_\.]', '', filename)
     return f'products/{clean_filename}'
 
+
 class Category(models.Model):
     """Modelo para categorías de productos de café"""
     name = models.CharField(max_length=200, unique=True)
@@ -111,23 +112,62 @@ class Product(models.Model):
             self.is_available = False
 
 class Customer(models.Model):
-    """Extensión del modelo User con información adicional"""
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=15, blank=True, null=True)
-    address = models.TextField(blank=True, null=True, max_length=500)
+    
+    # Campos cifrados
+    encrypted_phone = models.TextField(blank=True, null=True)
+    phone_key = models.TextField(blank=True, null=True)
+    phone_iv = models.TextField(blank=True, null=True)
+    
+    encrypted_address = models.TextField(blank=True, null=True)
+    address_key = models.TextField(blank=True, null=True)
+    address_iv = models.TextField(blank=True, null=True)
+    
+    # Propiedad phone
+    @property
+    def phone(self):
+        if self.encrypted_phone:
+            from .encryption import decrypt_sensitive_data
+            return decrypt_sensitive_data({
+                'encrypted_data': self.encrypted_phone,
+                'encrypted_key': self.phone_key,
+                'iv': self.phone_iv
+            })
+        return ""
+    
+    @phone.setter
+    def phone(self, value):
+        if value:
+            from .encryption import encrypt_sensitive_data
+            encrypted = encrypt_sensitive_data(value)
+            self.encrypted_phone = encrypted['encrypted_data']
+            self.phone_key = encrypted['encrypted_key']
+            self.phone_iv = encrypted['iv']
+
+    # Propiedad address
+    @property
+    def address(self):
+        if self.encrypted_address:
+            from .encryption import decrypt_sensitive_data
+            return decrypt_sensitive_data({
+                'encrypted_data': self.encrypted_address,
+                'encrypted_key': self.address_key,
+                'iv': self.address_iv
+            })
+        return ""
+    
+    @address.setter
+    def address(self, value):
+        if value:
+            from .encryption import encrypt_sensitive_data
+            encrypted = encrypt_sensitive_data(value)
+            self.encrypted_address = encrypted['encrypted_data']
+            self.address_key = encrypted['encrypted_key']
+            self.address_iv = encrypted['iv']
     
     def __str__(self):
         return self.user.username
-    
-    def clean(self):
-        """Validación personalizada del modelo Customer"""
-        super().clean()
-        
-        # Validar formato de teléfono si se proporciona
-        if self.phone:
-            import re
-            if not re.match(r'^[\+]?[0-9\s\-\(\)]+$', self.phone):
-                raise ValidationError({'phone': 'Invalid phone number format.'})
+
 
 # Signals para manejo automático de Customer
 @receiver(post_save, sender=User)
