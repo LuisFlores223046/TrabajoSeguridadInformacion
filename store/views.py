@@ -908,41 +908,85 @@ def delete_order_item(request, pk):
 # VISTAS DE CUENTA DE USUARIO
 # =============================================================================
 
+# REEMPLAZO DE LA FUNCIÓN my_account EN views.py
+
 @login_required
-@user_rate_limit('5/m', method='POST')  # Máximo 5 actualizaciones de perfil por minuto
+@user_rate_limit('5/m', method='POST')
 def my_account(request):
-    """Gestiona perfil del usuario con formulario mejorado y validaciones estrictas."""
-    customer = request.user.customer
+    """Gestiona perfil del usuario con manejo robusto de errores."""
+    try:
+        # ✅ Verificar que el customer existe
+        customer = request.user.customer
+    except Exception as e:
+        logger.error(f"Error obteniendo customer para {request.user.username}: {e}")
+        messages.error(request, "There was an error loading your profile. Please try logging in again.")
+        return redirect('store')
     
     if request.method == 'POST':
         form = ProfileUpdateForm(request.POST, instance=request.user)
         if form.is_valid():
-            # Guardar datos del usuario
-            user = form.save()
-            
-            # Actualizar datos del cliente con validaciones
-            customer.phone = form.cleaned_data.get('phone', '')
-            customer.address = form.cleaned_data.get('address', '')
-            customer.save()
-            
-            messages.success(request, "Your account information has been updated successfully!")
-            logger.info(f"Usuario {request.user.username} actualizó su perfil desde IP: {request.META.get('REMOTE_ADDR')}")
-            logger.info(f"Nuevos datos - Teléfono: {customer.phone}, Dirección: {customer.address[:50] if customer.address else 'No address'}...")
-            return redirect('my_account')
+            try:
+                # Guardar datos del usuario
+                user = form.save()
+                
+                # ✅ Actualizar datos del cliente de forma segura
+                phone_value = form.cleaned_data.get('phone', '').strip()
+                address_value = form.cleaned_data.get('address', '').strip()
+                
+                # Solo actualizar si hay valores
+                if phone_value:
+                    customer.phone = phone_value
+                    logger.info(f"Teléfono actualizado para {request.user.username}")
+                
+                if address_value:
+                    customer.address = address_value
+                    logger.info(f"Dirección actualizada para {request.user.username}")
+                
+                customer.save()
+                
+                messages.success(request, "✅ Your account information has been updated successfully!")
+                logger.info(f"Usuario {request.user.username} actualizó su perfil desde IP: {request.META.get('REMOTE_ADDR')}")
+                return redirect('my_account')
+                
+            except Exception as e:
+                logger.error(f"Error guardando perfil de {request.user.username}: {str(e)}")
+                messages.error(request, f"⚠️ There was an error saving your information: {str(e)}")
+                return redirect('my_account')
         else:
-            logger.warning(f"Error al actualizar perfil de usuario {request.user.username} desde IP: {request.META.get('REMOTE_ADDR')}")
+            logger.warning(f"Error al actualizar perfil de usuario {request.user.username}")
             logger.warning(f"Errores del formulario: {form.errors}")
             # Mostrar errores específicos al usuario
             for field, errors in form.errors.items():
                 for error in errors:
                     messages.error(request, f"{field.title()}: {error}")
     else:
-        # Precargar el formulario con datos existentes
-        initial_data = {
-            'phone': customer.phone,
-            'address': customer.address
-        }
-        form = ProfileUpdateForm(instance=request.user, initial=initial_data)
+        # ✅ Precargar el formulario con manejo seguro de errores
+        try:
+            # Intentar obtener valores descifrados de forma segura
+            phone_value = ""
+            address_value = ""
+            
+            try:
+                phone_value = customer.phone if customer.encrypted_phone else ""
+            except Exception as e:
+                logger.warning(f"Error descifrando teléfono para {request.user.username}: {e}")
+                phone_value = ""
+            
+            try:
+                address_value = customer.address if customer.encrypted_address else ""
+            except Exception as e:
+                logger.warning(f"Error descifrando dirección para {request.user.username}: {e}")
+                address_value = ""
+            
+            initial_data = {
+                'phone': phone_value,
+                'address': address_value
+            }
+            form = ProfileUpdateForm(instance=request.user, initial=initial_data)
+            
+        except Exception as e:
+            logger.error(f"Error creando formulario para {request.user.username}: {e}")
+            form = ProfileUpdateForm(instance=request.user)
     
     context = {
         'form': form,

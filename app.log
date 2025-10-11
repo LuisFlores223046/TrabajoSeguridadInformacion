@@ -1,0 +1,1150 @@
+INFO 2025-10-11 15:32:33,766 autoreload 29800 26240 Watching for file changes with StatReloader
+INFO 2025-10-11 15:33:47,426 autoreload 30556 2296 Watching for file changes with StatReloader
+INFO 2025-10-11 15:33:50,597 basehttp 30556 10692 "GET / HTTP/1.1" 200 35204
+INFO 2025-10-11 15:33:50,739 basehttp 30556 4996 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 200 217345
+INFO 2025-10-11 15:33:50,740 basehttp 30556 10692 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 200 888760
+INFO 2025-10-11 15:33:50,746 basehttp 30556 10692 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 200 36061
+INFO 2025-10-11 15:33:50,746 basehttp 30556 4996 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 200 343173
+INFO 2025-10-11 15:33:50,752 basehttp 30556 10692 "GET /media/products/ai.jpg HTTP/1.1" 200 204166
+INFO 2025-10-11 15:33:50,755 basehttp 30556 10692 "GET /media/products/images.jpg HTTP/1.1" 200 10193
+INFO 2025-10-11 15:33:50,764 basehttp 30556 10692 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 200 889825
+INFO 2025-10-11 15:33:50,823 basehttp 30556 18088 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 200 81532
+INFO 2025-10-11 15:33:50,825 basehttp 30556 7356 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 200 39518
+INFO 2025-10-11 15:33:50,826 basehttp 30556 26332 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 200 122655
+INFO 2025-10-11 15:33:50,836 basehttp 30556 30116 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 200 1216110
+WARNING 2025-10-11 15:33:51,797 middleware 30556 4996 ERROR Response: 404 for /favicon.ico (0.02s) - IP: 127.0.0.1
+WARNING 2025-10-11 15:33:51,811 log 30556 4996 Not Found: /favicon.ico
+WARNING 2025-10-11 15:33:51,811 basehttp 30556 4996 "GET /favicon.ico HTTP/1.1" 404 11758
+WARNING 2025-10-11 15:34:06,727 middleware 30556 10872 ERROR Response: 404 for /encryption-demo/ (0.00s) - IP: 127.0.0.1
+WARNING 2025-10-11 15:34:06,728 log 30556 10872 Not Found: /encryption-demo/
+WARNING 2025-10-11 15:34:06,728 basehttp 30556 10872 "GET /encryption-demo/ HTTP/1.1" 404 11773
+WARNING 2025-10-11 15:34:07,800 middleware 30556 10872 ERROR Response: 404 for /favicon.ico (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 15:34:07,800 log 30556 10872 Not Found: /favicon.ico
+WARNING 2025-10-11 15:34:07,801 basehttp 30556 10872 "GET /favicon.ico HTTP/1.1" 404 11758
+INFO 2025-10-11 15:35:27,941 autoreload 30556 2296 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\urls.py changed, reloading.
+INFO 2025-10-11 15:35:28,442 autoreload 2520 24372 Watching for file changes with StatReloader
+INFO 2025-10-11 15:35:52,996 autoreload 2520 24372 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\urls.py changed, reloading.
+INFO 2025-10-11 15:35:53,482 autoreload 25012 30420 Watching for file changes with StatReloader
+INFO 2025-10-11 15:35:57,680 basehttp 25012 26680 "GET / HTTP/1.1" 200 35204
+WARNING 2025-10-11 15:36:06,966 middleware 25012 24036 ERROR Response: 404 for /encryption-demo/ (0.00s) - IP: 127.0.0.1
+WARNING 2025-10-11 15:36:06,967 log 25012 24036 Not Found: /encryption-demo/
+WARNING 2025-10-11 15:36:06,967 basehttp 25012 24036 "GET /encryption-demo/ HTTP/1.1" 404 11773
+INFO 2025-10-11 15:37:45,123 autoreload 25012 30420 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\urls.py changed, reloading.
+INFO 2025-10-11 15:37:45,610 autoreload 8640 12940 Watching for file changes with StatReloader
+INFO 2025-10-11 15:37:48,112 basehttp 8640 24624 "GET / HTTP/1.1" 200 35204
+INFO 2025-10-11 15:37:56,204 basehttp 8640 11452 "GET /encryption-demo/ HTTP/1.1" 302 0
+INFO 2025-10-11 15:37:56,209 middleware 8640 11452 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:37:56,241 basehttp 8640 11452 "GET /login/?next=/encryption-demo/ HTTP/1.1" 200 12371
+INFO 2025-10-11 15:38:27,146 middleware 8640 11452 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:38:28,123 views 8640 11452 Usuario cliente1 inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 15:38:28,129 basehttp 8640 11452 "POST /login/?next=/encryption-demo/ HTTP/1.1" 302 0
+INFO 2025-10-11 15:38:28,144 basehttp 8640 11452 "GET / HTTP/1.1" 200 35725
+INFO 2025-10-11 15:38:28,282 basehttp 8640 11452 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 200 888760
+INFO 2025-10-11 15:38:28,290 basehttp 8640 11452 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 200 1216110
+INFO 2025-10-11 15:38:28,294 basehttp 8640 11452 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 200 122655
+INFO 2025-10-11 15:38:28,296 basehttp 8640 11452 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 200 39518
+INFO 2025-10-11 15:38:28,297 basehttp 8640 23980 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 200 217345
+INFO 2025-10-11 15:38:28,300 basehttp 8640 23980 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 200 36061
+INFO 2025-10-11 15:38:28,304 basehttp 8640 11452 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 200 343173
+INFO 2025-10-11 15:38:28,306 basehttp 8640 23980 "GET /media/products/ai.jpg HTTP/1.1" 200 204166
+INFO 2025-10-11 15:38:28,307 basehttp 8640 17428 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 200 81532
+INFO 2025-10-11 15:38:28,308 basehttp 8640 11452 "GET /media/products/images.jpg HTTP/1.1" 200 10193
+INFO 2025-10-11 15:38:28,312 basehttp 8640 23980 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 200 889825
+INFO 2025-10-11 15:38:42,315 encryption 8640 23980 Generando nuevo par de claves RSA (2048 bits)...
+INFO 2025-10-11 15:38:42,365 encryption 8640 23980 Par de claves RSA generado exitosamente
+INFO 2025-10-11 15:38:42,369 basehttp 8640 23980 "GET /encryption-demo/ HTTP/1.1" 200 28925
+INFO 2025-10-11 15:39:30,792 encryption 8640 23980 CIFRADO HÍBRIDO: Iniciando cifrado de 16 caracteres
+INFO 2025-10-11 15:39:30,793 encryption 8640 23980 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:39:30,794 views_encryption_demo 8640 23980 Usuario cliente1 cifró texto de 16 caracteres
+INFO 2025-10-11 15:39:30,794 basehttp 8640 23980 "POST /encrypt-demo-text/ HTTP/1.1" 200 999
+INFO 2025-10-11 15:40:47,951 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:40:47,953 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:40:47,953 views_encryption_demo 8640 23980 Usuario cliente1 descifró texto exitosamente
+INFO 2025-10-11 15:40:47,953 basehttp 8640 23980 "POST /decrypt-demo-text/ HTTP/1.1" 200 397
+INFO 2025-10-11 15:40:53,363 basehttp 8640 23980 "GET /encryption-demo/ HTTP/1.1" 200 28925
+INFO 2025-10-11 15:41:06,481 encryption 8640 23980 CIFRADO HÍBRIDO: Iniciando cifrado de 16 caracteres
+INFO 2025-10-11 15:41:06,482 encryption 8640 23980 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:41:06,482 views_encryption_demo 8640 23980 Usuario cliente1 cifró texto de 16 caracteres
+INFO 2025-10-11 15:41:06,483 basehttp 8640 23980 "POST /encrypt-demo-text/ HTTP/1.1" 200 998
+INFO 2025-10-11 15:41:24,674 encryption 8640 23980 CIFRADO HÍBRIDO: Iniciando cifrado de 344 caracteres
+INFO 2025-10-11 15:41:24,674 encryption 8640 23980 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:41:24,674 views_encryption_demo 8640 23980 Usuario cliente1 cifró texto de 344 caracteres
+INFO 2025-10-11 15:41:24,675 basehttp 8640 23980 "POST /encrypt-demo-text/ HTTP/1.1" 200 1758
+INFO 2025-10-11 15:41:45,939 basehttp 8640 23980 "GET /my-account/ HTTP/1.1" 200 23685
+INFO 2025-10-11 15:41:58,596 encryption 8640 23980 CIFRADO HÍBRIDO: Iniciando cifrado de 10 caracteres
+INFO 2025-10-11 15:41:58,597 encryption 8640 23980 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:41:58,602 views 8640 23980 Usuario cliente1 actualizó su perfil desde IP: 127.0.0.1
+INFO 2025-10-11 15:41:58,602 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:41:58,603 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:41:58,603 views 8640 23980 Nuevos datos - Teléfono: 6561236040, Dirección: No address...
+INFO 2025-10-11 15:41:58,604 basehttp 8640 23980 "POST /my-account/ HTTP/1.1" 302 0
+INFO 2025-10-11 15:41:58,618 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:41:58,619 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:41:58,622 basehttp 8640 23980 "GET /my-account/ HTTP/1.1" 200 23928
+INFO 2025-10-11 15:42:01,925 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:01,926 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:01,929 basehttp 8640 23980 "GET /my-account/ HTTP/1.1" 200 23704
+INFO 2025-10-11 15:42:03,892 basehttp 8640 23980 "GET / HTTP/1.1" 200 35725
+INFO 2025-10-11 15:42:14,000 basehttp 8640 23980 "GET /encryption-demo/ HTTP/1.1" 200 28925
+INFO 2025-10-11 15:42:47,284 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:47,285 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:47,288 basehttp 8640 23980 "GET /my-account/ HTTP/1.1" 200 23704
+INFO 2025-10-11 15:42:52,807 encryption 8640 23980 CIFRADO HÍBRIDO: Iniciando cifrado de 10 caracteres
+INFO 2025-10-11 15:42:52,808 encryption 8640 23980 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:52,808 encryption 8640 23980 CIFRADO HÍBRIDO: Iniciando cifrado de 40 caracteres
+INFO 2025-10-11 15:42:52,808 encryption 8640 23980 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:52,813 views 8640 23980 Usuario cliente1 actualizó su perfil desde IP: 127.0.0.1
+INFO 2025-10-11 15:42:52,813 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:52,814 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:52,814 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:52,815 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:52,815 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:52,816 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:52,816 views 8640 23980 Nuevos datos - Teléfono: 6561236040, Dirección: Viena residencial, Calle Mileto 1370-96....
+INFO 2025-10-11 15:42:52,817 basehttp 8640 23980 "POST /my-account/ HTTP/1.1" 302 0
+INFO 2025-10-11 15:42:52,828 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:52,829 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:52,830 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:52,830 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:52,833 basehttp 8640 23980 "GET /my-account/ HTTP/1.1" 200 23968
+INFO 2025-10-11 15:42:55,663 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:55,664 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:55,664 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:55,665 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:55,667 basehttp 8640 23980 "GET /my-account/ HTTP/1.1" 200 23744
+INFO 2025-10-11 15:42:59,289 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:59,290 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:59,290 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:42:59,291 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:42:59,293 basehttp 8640 23980 "GET /my-account/ HTTP/1.1" 200 23744
+INFO 2025-10-11 15:43:04,465 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:43:04,466 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:43:04,466 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:43:04,467 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:43:04,469 basehttp 8640 23980 "GET /my-account/ HTTP/1.1" 200 23744
+INFO 2025-10-11 15:43:05,942 basehttp 8640 23980 "GET /my-orders/ HTTP/1.1" 200 11774
+INFO 2025-10-11 15:43:08,149 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:43:08,150 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:43:08,150 encryption 8640 23980 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 15:43:08,151 encryption 8640 23980 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 15:43:08,154 basehttp 8640 23980 "GET /my-account/ HTTP/1.1" 200 23744
+INFO 2025-10-11 15:43:12,156 basehttp 8640 23980 "GET / HTTP/1.1" 200 35725
+INFO 2025-10-11 15:44:45,724 views 8640 23980 Usuario cliente1 cerró sesión
+INFO 2025-10-11 15:44:45,725 basehttp 8640 23980 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-10-11 15:44:45,730 middleware 8640 23980 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:44:45,732 basehttp 8640 23980 "GET /login/ HTTP/1.1" 200 12371
+INFO 2025-10-11 15:44:52,137 middleware 8640 23980 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:44:52,380 middleware 8640 30192 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:44:53,446 views 8640 23980 Usuario admin inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 15:44:53,452 basehttp 8640 23980 - Broken pipe from ('127.0.0.1', 61285)
+INFO 2025-10-11 15:44:53,703 views 8640 30192 Usuario admin inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 15:44:53,709 basehttp 8640 30192 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-11 15:44:53,715 middleware 8640 30192 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:44:53,729 basehttp 8640 30192 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 15:44:57,823 middleware 8640 30192 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:44:57,833 basehttp 8640 30192 "GET /admin-dashboard/users/ HTTP/1.1" 200 6575
+INFO 2025-10-11 15:44:59,644 middleware 8640 30192 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:44:59,876 basehttp 8640 30192 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 15:44:59,928 basehttp 8640 30192 "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-10-11 15:44:59,932 basehttp 8640 15500 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-10-11 15:44:59,935 basehttp 8640 30192 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-10-11 15:44:59,940 basehttp 8640 15500 "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-10-11 15:44:59,942 basehttp 8640 30192 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-10-11 15:44:59,945 middleware 8640 30192 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:44:59,965 basehttp 8640 15500 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-10-11 15:44:59,971 basehttp 8640 30192 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 15:44:59,996 basehttp 8640 30192 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-10-11 15:44:59,999 basehttp 8640 30192 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11973
+INFO 2025-10-11 15:45:00,019 basehttp 8640 30192 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-10-11 15:45:00,029 basehttp 8640 15500 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-10-11 15:45:00,043 basehttp 8640 30192 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-10-11 15:45:00,052 basehttp 8640 15500 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-10-11 15:45:00,068 basehttp 8640 30192 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-10-11 15:45:00,080 basehttp 8640 15500 "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-10-11 15:45:00,097 basehttp 8640 30192 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-10-11 15:45:00,105 basehttp 8640 15500 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-10-11 15:45:00,118 basehttp 8640 30192 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-10-11 15:45:00,123 basehttp 8640 15500 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-10-11 15:45:00,139 basehttp 8640 15500 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-10-11 15:45:00,161 basehttp 8640 15500 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-10-11 15:45:00,172 basehttp 8640 15500 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-10-11 15:45:00,190 basehttp 8640 15500 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-10-11 15:45:00,207 basehttp 8640 30192 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-10-11 15:45:01,204 basehttp 8640 30192 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-10-11 15:45:01,204 basehttp 8640 29736 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-10-11 15:45:01,204 basehttp 8640 15500 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-10-11 15:45:01,204 basehttp 8640 11452 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-10-11 15:45:19,461 middleware 8640 11452 IMPORTANT Request: GET /admin/auth/user/6/history/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:45:19,485 basehttp 8640 11452 "GET /admin/auth/user/6/history/ HTTP/1.1" 200 8879
+INFO 2025-10-11 15:45:21,739 middleware 8640 11452 IMPORTANT Request: GET /admin/auth/user/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:45:21,819 basehttp 8640 11452 "GET /admin/auth/user/ HTTP/1.1" 200 14360
+INFO 2025-10-11 15:45:21,861 basehttp 8640 11452 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-10-11 15:45:21,868 middleware 8640 15500 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:45:21,873 basehttp 8640 15500 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 15:45:21,887 basehttp 8640 11452 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-10-11 15:45:21,907 basehttp 8640 15500 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-10-11 15:45:21,911 basehttp 8640 29736 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-10-11 15:45:21,912 basehttp 8640 30192 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-10-11 15:45:21,915 basehttp 8640 11452 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-10-11 15:45:21,917 basehttp 8640 5448 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-10-11 15:45:25,693 middleware 8640 5448 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:45:25,720 basehttp 8640 5448 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 15:45:25,759 middleware 8640 5448 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:45:25,764 basehttp 8640 5448 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 15:45:59,171 autoreload 8640 12940 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 15:45:59,735 autoreload 23844 11756 Watching for file changes with StatReloader
+INFO 2025-10-11 15:46:02,446 basehttp 23844 24256 "GET / HTTP/1.1" 200 35204
+INFO 2025-10-11 15:46:02,515 basehttp 23844 24256 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,518 basehttp 23844 24256 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,552 basehttp 23844 24256 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,564 basehttp 23844 24256 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,564 basehttp 23844 20596 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,565 basehttp 23844 28980 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,567 basehttp 23844 8324 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,567 basehttp 23844 7536 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,575 basehttp 23844 7536 "GET /media/products/ai.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,581 basehttp 23844 7536 "GET /media/products/images.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:02,581 basehttp 23844 8324 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:46:04,050 middleware 23844 8324 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:46:04,058 basehttp 23844 8324 "GET /login/ HTTP/1.1" 200 12371
+INFO 2025-10-11 15:46:09,891 middleware 23844 8324 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:46:10,859 views 23844 8324 Usuario admin inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 15:46:10,866 basehttp 23844 8324 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-11 15:46:10,871 middleware 23844 8324 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:46:10,886 basehttp 23844 8324 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 15:46:14,131 middleware 23844 8324 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:46:14,141 basehttp 23844 8324 "GET /admin-dashboard/users/ HTTP/1.1" 200 6575
+INFO 2025-10-11 15:46:16,259 middleware 23844 8324 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:46:16,311 basehttp 23844 8324 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 15:46:16,379 middleware 23844 21860 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:46:16,385 basehttp 23844 21860 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 15:46:16,486 basehttp 23844 8324 "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-10-11 15:46:16,494 basehttp 23844 8324 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-10-11 15:46:16,495 basehttp 23844 8324 "GET /static/admin/js/calendar.js HTTP/1.1" 200 9141
+INFO 2025-10-11 15:46:16,506 basehttp 23844 8324 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-10-11 15:46:16,515 basehttp 23844 8324 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 200 19319
+INFO 2025-10-11 15:46:16,521 basehttp 23844 8324 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-10-11 15:46:16,525 basehttp 23844 8324 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-10-11 15:46:16,529 basehttp 23844 8324 "GET /static/admin/js/SelectBox.js HTTP/1.1" 200 4530
+INFO 2025-10-11 15:46:16,532 basehttp 23844 8324 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-10-11 15:46:16,534 basehttp 23844 7536 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-10-11 15:46:16,535 basehttp 23844 8324 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 200 15845
+INFO 2025-10-11 15:46:16,538 basehttp 23844 8324 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-10-11 15:46:16,538 basehttp 23844 7536 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-10-11 15:46:16,541 basehttp 23844 20596 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-10-11 15:46:16,545 basehttp 23844 28980 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-10-11 15:46:16,545 basehttp 23844 8324 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-10-11 15:46:16,546 basehttp 23844 24256 "GET /static/admin/css/forms.css HTTP/1.1" 200 8525
+INFO 2025-10-11 15:46:16,547 basehttp 23844 7536 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-10-11 15:46:16,548 basehttp 23844 21860 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-10-11 15:46:16,553 basehttp 23844 21860 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11973
+INFO 2025-10-11 15:46:16,553 basehttp 23844 24256 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-10-11 15:46:16,557 basehttp 23844 24256 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-10-11 15:46:16,572 basehttp 23844 24256 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-10-11 15:46:17,465 basehttp 23844 21860 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 200 3291
+INFO 2025-10-11 15:46:17,465 basehttp 23844 7536 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 200 1086
+INFO 2025-10-11 15:46:17,465 basehttp 23844 8324 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 200 677
+INFO 2025-10-11 15:46:17,465 basehttp 23844 24256 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-10-11 15:58:00,158 autoreload 23844 11756 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 15:58:00,691 autoreload 32320 32324 Watching for file changes with StatReloader
+INFO 2025-10-11 15:58:04,655 basehttp 32320 32272 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 15:58:04,734 basehttp 32320 32272 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,737 basehttp 32320 32272 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,776 basehttp 32320 32272 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,784 basehttp 32320 32292 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,784 basehttp 32320 32272 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,786 basehttp 32320 32360 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,786 basehttp 32320 32352 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,787 basehttp 32320 24944 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,790 basehttp 32320 24944 "GET /media/products/ai.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,801 basehttp 32320 32352 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:04,801 basehttp 32320 24944 "GET /media/products/images.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:08,437 middleware 32320 32352 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:58:08,451 basehttp 32320 32352 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 15:58:09,995 middleware 32320 32352 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:58:10,004 basehttp 32320 32352 "GET /admin-dashboard/users/ HTTP/1.1" 200 6575
+INFO 2025-10-11 15:58:12,682 middleware 32320 32352 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:58:12,738 basehttp 32320 32352 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 15:58:12,797 basehttp 32320 32352 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,805 middleware 32320 32292 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:58:12,808 basehttp 32320 32352 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,808 basehttp 32320 24944 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,808 basehttp 32320 32272 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,809 basehttp 32320 32360 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,810 basehttp 32320 32828 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,811 basehttp 32320 32352 "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,812 basehttp 32320 24944 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,812 basehttp 32320 32360 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,813 basehttp 32320 32272 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,816 basehttp 32320 32352 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,816 basehttp 32320 24944 "GET /static/admin/js/SelectBox.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,818 basehttp 32320 32360 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,818 basehttp 32320 32828 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,818 basehttp 32320 32272 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,819 basehttp 32320 32352 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,820 basehttp 32320 24944 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,820 basehttp 32320 32828 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,822 basehttp 32320 32292 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 15:58:12,834 basehttp 32320 32292 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,863 basehttp 32320 32292 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,863 basehttp 32320 32828 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,882 basehttp 32320 32828 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:12,886 basehttp 32320 32828 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:13,806 basehttp 32320 24944 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:13,806 basehttp 32320 32828 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:13,806 basehttp 32320 32352 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:13,806 basehttp 32320 32292 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:58:57,706 autoreload 32320 32324 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 15:58:58,225 autoreload 29892 5028 Watching for file changes with StatReloader
+INFO 2025-10-11 15:59:00,997 basehttp 29892 24504 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 15:59:04,565 middleware 29892 24504 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:04,578 basehttp 29892 24504 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 15:59:06,370 middleware 29892 24504 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:06,381 basehttp 29892 24504 "GET /admin-dashboard/users/ HTTP/1.1" 200 6575
+INFO 2025-10-11 15:59:10,322 middleware 29892 24504 IMPORTANT Request: GET /admin/auth/user/5/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:10,377 basehttp 29892 24504 "GET /admin/auth/user/5/change/ HTTP/1.1" 200 25392
+INFO 2025-10-11 15:59:10,445 middleware 29892 24504 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:10,450 basehttp 29892 24504 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 15:59:16,109 middleware 29892 33248 IMPORTANT Request: GET /admin/auth/user/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:16,132 basehttp 29892 33248 "GET /admin/auth/user/ HTTP/1.1" 200 14360
+INFO 2025-10-11 15:59:16,184 middleware 29892 31996 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:16,189 basehttp 29892 31996 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 15:59:16,236 basehttp 29892 33248 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-10-11 15:59:16,257 basehttp 29892 33248 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-10-11 15:59:16,262 basehttp 29892 33248 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-10-11 15:59:16,264 basehttp 29892 31580 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-10-11 15:59:16,264 basehttp 29892 33240 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-10-11 15:59:16,265 basehttp 29892 32228 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-10-11 15:59:16,274 basehttp 29892 31996 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-10-11 15:59:19,861 middleware 29892 31996 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:19,886 basehttp 29892 31996 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 15:59:19,931 middleware 29892 31996 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:19,936 basehttp 29892 31996 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 15:59:56,566 middleware 29892 29704 IMPORTANT Request: GET /admin/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:56,591 basehttp 29892 29704 "GET /admin/ HTTP/1.1" 200 9526
+INFO 2025-10-11 15:59:56,647 basehttp 29892 29704 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:56,656 basehttp 29892 29704 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:56,656 basehttp 29892 13248 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:56,658 basehttp 29892 13248 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:56,658 basehttp 29892 29704 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-10-11 15:59:56,661 basehttp 29892 13248 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:56,686 basehttp 29892 29704 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:56,700 basehttp 29892 29704 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:56,711 basehttp 29892 13248 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-10-11 15:59:59,786 middleware 29892 13248 IMPORTANT Request: GET /admin/auth/user/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:59,798 basehttp 29892 13248 "GET /admin/auth/user/ HTTP/1.1" 200 14360
+INFO 2025-10-11 15:59:59,841 basehttp 29892 13248 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,847 middleware 29892 13248 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 15:59:59,850 basehttp 29892 30112 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,850 basehttp 29892 29704 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,851 basehttp 29892 5064 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,853 basehttp 29892 30112 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,853 basehttp 29892 29704 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,854 basehttp 29892 5064 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,856 basehttp 29892 30112 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,856 basehttp 29892 29704 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,857 basehttp 29892 13248 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 15:59:59,880 basehttp 29892 29704 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,880 basehttp 29892 13248 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,890 basehttp 29892 13248 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,890 basehttp 29892 29704 "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,896 basehttp 29892 29704 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,898 basehttp 29892 29704 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 15:59:59,898 basehttp 29892 13248 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:03:57,384 encryption 7524 10872 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:03:57,384 encryption 7524 10872 Generando nuevo par de claves RSA (2048 bits)...
+INFO 2025-10-11 16:03:57,413 encryption 7524 10872 Par de claves RSA generado exitosamente
+INFO 2025-10-11 16:03:57,415 encryption 7524 10872 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:10:51,694 autoreload 28692 32732 Watching for file changes with StatReloader
+INFO 2025-10-11 16:10:54,482 basehttp 28692 30360 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 16:10:54,605 basehttp 28692 30360 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,612 basehttp 28692 30360 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,653 basehttp 28692 30360 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,667 basehttp 28692 30360 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,667 basehttp 28692 31180 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,668 basehttp 28692 2764 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,669 basehttp 28692 33684 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,669 basehttp 28692 31832 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,678 basehttp 28692 31832 "GET /media/products/ai.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,684 basehttp 28692 31832 "GET /media/products/images.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:10:54,686 basehttp 28692 31832 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:09,801 middleware 28692 31832 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:11:09,818 basehttp 28692 31832 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 16:11:14,430 middleware 28692 31832 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:11:14,440 basehttp 28692 31832 "GET /admin-dashboard/users/ HTTP/1.1" 200 6575
+INFO 2025-10-11 16:11:15,729 middleware 28692 31832 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:11:15,786 basehttp 28692 31832 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 16:11:15,851 basehttp 28692 31832 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,859 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:11:15,862 basehttp 28692 31832 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,862 basehttp 28692 2764 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,862 basehttp 28692 33684 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,862 basehttp 28692 31180 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,863 basehttp 28692 30964 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,866 basehttp 28692 2764 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,866 basehttp 28692 31832 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,867 basehttp 28692 33684 "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,867 basehttp 28692 31180 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,869 basehttp 28692 30964 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,871 basehttp 28692 31832 "GET /static/admin/js/SelectBox.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,871 basehttp 28692 2764 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,871 basehttp 28692 33684 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,871 basehttp 28692 31180 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,873 basehttp 28692 30964 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,873 basehttp 28692 31832 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,874 basehttp 28692 2764 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,875 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:11:15,894 basehttp 28692 30360 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,922 basehttp 28692 30360 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,926 basehttp 28692 30360 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,943 basehttp 28692 30360 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:15,944 basehttp 28692 2764 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:16,820 basehttp 28692 31832 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:16,820 basehttp 28692 2764 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:16,820 basehttp 28692 30360 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:16,821 basehttp 28692 30964 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:51,329 middleware 28692 30964 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:11:51,351 basehttp 28692 30964 "GET /admin/store/customer/ HTTP/1.1" 200 14290
+INFO 2025-10-11 16:11:51,411 basehttp 28692 30964 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:51,420 middleware 28692 30964 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:11:51,425 basehttp 28692 30964 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:11:51,447 basehttp 28692 30964 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:51,460 basehttp 28692 30964 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:11:51,460 basehttp 28692 30360 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:14:16,813 middleware 28692 30360 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:14:16,819 basehttp 28692 30360 "POST /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:14:16,824 middleware 28692 30360 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:14:16,836 basehttp 28692 30360 "GET /admin/store/customer/ HTTP/1.1" 200 14468
+INFO 2025-10-11 16:14:16,886 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:14:16,891 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:14:16,931 basehttp 28692 30360 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:14:25,687 middleware 28692 30360 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:14:25,721 encryption 28692 30360 CIFRADO HÍBRIDO: Iniciando cifrado de 13 caracteres
+INFO 2025-10-11 16:14:25,726 encryption 28692 30360 Generando nuevo par de claves RSA (2048 bits)...
+INFO 2025-10-11 16:14:25,764 encryption 28692 30360 Par de claves RSA generado exitosamente
+INFO 2025-10-11 16:14:25,765 encryption 28692 30360 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 16:14:25,765 encryption 28692 30360 CIFRADO HÍBRIDO: Iniciando cifrado de 63 caracteres
+INFO 2025-10-11 16:14:25,765 encryption 28692 30360 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 16:14:25,772 basehttp 28692 30360 "POST /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:14:25,778 middleware 28692 30360 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:14:25,792 basehttp 28692 30360 "GET /admin/store/customer/ HTTP/1.1" 200 14625
+INFO 2025-10-11 16:14:25,834 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:14:25,838 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:15:30,599 middleware 28692 30360 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:30,606 encryption 28692 30360 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 16:15:30,607 admin 28692 30360 Error verificando cliente1: Decryption failed
+INFO 2025-10-11 16:15:30,608 basehttp 28692 30360 "POST /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:15:30,614 middleware 28692 30360 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:30,626 basehttp 28692 30360 "GET /admin/store/customer/ HTTP/1.1" 200 14531
+INFO 2025-10-11 16:15:30,679 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:30,684 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:15:30,785 basehttp 28692 30360 "GET /static/admin/img/icon-alert.svg HTTP/1.1" 200 504
+INFO 2025-10-11 16:15:37,808 middleware 28692 30360 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:37,819 basehttp 28692 30360 "GET /admin/store/customer/?encryption_status=not_encrypted HTTP/1.1" 200 12487
+INFO 2025-10-11 16:15:37,869 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:37,873 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:15:39,821 middleware 28692 30360 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:39,833 basehttp 28692 30360 "GET /admin/store/customer/?encryption_status=encrypted HTTP/1.1" 200 14871
+INFO 2025-10-11 16:15:39,869 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:39,873 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:15:42,866 middleware 28692 30360 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:42,882 basehttp 28692 30360 "GET /admin/store/customer/?encryption_status=encrypted&user__is_active__exact=1 HTTP/1.1" 200 15194
+INFO 2025-10-11 16:15:42,928 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:42,931 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:15:43,682 middleware 28692 30360 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:43,694 basehttp 28692 30360 "GET /admin/store/customer/?encryption_status=encrypted&user__is_active__exact=0 HTTP/1.1" 200 12670
+INFO 2025-10-11 16:15:43,737 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:43,742 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:15:44,416 middleware 28692 30360 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:44,428 basehttp 28692 30360 "GET /admin/store/customer/?encryption_status=encrypted&user__is_active__exact=1 HTTP/1.1" 200 15194
+INFO 2025-10-11 16:15:44,467 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:44,471 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:15:49,799 middleware 28692 30360 IMPORTANT Request: GET /admin/auth/user/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:49,816 basehttp 28692 30360 "GET /admin/auth/user/ HTTP/1.1" 200 14360
+INFO 2025-10-11 16:15:49,863 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:49,867 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:15:49,886 basehttp 28692 30360 "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:15:49,902 basehttp 28692 30360 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:15:53,692 middleware 28692 30360 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:53,704 basehttp 28692 30360 "GET /admin/store/customer/ HTTP/1.1" 200 14381
+INFO 2025-10-11 16:15:53,745 middleware 28692 30360 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:15:53,749 basehttp 28692 30360 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:19:57,622 autoreload 28692 32732 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 16:19:58,199 autoreload 31980 31496 Watching for file changes with StatReloader
+INFO 2025-10-11 16:19:59,833 basehttp 31980 32316 "GET / HTTP/1.1" 200 35204
+INFO 2025-10-11 16:20:02,776 middleware 31980 32316 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:02,781 basehttp 31980 32316 "GET /login/ HTTP/1.1" 200 12371
+INFO 2025-10-11 16:20:10,271 middleware 31980 32316 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:11,237 views 31980 32316 Usuario admin inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 16:20:11,243 basehttp 31980 32316 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:20:11,250 middleware 31980 32316 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:11,264 basehttp 31980 32316 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 16:20:13,030 middleware 31980 32316 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:13,040 basehttp 31980 32316 "GET /admin-dashboard/users/ HTTP/1.1" 200 6576
+INFO 2025-10-11 16:20:14,954 middleware 31980 32316 IMPORTANT Request: GET /admin/auth/user/5/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:15,013 basehttp 31980 32316 "GET /admin/auth/user/5/change/ HTTP/1.1" 200 25392
+INFO 2025-10-11 16:20:15,070 basehttp 31980 32316 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,082 basehttp 31980 32316 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,082 basehttp 31980 12696 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,085 middleware 31980 24976 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:15,087 basehttp 31980 32664 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,087 basehttp 31980 25628 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,089 basehttp 31980 32316 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,089 basehttp 31980 8432 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,089 basehttp 31980 12696 "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,091 basehttp 31980 25628 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,092 basehttp 31980 32316 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,092 basehttp 31980 32664 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,094 basehttp 31980 25628 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,094 basehttp 31980 8432 "GET /static/admin/js/SelectBox.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,094 basehttp 31980 12696 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,096 basehttp 31980 32664 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,097 basehttp 31980 25628 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,097 basehttp 31980 32316 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,097 basehttp 31980 12696 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,099 basehttp 31980 24976 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:20:15,112 basehttp 31980 24976 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,134 basehttp 31980 24976 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,144 basehttp 31980 24976 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,152 basehttp 31980 24976 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:15,157 basehttp 31980 24976 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:16,070 basehttp 31980 25628 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:16,070 basehttp 31980 12696 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:16,071 basehttp 31980 32316 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:16,071 basehttp 31980 24976 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:17,263 middleware 31980 24976 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:17,286 basehttp 31980 24976 "GET /admin/store/customer/ HTTP/1.1" 200 14381
+INFO 2025-10-11 16:20:17,339 basehttp 31980 24976 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:17,349 middleware 31980 24976 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:17,354 basehttp 31980 24976 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:20:17,369 basehttp 31980 24976 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:17,384 basehttp 31980 24976 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:17,384 basehttp 31980 32316 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:20:21,707 middleware 31980 32316 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:21,745 encryption 31980 32316 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:20:21,746 encryption 31980 32316 Generando nuevo par de claves RSA (2048 bits)...
+INFO 2025-10-11 16:20:21,782 encryption 31980 32316 Par de claves RSA generado exitosamente
+INFO 2025-10-11 16:20:21,785 encryption 31980 32316 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:20:21,788 basehttp 31980 32316 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 16669
+INFO 2025-10-11 16:20:21,829 middleware 31980 32316 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:20:21,835 basehttp 31980 32316 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:23:33,232 autoreload 31980 31496 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 16:23:33,782 autoreload 2516 1992 Watching for file changes with StatReloader
+INFO 2025-10-11 16:23:49,228 autoreload 2516 1992 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 16:23:49,733 autoreload 12696 8432 Watching for file changes with StatReloader
+INFO 2025-10-11 16:24:16,114 autoreload 26144 32740 Watching for file changes with StatReloader
+INFO 2025-10-11 16:25:38,116 autoreload 26144 32740 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 16:25:38,652 autoreload 26208 33280 Watching for file changes with StatReloader
+INFO 2025-10-11 16:25:42,925 basehttp 26208 32756 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 16:25:43,026 basehttp 26208 32756 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,040 basehttp 26208 32756 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,070 basehttp 26208 32756 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,075 basehttp 26208 32756 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,075 basehttp 26208 32960 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,077 basehttp 26208 32052 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,077 basehttp 26208 4856 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,080 basehttp 26208 4856 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,088 basehttp 26208 4856 "GET /media/products/ai.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,098 basehttp 26208 4856 "GET /media/products/images.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:43,098 basehttp 26208 32052 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:25:46,109 encryption 26208 32052 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:25:46,109 encryption 26208 32052 Generando nuevo par de claves RSA (2048 bits)...
+INFO 2025-10-11 16:25:46,163 encryption 26208 32052 Par de claves RSA generado exitosamente
+ERROR 2025-10-11 16:25:46,228 log 26208 32052 Internal Server Error: /my-account/
+Traceback (most recent call last):
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\decorators.py", line 28, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views.py", line 942, in my_account
+    'phone': customer.phone,
+             ^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\models.py", line 131, in phone
+    return decrypt_sensitive_data({
+        'encrypted_data': self.encrypted_phone,
+        'encrypted_key': self.phone_key,
+        'iv': self.phone_iv
+    })
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 403, in decrypt_sensitive_data
+    return encryption_service.decrypt(encrypted_dict)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 346, in decrypt
+    aes_key = RSACipher.decrypt(encrypted_key, private_key)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 238, in decrypt
+    decrypted = private_key.decrypt(
+        ciphertext,
+    ...<4 lines>...
+        )
+    )
+ValueError: Decryption failed
+WARNING 2025-10-11 16:25:46,232 middleware 26208 32052 ERROR Response: 500 for /my-account/ (0.15s) - IP: 127.0.0.1
+ERROR 2025-10-11 16:25:46,233 basehttp 26208 32052 "GET /my-account/ HTTP/1.1" 500 100418
+INFO 2025-10-11 16:25:52,135 middleware 26208 32052 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:25:52,148 basehttp 26208 32052 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 16:25:54,761 middleware 26208 32052 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:25:54,770 basehttp 26208 32052 "GET /admin-dashboard/users/ HTTP/1.1" 200 6576
+INFO 2025-10-11 16:25:56,016 middleware 26208 32052 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:25:56,075 basehttp 26208 32052 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 16:25:56,142 middleware 26208 32052 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:25:56,147 basehttp 26208 32052 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:26:01,284 middleware 26208 32052 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:26:01,309 basehttp 26208 32052 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 16:26:01,367 middleware 26208 32052 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:26:01,371 basehttp 26208 32052 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:26:09,496 middleware 26208 32052 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:26:09,505 encryption 26208 32052 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:26:09,509 basehttp 26208 32052 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 15964
+INFO 2025-10-11 16:26:09,553 middleware 26208 32052 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:26:09,557 basehttp 26208 32052 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:26:41,882 middleware 26208 32052 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:26:41,894 basehttp 26208 32052 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 16:26:43,626 middleware 26208 32052 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:26:43,654 basehttp 26208 32052 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 16:26:50,258 middleware 26208 32052 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:26:50,267 basehttp 26208 32052 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 16:26:52,731 basehttp 26208 32052 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 16:26:54,342 encryption 26208 32052 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 16:26:54,360 log 26208 32052 Internal Server Error: /my-account/
+Traceback (most recent call last):
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\decorators.py", line 28, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views.py", line 942, in my_account
+    'phone': customer.phone,
+             ^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\models.py", line 131, in phone
+    return decrypt_sensitive_data({
+        'encrypted_data': self.encrypted_phone,
+        'encrypted_key': self.phone_key,
+        'iv': self.phone_iv
+    })
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 403, in decrypt_sensitive_data
+    return encryption_service.decrypt(encrypted_dict)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 346, in decrypt
+    aes_key = RSACipher.decrypt(encrypted_key, private_key)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 238, in decrypt
+    decrypted = private_key.decrypt(
+        ciphertext,
+    ...<4 lines>...
+        )
+    )
+ValueError: Decryption failed
+WARNING 2025-10-11 16:26:54,362 middleware 26208 32052 ERROR Response: 500 for /my-account/ (0.02s) - IP: 127.0.0.1
+ERROR 2025-10-11 16:26:54,363 basehttp 26208 32052 "GET /my-account/ HTTP/1.1" 500 100418
+INFO 2025-10-11 16:27:51,505 encryption 25912 30760 CIFRADO HÍBRIDO: Iniciando cifrado de 13 caracteres
+INFO 2025-10-11 16:27:51,511 encryption 25912 30760 Generando nuevo par de claves RSA (2048 bits)...
+INFO 2025-10-11 16:27:51,531 encryption 25912 30760 Par de claves RSA generado exitosamente
+INFO 2025-10-11 16:27:51,531 encryption 25912 30760 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 16:27:51,532 encryption 25912 30760 CIFRADO HÍBRIDO: Iniciando cifrado de 42 caracteres
+INFO 2025-10-11 16:27:51,532 encryption 25912 30760 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 16:27:51,540 encryption 25912 30760 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:27:51,542 encryption 25912 30760 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 16:27:54,687 encryption 25912 30760 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:27:54,688 encryption 25912 30760 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 16:28:24,727 autoreload 6216 31868 Watching for file changes with StatReloader
+INFO 2025-10-11 16:28:26,433 basehttp 6216 32216 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 16:28:28,485 encryption 6216 32216 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:28:28,485 encryption 6216 32216 Generando nuevo par de claves RSA (2048 bits)...
+INFO 2025-10-11 16:28:28,519 encryption 6216 32216 Par de claves RSA generado exitosamente
+ERROR 2025-10-11 16:28:28,541 log 6216 32216 Internal Server Error: /my-account/
+Traceback (most recent call last):
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\decorators.py", line 28, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views.py", line 942, in my_account
+    'phone': customer.phone,
+             ^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\models.py", line 131, in phone
+    return decrypt_sensitive_data({
+        'encrypted_data': self.encrypted_phone,
+        'encrypted_key': self.phone_key,
+        'iv': self.phone_iv
+    })
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 403, in decrypt_sensitive_data
+    return encryption_service.decrypt(encrypted_dict)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 346, in decrypt
+    aes_key = RSACipher.decrypt(encrypted_key, private_key)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 238, in decrypt
+    decrypted = private_key.decrypt(
+        ciphertext,
+    ...<4 lines>...
+        )
+    )
+ValueError: Decryption failed
+WARNING 2025-10-11 16:28:28,545 middleware 6216 32216 ERROR Response: 500 for /my-account/ (0.09s) - IP: 127.0.0.1
+ERROR 2025-10-11 16:28:28,546 basehttp 6216 32216 "GET /my-account/ HTTP/1.1" 500 100349
+INFO 2025-10-11 16:30:38,188 views 6216 32216 Usuario admin cerró sesión
+INFO 2025-10-11 16:30:38,189 basehttp 6216 32216 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:30:38,195 middleware 6216 32216 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:30:38,200 basehttp 6216 32216 "GET /login/ HTTP/1.1" 200 12371
+INFO 2025-10-11 16:30:46,847 middleware 6216 32216 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:30:47,716 views 6216 32216 Usuario cliente1 inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 16:30:47,722 basehttp 6216 32216 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:30:47,737 basehttp 6216 32216 "GET / HTTP/1.1" 200 35725
+INFO 2025-10-11 16:30:50,231 encryption 6216 32216 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 16:30:50,249 log 6216 32216 Internal Server Error: /my-account/
+Traceback (most recent call last):
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\decorators.py", line 28, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views.py", line 942, in my_account
+    'phone': customer.phone,
+             ^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\models.py", line 131, in phone
+    return decrypt_sensitive_data({
+        'encrypted_data': self.encrypted_phone,
+        'encrypted_key': self.phone_key,
+        'iv': self.phone_iv
+    })
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 403, in decrypt_sensitive_data
+    return encryption_service.decrypt(encrypted_dict)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 346, in decrypt
+    aes_key = RSACipher.decrypt(encrypted_key, private_key)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 238, in decrypt
+    decrypted = private_key.decrypt(
+        ciphertext,
+    ...<4 lines>...
+        )
+    )
+ValueError: Decryption failed
+WARNING 2025-10-11 16:30:50,251 middleware 6216 32216 ERROR Response: 500 for /my-account/ (0.02s) - IP: 127.0.0.1
+ERROR 2025-10-11 16:30:50,252 basehttp 6216 32216 "GET /my-account/ HTTP/1.1" 500 100423
+INFO 2025-10-11 16:32:30,848 autoreload 6216 31868 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py changed, reloading.
+INFO 2025-10-11 16:32:31,369 autoreload 31472 33748 Watching for file changes with StatReloader
+INFO 2025-10-11 16:32:45,141 basehttp 31472 31192 "GET / HTTP/1.1" 200 35725
+INFO 2025-10-11 16:32:47,176 encryption 31472 31192 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 16:32:47,195 log 31472 31192 Internal Server Error: /my-account/
+Traceback (most recent call last):
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\decorators.py", line 28, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views.py", line 942, in my_account
+    'phone': customer.phone,
+             ^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\models.py", line 131, in phone
+    return decrypt_sensitive_data({
+        'encrypted_data': self.encrypted_phone,
+        'encrypted_key': self.phone_key,
+        'iv': self.phone_iv
+    })
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 434, in decrypt_sensitive_data
+    return encryption_service.decrypt(encrypted_dict)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 370, in decrypt
+    encrypted_data = base64.b64decode(encrypted_dict['encrypted_data'])
+                     ^^^^^^
+NameError: name 'base64' is not defined. Did you forget to import 'base64'?
+WARNING 2025-10-11 16:32:47,198 middleware 31472 31192 ERROR Response: 500 for /my-account/ (0.05s) - IP: 127.0.0.1
+ERROR 2025-10-11 16:32:47,199 basehttp 31472 31192 "GET /my-account/ HTTP/1.1" 500 93842
+INFO 2025-10-11 16:33:36,580 autoreload 31472 33748 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py changed, reloading.
+INFO 2025-10-11 16:33:37,114 autoreload 32880 18508 Watching for file changes with StatReloader
+INFO 2025-10-11 16:33:39,444 basehttp 32880 28964 "GET / HTTP/1.1" 200 35725
+INFO 2025-10-11 16:33:41,099 encryption 32880 28964 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:33:41,100 encryption 32880 28964 Generando nuevo par de claves RSA (2048 bits)...
+INFO 2025-10-11 16:33:41,137 encryption 32880 28964 Claves RSA generadas y guardadas en archivos PEM.
+ERROR 2025-10-11 16:33:41,158 log 32880 28964 Internal Server Error: /my-account/
+Traceback (most recent call last):
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\decorators.py", line 28, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views.py", line 942, in my_account
+    'phone': customer.phone,
+             ^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\models.py", line 131, in phone
+    return decrypt_sensitive_data({
+        'encrypted_data': self.encrypted_phone,
+        'encrypted_key': self.phone_key,
+        'iv': self.phone_iv
+    })
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 435, in decrypt_sensitive_data
+    return encryption_service.decrypt(encrypted_dict)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 378, in decrypt
+    aes_key = RSACipher.decrypt(encrypted_key, private_key)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py", line 270, in decrypt
+    decrypted = private_key.decrypt(
+        ciphertext,
+    ...<4 lines>...
+        )
+    )
+ValueError: Decryption failed
+WARNING 2025-10-11 16:33:41,162 middleware 32880 28964 ERROR Response: 500 for /my-account/ (0.09s) - IP: 127.0.0.1
+ERROR 2025-10-11 16:33:41,162 basehttp 32880 28964 "GET /my-account/ HTTP/1.1" 500 100423
+INFO 2025-10-11 16:39:34,354 middleware 32880 34712 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:39:34,362 basehttp 32880 34712 "GET /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:39:34,367 middleware 32880 34712 IMPORTANT Request: GET /admin/login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:39:34,411 basehttp 32880 34712 "GET /admin/login/?next=/admin/store/customer/ HTTP/1.1" 200 3720
+INFO 2025-10-11 16:39:34,466 basehttp 32880 34712 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:39:34,475 basehttp 32880 34772 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:39:34,476 basehttp 32880 2900 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:39:34,476 basehttp 32880 5444 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:39:34,477 basehttp 32880 31876 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:39:34,511 basehttp 32880 31876 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:39:34,524 basehttp 32880 34712 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-10-11 16:43:04,884 basehttp 32880 34712 "GET / HTTP/1.1" 200 35725
+INFO 2025-10-11 16:43:04,942 basehttp 32880 34712 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,948 basehttp 32880 34712 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,972 basehttp 32880 34712 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,981 basehttp 32880 31876 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,981 basehttp 32880 34712 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,982 basehttp 32880 5444 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,982 basehttp 32880 2900 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,982 basehttp 32880 34772 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,994 basehttp 32880 34772 "GET /media/products/ai.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,997 basehttp 32880 34772 "GET /media/products/images.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:43:04,998 basehttp 32880 2900 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 16:46:25,601 autoreload 32880 18508 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\encryption.py changed, reloading.
+INFO 2025-10-11 16:46:26,130 autoreload 31780 30856 Watching for file changes with StatReloader
+INFO 2025-10-11 16:47:15,939 autoreload 31780 30856 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views.py changed, reloading.
+INFO 2025-10-11 16:47:16,433 autoreload 31232 25292 Watching for file changes with StatReloader
+INFO 2025-10-11 16:48:08,248 autoreload 31232 25292 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views.py changed, reloading.
+INFO 2025-10-11 16:48:08,723 autoreload 25796 12456 Watching for file changes with StatReloader
+INFO 2025-10-11 16:48:23,215 autoreload 25796 12456 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views.py changed, reloading.
+INFO 2025-10-11 16:48:23,811 autoreload 34564 31480 Watching for file changes with StatReloader
+INFO 2025-10-11 16:49:21,728 autoreload 34564 31480 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\models.py changed, reloading.
+INFO 2025-10-11 16:49:22,257 autoreload 34320 3600 Watching for file changes with StatReloader
+INFO 2025-10-11 16:50:07,689 encryption 3164 28812 Cargando claves RSA desde archivos PEM...
+INFO 2025-10-11 16:50:07,735 encryption 3164 28812 Claves RSA cargadas correctamente.
+INFO 2025-10-11 16:50:27,323 encryption 3164 28812 CIFRADO HÍBRIDO: Iniciando cifrado de 8 caracteres
+INFO 2025-10-11 16:50:27,324 encryption 3164 28812 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 16:51:02,493 encryption 3164 28812 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 16:51:02,495 encryption 3164 28812 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 16:52:10,297 autoreload 33940 34196 Watching for file changes with StatReloader
+INFO 2025-10-11 16:52:13,070 basehttp 33940 30520 "GET / HTTP/1.1" 200 35725
+WARNING 2025-10-11 16:52:16,127 views 33940 30520 Error descifrando teléfono para cliente1: 'Customer' object has no attribute 'phone'
+WARNING 2025-10-11 16:52:16,127 views 33940 30520 Error descifrando dirección para cliente1: 'Customer' object has no attribute 'address'
+INFO 2025-10-11 16:52:16,134 basehttp 33940 30520 "GET /my-account/ HTTP/1.1" 200 23686
+INFO 2025-10-11 16:52:20,036 views 33940 30520 Usuario cliente1 cerró sesión
+INFO 2025-10-11 16:52:20,037 basehttp 33940 30520 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:52:20,042 middleware 33940 30520 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:20,046 basehttp 33940 30520 "GET /login/ HTTP/1.1" 200 12371
+INFO 2025-10-11 16:52:29,994 middleware 33940 30520 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:30,881 views 33940 30520 Usuario admin inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 16:52:30,887 basehttp 33940 30520 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:52:30,894 middleware 33940 30520 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:30,910 basehttp 33940 30520 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 16:52:33,647 middleware 33940 30520 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:33,657 basehttp 33940 30520 "GET /admin-dashboard/users/ HTTP/1.1" 200 6577
+INFO 2025-10-11 16:52:34,856 middleware 33940 30520 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:34,912 basehttp 33940 30520 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 16:52:34,973 basehttp 33940 30520 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,989 basehttp 33940 26244 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,989 basehttp 33940 30520 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,990 basehttp 33940 34228 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,991 middleware 33940 33372 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:34,992 basehttp 33940 24332 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,996 basehttp 33940 30520 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,996 basehttp 33940 26244 "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,996 basehttp 33940 32984 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,997 basehttp 33940 34228 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,997 basehttp 33940 24332 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:34,999 basehttp 33940 30520 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,000 basehttp 33940 26244 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,000 basehttp 33940 32984 "GET /static/admin/js/SelectBox.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,002 basehttp 33940 34228 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,002 basehttp 33940 24332 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,004 basehttp 33940 26244 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,004 basehttp 33940 30520 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,005 basehttp 33940 32984 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,006 basehttp 33940 33372 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:52:35,028 basehttp 33940 33372 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,048 basehttp 33940 33372 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,055 basehttp 33940 33372 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,063 basehttp 33940 33372 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,065 basehttp 33940 33372 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,971 basehttp 33940 33372 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,976 basehttp 33940 32984 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,977 basehttp 33940 33372 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:35,979 basehttp 33940 33372 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:36,791 middleware 33940 33372 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:36,818 basehttp 33940 33372 "GET /admin/store/customer/ HTTP/1.1" 200 14257
+INFO 2025-10-11 16:52:36,870 basehttp 33940 33372 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:36,876 middleware 33940 33372 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:36,881 basehttp 33940 33372 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:52:36,901 basehttp 33940 33372 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:36,915 basehttp 33940 33372 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:36,916 basehttp 33940 32984 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:52:39,278 middleware 33940 32984 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:39,290 basehttp 33940 32984 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 15997
+INFO 2025-10-11 16:52:39,333 middleware 33940 32984 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:52:39,337 basehttp 33940 32984 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:56:06,149 autoreload 33940 34196 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 16:56:06,661 autoreload 6440 33408 Watching for file changes with StatReloader
+INFO 2025-10-11 16:56:10,741 middleware 6440 31620 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:56:10,800 basehttp 6440 31620 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 16008
+INFO 2025-10-11 16:56:10,865 middleware 6440 31620 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:56:10,869 basehttp 6440 31620 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:56:20,249 autoreload 6440 33408 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 16:56:20,777 autoreload 5528 30708 Watching for file changes with StatReloader
+INFO 2025-10-11 16:56:22,629 middleware 5528 12740 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:56:22,687 basehttp 5528 12740 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 16007
+INFO 2025-10-11 16:56:22,736 middleware 5528 12740 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:56:22,740 basehttp 5528 12740 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:57:25,837 autoreload 5528 30708 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 16:57:26,505 autoreload 28152 33208 Watching for file changes with StatReloader
+INFO 2025-10-11 16:57:32,344 middleware 28152 32220 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:57:32,403 basehttp 28152 32220 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 16017
+INFO 2025-10-11 16:57:32,466 middleware 28152 32220 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:57:32,470 basehttp 28152 32220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:57:40,771 middleware 28152 32220 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:57:40,796 basehttp 28152 32220 "GET /admin/store/customer/ HTTP/1.1" 200 14257
+INFO 2025-10-11 16:57:40,858 middleware 28152 32220 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:57:40,863 basehttp 28152 32220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:57:42,496 middleware 28152 32220 IMPORTANT Request: GET /admin/store/customer/5/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:57:42,505 basehttp 28152 32220 "GET /admin/store/customer/5/change/ HTTP/1.1" 200 16014
+INFO 2025-10-11 16:57:42,546 middleware 28152 32220 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:57:42,551 basehttp 28152 32220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:57:54,855 middleware 28152 32220 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:57:54,866 basehttp 28152 32220 "GET /admin/store/customer/ HTTP/1.1" 200 14257
+INFO 2025-10-11 16:57:54,907 middleware 28152 32220 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:57:54,911 basehttp 28152 32220 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:58:26,567 autoreload 28152 33208 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 16:58:27,087 autoreload 34560 34224 Watching for file changes with StatReloader
+INFO 2025-10-11 16:58:27,734 middleware 34560 3772 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:58:27,801 basehttp 34560 3772 "GET /admin/store/customer/ HTTP/1.1" 200 14238
+INFO 2025-10-11 16:58:27,867 middleware 34560 3772 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:58:27,872 basehttp 34560 3772 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:58:29,479 middleware 34560 3772 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:58:29,491 basehttp 34560 3772 "GET /admin/store/customer/ HTTP/1.1" 200 14238
+INFO 2025-10-11 16:58:29,533 middleware 34560 3772 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:58:29,537 basehttp 34560 3772 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:58:37,153 middleware 34560 3772 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+ERROR 2025-10-11 16:58:37,158 admin 34560 3772 Error: 'Customer' object has no attribute 'phone'
+INFO 2025-10-11 16:58:37,159 basehttp 34560 3772 "POST /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:58:37,165 middleware 34560 3772 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:58:37,177 basehttp 34560 3772 "GET /admin/store/customer/ HTTP/1.1" 200 14373
+INFO 2025-10-11 16:58:37,225 middleware 34560 3772 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:58:37,229 basehttp 34560 3772 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:58:37,262 basehttp 34560 3772 "GET /static/admin/img/icon-alert.svg HTTP/1.1" 304 0
+INFO 2025-10-11 16:59:00,066 middleware 34560 3772 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:59:00,070 basehttp 34560 3772 "POST /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 16:59:00,076 middleware 34560 3772 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:59:00,091 basehttp 34560 3772 "GET /admin/store/customer/ HTTP/1.1" 200 14431
+INFO 2025-10-11 16:59:00,137 middleware 34560 3772 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:59:00,141 basehttp 34560 3772 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:59:05,575 middleware 34560 3772 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:59:05,586 basehttp 34560 3772 "GET /admin/store/customer/?q= HTTP/1.1" 200 14372
+INFO 2025-10-11 16:59:05,636 middleware 34560 3772 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:59:05,640 basehttp 34560 3772 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 16:59:10,186 middleware 34560 3772 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+ERROR 2025-10-11 16:59:10,191 admin 34560 3772 Error: 'Customer' object has no attribute 'phone'
+ERROR 2025-10-11 16:59:10,191 admin 34560 3772 Error: 'Customer' object has no attribute 'phone'
+INFO 2025-10-11 16:59:10,192 basehttp 34560 3772 "POST /admin/store/customer/?q= HTTP/1.1" 302 0
+INFO 2025-10-11 16:59:10,198 middleware 34560 3772 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:59:10,211 basehttp 34560 3772 "GET /admin/store/customer/?q= HTTP/1.1" 200 14507
+INFO 2025-10-11 16:59:10,256 middleware 34560 3772 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:59:10,260 basehttp 34560 3772 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-10-11 16:59:26,149 middleware 34560 3772 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.00s) - IP: 127.0.0.1
+WARNING 2025-10-11 16:59:26,150 log 34560 3772 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 16:59:26,150 basehttp 34560 3772 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 16:59:39,729 middleware 34560 3772 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+ERROR 2025-10-11 16:59:39,734 admin 34560 3772 Error: 'Customer' object has no attribute 'phone'
+ERROR 2025-10-11 16:59:39,734 admin 34560 3772 Error: 'Customer' object has no attribute 'phone'
+INFO 2025-10-11 16:59:39,735 basehttp 34560 3772 "POST /admin/store/customer/?q= HTTP/1.1" 302 0
+INFO 2025-10-11 16:59:39,742 middleware 34560 3772 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:59:39,754 basehttp 34560 3772 "GET /admin/store/customer/?q= HTTP/1.1" 200 14507
+WARNING 2025-10-11 16:59:39,795 middleware 34560 3772 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 16:59:39,796 log 34560 3772 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 16:59:39,796 basehttp 34560 3772 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 16:59:39,802 middleware 34560 3772 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 16:59:39,807 basehttp 34560 3772 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:00:25,205 middleware 34560 3772 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+WARNING 2025-10-11 17:00:25,229 log 34560 3772 Forbidden (CSRF token from POST incorrect.): /admin/store/customer/
+WARNING 2025-10-11 17:00:25,229 middleware 34560 3772 ERROR Response: 403 for /admin/store/customer/ (0.02s) - IP: 127.0.0.1
+WARNING 2025-10-11 17:00:25,230 basehttp 34560 3772 "POST /admin/store/customer/ HTTP/1.1" 403 2503
+INFO 2025-10-11 17:05:48,794 autoreload 34560 34224 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 17:05:49,296 autoreload 6440 20584 Watching for file changes with StatReloader
+INFO 2025-10-11 17:05:51,722 basehttp 6440 34648 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 17:05:51,796 basehttp 6440 34648 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,798 basehttp 6440 34648 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,855 basehttp 6440 34648 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,863 basehttp 6440 18500 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,863 basehttp 6440 34648 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,863 basehttp 6440 32648 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,865 basehttp 6440 34240 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,865 basehttp 6440 30676 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,883 basehttp 6440 30676 "GET /media/products/ai.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,883 basehttp 6440 34240 "GET /media/products/images.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:05:51,885 basehttp 6440 34240 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:02,236 middleware 6440 34240 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:06:02,249 basehttp 6440 34240 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 17:06:03,243 middleware 6440 34240 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:06:03,257 basehttp 6440 34240 "GET /admin-dashboard/users/ HTTP/1.1" 200 6577
+INFO 2025-10-11 17:06:04,329 middleware 6440 34240 IMPORTANT Request: GET /admin/auth/user/5/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:06:04,388 basehttp 6440 34240 "GET /admin/auth/user/5/change/ HTTP/1.1" 200 25392
+INFO 2025-10-11 17:06:04,442 basehttp 6440 34240 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,456 middleware 6440 18500 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:06:04,458 basehttp 6440 32648 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,459 basehttp 6440 34240 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,459 basehttp 6440 30676 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,460 basehttp 6440 34648 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,460 basehttp 6440 11304 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,462 basehttp 6440 32648 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,462 basehttp 6440 34240 "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,465 basehttp 6440 34648 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,465 basehttp 6440 30676 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,466 basehttp 6440 11304 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,468 basehttp 6440 34648 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,468 basehttp 6440 34240 "GET /static/admin/js/SelectBox.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,469 basehttp 6440 32648 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,470 basehttp 6440 30676 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,471 basehttp 6440 11304 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,472 basehttp 6440 34648 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,473 basehttp 6440 34240 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,474 basehttp 6440 18500 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:06:04,487 basehttp 6440 18500 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,506 basehttp 6440 18500 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,508 basehttp 6440 18500 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,523 basehttp 6440 18500 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:04,526 basehttp 6440 18500 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:05,416 basehttp 6440 34240 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:05,417 basehttp 6440 18500 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:05,417 basehttp 6440 11304 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:05,417 basehttp 6440 34648 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:07,532 middleware 6440 34648 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:06:07,555 basehttp 6440 34648 "GET /admin/store/customer/ HTTP/1.1" 200 14170
+INFO 2025-10-11 17:06:07,597 basehttp 6440 34648 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:07,603 middleware 6440 34648 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:06:07,607 basehttp 6440 34648 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:06:07,619 basehttp 6440 34648 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:07,633 basehttp 6440 34648 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:06:07,633 basehttp 6440 11304 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:08:29,327 autoreload 6440 20584 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 17:08:29,823 autoreload 11220 1972 Watching for file changes with StatReloader
+INFO 2025-10-11 17:08:43,615 basehttp 11220 15500 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 17:08:45,874 middleware 11220 15500 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:08:45,887 basehttp 11220 15500 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 17:08:48,923 middleware 11220 15500 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:08:48,933 basehttp 11220 15500 "GET /admin-dashboard/users/ HTTP/1.1" 200 6577
+INFO 2025-10-11 17:08:50,217 middleware 11220 15500 IMPORTANT Request: GET /admin/auth/user/5/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:08:50,270 basehttp 11220 15500 "GET /admin/auth/user/5/change/ HTTP/1.1" 200 25392
+INFO 2025-10-11 17:08:50,343 middleware 11220 15500 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:08:50,348 basehttp 11220 15500 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:08:52,461 middleware 11220 15500 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:08:52,482 basehttp 11220 15500 "GET /admin/store/customer/ HTTP/1.1" 200 14257
+INFO 2025-10-11 17:08:52,529 middleware 11220 15500 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:08:52,533 basehttp 11220 15500 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:09:00,033 middleware 11220 15500 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+ERROR 2025-10-11 17:09:00,038 admin 11220 15500 Error descifrando teléfono de cliente1: 'Customer' object has no attribute 'phone'
+INFO 2025-10-11 17:09:00,039 basehttp 11220 15500 "POST /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 17:09:00,046 middleware 11220 15500 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:09:00,058 basehttp 11220 15500 "GET /admin/store/customer/ HTTP/1.1" 200 14486
+INFO 2025-10-11 17:09:00,103 middleware 11220 15500 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:09:00,107 basehttp 11220 15500 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:11:52,174 autoreload 11220 1972 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\models.py changed, reloading.
+INFO 2025-10-11 17:11:52,686 autoreload 33644 34632 Watching for file changes with StatReloader
+INFO 2025-10-11 17:12:02,346 basehttp 33644 24728 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 17:12:04,119 middleware 33644 24728 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:04,132 basehttp 33644 24728 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 17:12:05,277 middleware 33644 24728 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:05,287 basehttp 33644 24728 "GET /admin-dashboard/users/ HTTP/1.1" 200 6577
+INFO 2025-10-11 17:12:06,541 middleware 33644 24728 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:06,592 basehttp 33644 24728 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 17:12:06,661 middleware 33644 24728 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:06,665 basehttp 33644 24728 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:12:11,850 middleware 33644 24728 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:11,870 basehttp 33644 24728 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 17:12:11,922 middleware 33644 24728 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:11,926 basehttp 33644 24728 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:12:14,703 middleware 33644 24728 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:14,740 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 17:12:14,741 encryption 33644 24728 Cargando claves RSA desde archivos PEM...
+INFO 2025-10-11 17:12:14,785 encryption 33644 24728 Claves RSA cargadas correctamente.
+ERROR 2025-10-11 17:12:14,787 models 33644 24728 Error descifrando teléfono para cliente1: Decryption failed
+INFO 2025-10-11 17:12:14,787 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 17:12:14,788 models 33644 24728 Error descifrando dirección para cliente1: Decryption failed
+INFO 2025-10-11 17:12:14,791 basehttp 33644 24728 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 22917
+INFO 2025-10-11 17:12:14,835 middleware 33644 24728 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:14,840 basehttp 33644 24728 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:12:48,452 middleware 33644 24728 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:48,463 basehttp 33644 24728 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 17:12:48,538 middleware 33644 24728 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:48,543 basehttp 33644 24728 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:12:52,365 middleware 33644 24728 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:52,370 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 17:12:52,371 models 33644 24728 Error descifrando teléfono para cliente1: Decryption failed
+INFO 2025-10-11 17:12:52,371 admin 33644 24728 Teléfono descifrado para cliente1: 
+INFO 2025-10-11 17:12:52,371 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 17:12:52,372 models 33644 24728 Error descifrando dirección para cliente1: Decryption failed
+INFO 2025-10-11 17:12:52,372 admin 33644 24728 Dirección descifrada para cliente1
+INFO 2025-10-11 17:12:52,373 basehttp 33644 24728 "POST /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 17:12:52,379 middleware 33644 24728 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:52,391 basehttp 33644 24728 "GET /admin/store/customer/ HTTP/1.1" 200 14379
+INFO 2025-10-11 17:12:52,444 middleware 33644 24728 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:52,448 basehttp 33644 24728 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:12:52,478 basehttp 33644 24728 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:12:56,016 middleware 33644 24728 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:56,020 basehttp 33644 24728 "POST /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 17:12:56,025 middleware 33644 24728 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:56,039 basehttp 33644 24728 "GET /admin/store/customer/ HTTP/1.1" 200 14357
+INFO 2025-10-11 17:12:56,079 middleware 33644 24728 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:12:56,083 basehttp 33644 24728 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:12:56,103 basehttp 33644 24728 "GET /static/admin/img/icon-alert.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:13:01,722 middleware 33644 24728 IMPORTANT Request: POST /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:13:01,727 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 17:13:01,728 models 33644 24728 Error descifrando teléfono para cliente1: Decryption failed
+INFO 2025-10-11 17:13:01,728 admin 33644 24728 Teléfono descifrado para cliente1: 
+INFO 2025-10-11 17:13:01,728 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 17:13:01,729 models 33644 24728 Error descifrando dirección para cliente1: Decryption failed
+INFO 2025-10-11 17:13:01,729 admin 33644 24728 Dirección descifrada para cliente1
+INFO 2025-10-11 17:13:01,729 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 17:13:01,730 models 33644 24728 Error descifrando teléfono para admin: Decryption failed
+INFO 2025-10-11 17:13:01,730 admin 33644 24728 Teléfono descifrado para admin: 
+INFO 2025-10-11 17:13:01,730 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 17:13:01,731 models 33644 24728 Error descifrando dirección para admin: Decryption failed
+INFO 2025-10-11 17:13:01,731 admin 33644 24728 Dirección descifrada para admin
+INFO 2025-10-11 17:13:01,732 basehttp 33644 24728 "POST /admin/store/customer/ HTTP/1.1" 302 0
+INFO 2025-10-11 17:13:01,740 middleware 33644 24728 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:13:01,752 basehttp 33644 24728 "GET /admin/store/customer/ HTTP/1.1" 200 14379
+INFO 2025-10-11 17:13:01,791 middleware 33644 24728 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:13:01,796 basehttp 33644 24728 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:13:09,770 middleware 33644 24728 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:13:09,781 basehttp 33644 24728 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 17:13:09,822 middleware 33644 24728 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:13:09,826 basehttp 33644 24728 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:13:11,277 middleware 33644 24728 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:13:11,285 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 17:13:11,286 models 33644 24728 Error descifrando teléfono para cliente1: Decryption failed
+INFO 2025-10-11 17:13:11,286 encryption 33644 24728 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 17:13:11,287 models 33644 24728 Error descifrando dirección para cliente1: Decryption failed
+INFO 2025-10-11 17:13:11,289 basehttp 33644 24728 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 22917
+INFO 2025-10-11 17:13:11,336 middleware 33644 24728 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:13:11,340 basehttp 33644 24728 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:13:55,546 autoreload 33644 34632 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 17:13:56,088 autoreload 2908 14348 Watching for file changes with StatReloader
+INFO 2025-10-11 17:14:08,508 autoreload 2908 14348 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 17:14:08,987 autoreload 30448 26728 Watching for file changes with StatReloader
+INFO 2025-10-11 17:14:53,715 autoreload 30448 26728 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
+INFO 2025-10-11 17:14:54,190 autoreload 29728 24712 Watching for file changes with StatReloader

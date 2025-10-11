@@ -111,10 +111,13 @@ class Product(models.Model):
         if self.stock == 0:
             self.is_available = False
 
+# REEMPLAZO COMPLETO DEL MODELO CUSTOMER EN store/models.py
+# Busca "class Customer" y reemplaza TODA la clase con esto:
+
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     
-    # Campos cifrados
+    # ===== CAMPOS CIFRADOS =====
     encrypted_phone = models.TextField(blank=True, null=True)
     phone_key = models.TextField(blank=True, null=True)
     phone_iv = models.TextField(blank=True, null=True)
@@ -123,50 +126,186 @@ class Customer(models.Model):
     address_key = models.TextField(blank=True, null=True)
     address_iv = models.TextField(blank=True, null=True)
     
-    # Propiedad phone
+    # ===== PROPIEDAD PHONE (TELÉFONO) =====
+    
     @property
     def phone(self):
-        if self.encrypted_phone:
+        """Descifra y retorna el teléfono"""
+        if self.encrypted_phone and self.phone_key and self.phone_iv:
+            try:
+                from .encryption import decrypt_sensitive_data
+                return decrypt_sensitive_data({
+                    'encrypted_data': self.encrypted_phone,
+                    'encrypted_key': self.phone_key,
+                    'iv': self.phone_iv
+                })
+            except Exception as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error descifrando teléfono para {self.user.username}: {e}")
+                return ""
+        return ""
+    
+    @phone.setter
+    def phone(self, value):
+        """Cifra y guarda el teléfono"""
+        if value and value.strip():
+            try:
+                from .encryption import encrypt_sensitive_data
+                encrypted = encrypt_sensitive_data(value.strip())
+                self.encrypted_phone = encrypted['encrypted_data']
+                self.phone_key = encrypted['encrypted_key']
+                self.phone_iv = encrypted['iv']
+            except Exception as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error cifrando teléfono para {self.user.username}: {e}")
+                raise
+        else:
+            # Limpiar si está vacío
+            self.encrypted_phone = None
+            self.phone_key = None
+            self.phone_iv = None
+    
+    # ===== PROPIEDAD ADDRESS (DIRECCIÓN) =====
+    
+    @property
+    def address(self):
+        """Descifra y retorna la dirección"""
+        if self.encrypted_address and self.address_key and self.address_iv:
+            try:
+                from .encryption import decrypt_sensitive_data
+                return decrypt_sensitive_data({
+                    'encrypted_data': self.encrypted_address,
+                    'encrypted_key': self.address_key,
+                    'iv': self.address_iv
+                })
+            except Exception as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error descifrando dirección para {self.user.username}: {e}")
+                return ""
+        return ""
+    
+    @address.setter
+    def address(self, value):
+        """Cifra y guarda la dirección"""
+        if value and value.strip():
+            try:
+                from .encryption import encrypt_sensitive_data
+                encrypted = encrypt_sensitive_data(value.strip())
+                self.encrypted_address = encrypted['encrypted_data']
+                self.address_key = encrypted['encrypted_key']
+                self.address_iv = encrypted['iv']
+            except Exception as e:
+                import logging
+                logger = logging.getLogger(__name__)
+                logger.error(f"Error cifrando dirección para {self.user.username}: {e}")
+                raise
+        else:
+            # Limpiar si está vacío
+            self.encrypted_address = None
+            self.address_key = None
+            self.address_iv = None
+    
+    def __str__(self):
+        return self.user.username
+
+
+# ===== SIGNALS (mantener igual) =====
+@receiver(post_save, sender=User)
+def create_customer(sender, instance, created, **kwargs):
+    """Crea un Customer cuando se crea un User"""
+    if created:
+        Customer.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_customer(sender, instance, **kwargs):
+    """Actualiza el Customer cuando se actualiza un User"""
+    try:
+        instance.customer.save()
+    except Customer.DoesNotExist:
+        Customer.objects.create(user=instance)
+
+   # Propiedad phone mejorada
+@property
+def phone(self):
+    """Descifra y retorna el teléfono de forma segura"""
+    if self.encrypted_phone and self.phone_key and self.phone_iv:
+        try:
             from .encryption import decrypt_sensitive_data
             return decrypt_sensitive_data({
                 'encrypted_data': self.encrypted_phone,
                 'encrypted_key': self.phone_key,
                 'iv': self.phone_iv
             })
-        return ""
-    
-    @phone.setter
-    def phone(self, value):
-        if value:
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error descifrando teléfono para {self.user.username}: {e}")
+            return ""
+    return ""
+
+@phone.setter
+def phone(self, value):
+    """Cifra y guarda el teléfono de forma segura"""
+    if value and value.strip():
+        try:
             from .encryption import encrypt_sensitive_data
-            encrypted = encrypt_sensitive_data(value)
+            encrypted = encrypt_sensitive_data(value.strip())
             self.encrypted_phone = encrypted['encrypted_data']
             self.phone_key = encrypted['encrypted_key']
             self.phone_iv = encrypted['iv']
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error cifrando teléfono para {self.user.username}: {e}")
+            raise
+    else:
+        # Limpiar campos si el valor está vacío
+        self.encrypted_phone = None
+        self.phone_key = None
+        self.phone_iv = None
 
-    # Propiedad address
-    @property
-    def address(self):
-        if self.encrypted_address:
+# Propiedad address mejorada
+@property
+def address(self):
+    """Descifra y retorna la dirección de forma segura"""
+    if self.encrypted_address and self.address_key and self.address_iv:
+        try:
             from .encryption import decrypt_sensitive_data
             return decrypt_sensitive_data({
                 'encrypted_data': self.encrypted_address,
                 'encrypted_key': self.address_key,
                 'iv': self.address_iv
             })
-        return ""
-    
-    @address.setter
-    def address(self, value):
-        if value:
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error descifrando dirección para {self.user.username}: {e}")
+            return ""
+    return ""
+
+@address.setter
+def address(self, value):
+    """Cifra y guarda la dirección de forma segura"""
+    if value and value.strip():
+        try:
             from .encryption import encrypt_sensitive_data
-            encrypted = encrypt_sensitive_data(value)
+            encrypted = encrypt_sensitive_data(value.strip())
             self.encrypted_address = encrypted['encrypted_data']
             self.address_key = encrypted['encrypted_key']
             self.address_iv = encrypted['iv']
-    
-    def __str__(self):
-        return self.user.username
+        except Exception as e:
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.error(f"Error cifrando dirección para {self.user.username}: {e}")
+            raise
+    else:
+        # Limpiar campos si el valor está vacío
+        self.encrypted_address = None
+        self.address_key = None
+        self.address_iv = None
 
 
 # Signals para manejo automático de Customer

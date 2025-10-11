@@ -1,0 +1,1 @@
+WARNING 2025-10-11 17:00:25,229 log 34560 3772 Forbidden (CSRF token from POST incorrect.): /admin/store/customer/

@@ -1,25 +1,33 @@
+# store/urls.py
+
 from django.urls import path
 from . import views
+from .urls_encryption import encryption_urlpatterns  # Importar las rutas de cifrado
 
-# URLs para autenticación
+# =========================
+# URLs de autenticación
+# =========================
 auth_urlpatterns = [
-    path('login/', views.login_view, name='login'),  # Login
-    path('register/', views.register_view, name='register'),  # Registro
-    path('logout/', views.logout_view, name='logout'),  # Logout
+    path('login/', views.login_view, name='login'),
+    path('register/', views.register_view, name='register'),
+    path('logout/', views.logout_view, name='logout'),
 ]
 
+# =========================
 # URLs para clientes
+# =========================
 customer_urlpatterns = [
-    path('', views.store, name="store"),  # Página principal
-    path('cart/', views.cart, name="cart"),  # Carrito
-    path('checkout/', views.checkout, name="checkout"),  # Checkout
-    path('product/<int:pk>/', views.customer_product_detail, name="customer_product_detail"),  # Detalle de producto
-    path('category/<int:pk>/', views.customer_category_detail, name="customer_category_detail"),  # Detalle de categoría
+    path('', views.store, name="store"),
+    path('cart/', views.cart, name="cart"),
+    path('checkout/', views.checkout, name="checkout"),
+    path('product/<int:pk>/', views.customer_product_detail, name="customer_product_detail"),
+    path('category/<int:pk>/', views.customer_category_detail, name="customer_category_detail"),
 ]
 
+# =========================
 # URLs para el panel de administración
+# =========================
 admin_urlpatterns = [
-    # Dashboard
     path('admin-dashboard/', views.dashboard, name="dashboard"),
     
     # CRUD de productos
@@ -36,13 +44,14 @@ admin_urlpatterns = [
     path('admin-dashboard/categories/<int:pk>/edit/', views.category_update, name="category_update"),
     path('admin-dashboard/categories/<int:pk>/delete/', views.category_delete, name="category_delete"),
     
-    # Nuevo: Administración de usuarios
+    # Administración de usuarios
     path('admin-dashboard/users/', views.user_list, name="user_list"),
 ]
 
+# =========================
 # URLs para el panel de administración de órdenes
+# =========================
 order_urlpatterns = [
-    # CRUD de órdenes
     path('admin-dashboard/orders/', views.order_list, name="order_list"),
     path('admin-dashboard/orders/<int:pk>/', views.order_detail, name="order_detail"),
     path('admin-dashboard/orders/<int:pk>/edit/', views.order_update, name="order_update"),
@@ -54,31 +63,33 @@ order_urlpatterns = [
     path('admin-dashboard/order-items/<int:pk>/delete/', views.delete_order_item, name="delete_order_item"),
 ]
 
+# =========================
 # URLs para el carrito
+# =========================
 cart_urlpatterns = [
-    path('add-to-cart/<int:product_id>/', views.add_to_cart, name="add_to_cart"),  # Añadir producto
-    path('update-cart/<int:product_id>/<str:action>/', views.update_cart, name="update_cart"),  # Actualizar cantidad
-    path('remove-from-cart/<int:product_id>/', views.remove_from_cart, name="remove_from_cart"),  # Eliminar producto
+    path('add-to-cart/<int:product_id>/', views.add_to_cart, name="add_to_cart"),
+    path('update-cart/<int:product_id>/<str:action>/', views.update_cart, name="update_cart"),
+    path('remove-from-cart/<int:product_id>/', views.remove_from_cart, name="remove_from_cart"),
 ]
 
+# =========================
 # URLs para cuentas de cliente
+# =========================
 account_urlpatterns = [
-    path('my-account/', views.my_account, name="my_account"),  # Mi cuenta
-    path('my-orders/', views.my_orders, name="my_orders"),  # Mis pedidos
-    path('my-orders/<int:pk>/', views.order_customer_detail, name="order_customer_detail"),  # Detalle de pedido
+    path('my-account/', views.my_account, name="my_account"),
+    path('my-orders/', views.my_orders, name="my_orders"),
+    path('my-orders/<int:pk>/', views.order_customer_detail, name="order_customer_detail"),
 ]
 
-from .urls_encryption import encryption_urlpatterns
-
+# =========================
+# Combinar todas las URLs
+# =========================
 urlpatterns = (
-    auth_urlpatterns + 
-    customer_urlpatterns + 
-    admin_urlpatterns + 
-    order_urlpatterns + 
-    cart_urlpatterns + 
+    auth_urlpatterns +
+    customer_urlpatterns +
+    admin_urlpatterns +
+    order_urlpatterns +
+    cart_urlpatterns +
     account_urlpatterns +
-    encryption_urlpatterns  # ← NUEVO
+    encryption_urlpatterns  # ← Ahora sí se incluye
 )
-
-# Modificar la línea final de urlpatterns para incluir las nuevas URLs
-urlpatterns = auth_urlpatterns + customer_urlpatterns + admin_urlpatterns + order_urlpatterns + cart_urlpatterns + account_urlpatterns

@@ -1,150 +1,134 @@
 """
-Módulo de Cifrado Híbrido AES-RSA
+Módulo de Cifrado Híbrido AES-RSA - CORREGIDO
 ===================================
-
-Este módulo implementa cifrado híbrido combinando:
-- RSA (2048 bits): Para cifrado de claves simétricas
-- AES (256 bits en modo CBC): Para cifrado de datos
-
-Flujo de Cifrado:
-1. Se genera una clave AES aleatoria de 256 bits
-2. Los datos se cifran con AES usando esa clave
-3. La clave AES se cifra con la clave pública RSA
-4. Se retornan ambos: datos cifrados con AES y clave AES cifrada con RSA
-
-Flujo de Descifrado:
-1. Se descifra la clave AES usando la clave privada RSA
-2. Se usan esa clave AES para descifrar los datos
-3. Se retornan los datos originales
-
-Uso académico: Demostración de algoritmos de clave pública (RSA) y 
-cifrado simétrico (AES) en aplicaciones web.
 """
 
-from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
-from cryptography.hazmat.primitives.asymmetric import rsa, padding
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.backends import default_backend
-from django.conf import settings
 import base64
 import os
 import logging
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import serialization, hashes
+from cryptography.hazmat.backends import default_backend
+# ✅ IMPORTACIONES FALTANTES AGREGADAS
+from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 logger = logging.getLogger(__name__)
 
+# Rutas para guardar las claves
+PRIVATE_KEY_FILE = os.path.join("keys", "private_key.pem")
+PUBLIC_KEY_FILE = os.path.join("keys", "public_key.pem")
+
+# Asegurarnos de que la carpeta exista
+os.makedirs("keys", exist_ok=True)
 
 class RSAKeyManager:
     """
-    Gestiona el par de claves RSA para el servidor.
-    
-    En producción, las claves deberían:
-    - Cargarse desde variables de entorno seguras
-    - Almacenarse en un servicio de gestión de secretos (AWS KMS, Azure Key Vault)
-    - NUNCA guardarse en el código fuente o base de datos
+    Gestiona el par de claves RSA y las persiste en archivos PEM.
     """
-    
+
     _private_key = None
     _public_key = None
-    
+
     @classmethod
-    def get_private_key(cls):
-        """
-        Obtiene la clave privada RSA del servidor.
-        En este ejemplo educativo, se genera en memoria.
-        """
-        if cls._private_key is None:
+    def load_or_generate_keys(cls):
+        """Carga claves desde archivos, o genera nuevas si no existen"""
+        if os.path.exists(PRIVATE_KEY_FILE) and os.path.exists(PUBLIC_KEY_FILE):
+            logger.info("Cargando claves RSA desde archivos PEM...")
+            # Cargar clave privada
+            with open(PRIVATE_KEY_FILE, "rb") as f:
+                cls._private_key = serialization.load_pem_private_key(
+                    f.read(),
+                    password=None,
+                    backend=default_backend()
+                )
+            # Cargar clave pública
+            with open(PUBLIC_KEY_FILE, "rb") as f:
+                cls._public_key = serialization.load_pem_public_key(
+                    f.read(),
+                    backend=default_backend()
+                )
+            logger.info("Claves RSA cargadas correctamente.")
+        else:
             logger.info("Generando nuevo par de claves RSA (2048 bits)...")
             cls._private_key = rsa.generate_private_key(
-                public_exponent=65537,  # Exponente público estándar
-                key_size=2048,          # 2048 bits = seguridad alta
+                public_exponent=65537,
+                key_size=2048,
                 backend=default_backend()
             )
             cls._public_key = cls._private_key.public_key()
-            logger.info("Par de claves RSA generado exitosamente")
+
+            # Guardar claves en archivos PEM
+            with open(PRIVATE_KEY_FILE, "wb") as f:
+                f.write(cls._private_key.private_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PrivateFormat.PKCS8,
+                    encryption_algorithm=serialization.NoEncryption()
+                ))
+
+            with open(PUBLIC_KEY_FILE, "wb") as f:
+                f.write(cls._public_key.public_bytes(
+                    encoding=serialization.Encoding.PEM,
+                    format=serialization.PublicFormat.SubjectPublicKeyInfo
+                ))
+
+            logger.info("Claves RSA generadas y guardadas en archivos PEM.")
+
+    @classmethod
+    def get_private_key(cls):
+        """Obtiene la clave privada RSA"""
+        if cls._private_key is None:
+            cls.load_or_generate_keys()
         return cls._private_key
-    
+
     @classmethod
     def get_public_key(cls):
-        """Obtiene la clave pública RSA del servidor"""
+        """Obtiene la clave pública RSA"""
         if cls._public_key is None:
-            cls.get_private_key()  # Esto genera ambas claves
+            cls.load_or_generate_keys()
         return cls._public_key
-    
+
     @classmethod
     def export_public_key_pem(cls) -> str:
-        """
-        Exporta la clave pública en formato PEM (para compartir con clientes)
-        """
+        """Exporta la clave pública en formato PEM"""
         public_key = cls.get_public_key()
         pem = public_key.public_bytes(
             encoding=serialization.Encoding.PEM,
             format=serialization.PublicFormat.SubjectPublicKeyInfo
         )
-        return pem.decode('utf-8')
+        return pem.decode("utf-8")
 
 
 class AESCipher:
     """
     Implementa cifrado AES-256 en modo CBC con padding PKCS7.
-    
-    AES (Advanced Encryption Standard):
-    - Algoritmo de cifrado simétrico (misma clave para cifrar y descifrar)
-    - 256 bits = clave muy segura
-    - CBC (Cipher Block Chaining) = modo de operación seguro
-    - Requiere IV (Vector de Inicialización) aleatorio para cada cifrado
     """
     
     @staticmethod
     def generate_key() -> bytes:
-        """
-        Genera una clave AES aleatoria de 256 bits (32 bytes)
-        """
+        """Genera una clave AES aleatoria de 256 bits (32 bytes)"""
         return os.urandom(32)
     
     @staticmethod
     def generate_iv() -> bytes:
-        """
-        Genera un IV (Vector de Inicialización) aleatorio de 128 bits (16 bytes)
-        El IV debe ser único para cada operación de cifrado
-        """
+        """Genera un IV (Vector de Inicialización) aleatorio de 128 bits (16 bytes)"""
         return os.urandom(16)
     
     @staticmethod
     def pad(data: bytes) -> bytes:
-        """
-        Aplica padding PKCS7 a los datos.
-        
-        AES requiere que los datos sean múltiplos de 16 bytes.
-        PKCS7 añade bytes al final para completar el bloque.
-        
-        Ejemplo: Si faltan 3 bytes, añade: 0x03 0x03 0x03
-        """
+        """Aplica padding PKCS7 a los datos."""
         padding_length = 16 - (len(data) % 16)
         padding = bytes([padding_length] * padding_length)
         return data + padding
     
     @staticmethod
     def unpad(data: bytes) -> bytes:
-        """
-        Remueve el padding PKCS7 de los datos descifrados.
-        El último byte indica cuántos bytes de padding hay.
-        """
+        """Remueve el padding PKCS7 de los datos descifrados."""
         padding_length = data[-1]
         return data[:-padding_length]
     
     @staticmethod
     def encrypt(plaintext: str, key: bytes, iv: bytes) -> bytes:
-        """
-        Cifra texto plano usando AES-256-CBC
-        
-        Args:
-            plaintext: Texto a cifrar (string)
-            key: Clave AES de 32 bytes (256 bits)
-            iv: Vector de inicialización de 16 bytes (128 bits)
-        
-        Returns:
-            Datos cifrados (bytes)
-        """
+        """Cifra texto plano usando AES-256-CBC"""
         # Crear cifrador AES en modo CBC
         cipher = Cipher(
             algorithms.AES(key),
@@ -162,17 +146,7 @@ class AESCipher:
     
     @staticmethod
     def decrypt(ciphertext: bytes, key: bytes, iv: bytes) -> str:
-        """
-        Descifra datos usando AES-256-CBC
-        
-        Args:
-            ciphertext: Datos cifrados (bytes)
-            key: Clave AES de 32 bytes (256 bits)
-            iv: Vector de inicialización de 16 bytes (128 bits)
-        
-        Returns:
-            Texto plano (string)
-        """
+        """Descifra datos usando AES-256-CBC"""
         # Crear descifrador AES en modo CBC
         cipher = Cipher(
             algorithms.AES(key),
@@ -190,28 +164,11 @@ class AESCipher:
 
 
 class RSACipher:
-    """
-    Implementa cifrado RSA con padding OAEP.
-    
-    RSA (Rivest-Shamir-Adleman):
-    - Algoritmo de cifrado asimétrico (clave pública/privada)
-    - Clave pública: Para cifrar (puede compartirse)
-    - Clave privada: Para descifrar (debe mantenerse secreta)
-    - OAEP: Padding seguro con funciones hash
-    """
+    """Implementa cifrado RSA con padding OAEP."""
     
     @staticmethod
     def encrypt(plaintext: bytes, public_key) -> bytes:
-        """
-        Cifra datos usando RSA con la clave pública
-        
-        Args:
-            plaintext: Datos a cifrar (bytes, máximo ~190 bytes para RSA-2048)
-            public_key: Clave pública RSA
-        
-        Returns:
-            Datos cifrados (bytes, siempre 256 bytes para RSA-2048)
-        """
+        """Cifra datos usando RSA con la clave pública"""
         encrypted = public_key.encrypt(
             plaintext,
             padding.OAEP(
@@ -225,16 +182,7 @@ class RSACipher:
     
     @staticmethod
     def decrypt(ciphertext: bytes, private_key) -> bytes:
-        """
-        Descifra datos usando RSA con la clave privada
-        
-        Args:
-            ciphertext: Datos cifrados (bytes, 256 bytes para RSA-2048)
-            private_key: Clave privada RSA
-        
-        Returns:
-            Datos descifrados (bytes)
-        """
+        """Descifra datos usando RSA con la clave privada"""
         decrypted = private_key.decrypt(
             ciphertext,
             padding.OAEP(
@@ -248,44 +196,14 @@ class RSACipher:
 
 
 class HybridEncryption:
-    """
-    Implementa cifrado híbrido combinando RSA y AES.
-    
-    ¿Por qué híbrido?
-    - RSA es LENTO y tiene límite de tamaño (~190 bytes)
-    - AES es RÁPIDO y puede cifrar datos grandes
-    - Solución: Usar RSA para proteger la clave AES, y AES para los datos
-    
-    Ventajas:
-    - Seguridad de RSA (clave pública/privada)
-    - Velocidad de AES (cifrado simétrico)
-    - Sin límite de tamaño de datos
-    """
+    """Implementa cifrado híbrido combinando RSA y AES."""
     
     def __init__(self):
         """Inicializa el sistema de cifrado híbrido"""
         self.key_manager = RSAKeyManager()
     
     def encrypt(self, plaintext: str) -> dict:
-        """
-        Cifra datos usando el sistema híbrido RSA-AES
-        
-        Proceso:
-        1. Genera clave AES aleatoria (256 bits)
-        2. Genera IV aleatorio (128 bits)
-        3. Cifra datos con AES-256-CBC
-        4. Cifra la clave AES con RSA-2048
-        5. Retorna todo codificado en Base64
-        
-        Args:
-            plaintext: Texto a cifrar (puede ser de cualquier tamaño)
-        
-        Returns:
-            dict con:
-                - encrypted_data: Datos cifrados con AES (Base64)
-                - encrypted_key: Clave AES cifrada con RSA (Base64)
-                - iv: Vector de inicialización (Base64)
-        """
+        """Cifra datos usando el sistema híbrido RSA-AES"""
         logger.info(f"CIFRADO HÍBRIDO: Iniciando cifrado de {len(plaintext)} caracteres")
         
         # Paso 1: Generar clave AES y IV aleatorios
@@ -318,21 +236,7 @@ class HybridEncryption:
         return result
     
     def decrypt(self, encrypted_dict: dict) -> str:
-        """
-        Descifra datos del sistema híbrido RSA-AES
-        
-        Proceso:
-        1. Decodifica de Base64
-        2. Descifra la clave AES con RSA (clave privada)
-        3. Descifra los datos con AES
-        4. Retorna el texto plano
-        
-        Args:
-            encrypted_dict: dict con encrypted_data, encrypted_key, iv
-        
-        Returns:
-            Texto plano original (string)
-        """
+        """Descifra datos del sistema híbrido RSA-AES"""
         logger.info("DESCIFRADO HÍBRIDO: Iniciando descifrado")
         
         # Paso 1: Decodificar de Base64
@@ -354,9 +258,7 @@ class HybridEncryption:
         return plaintext
     
     def get_public_key_info(self) -> dict:
-        """
-        Retorna información sobre la clave pública (para demostración)
-        """
+        """Retorna información sobre la clave pública (para demostración)"""
         public_key = self.key_manager.get_public_key()
         pem = self.key_manager.export_public_key_pem()
         
@@ -374,30 +276,14 @@ encryption_service = HybridEncryption()
 
 
 def encrypt_sensitive_data(data: str) -> dict:
-    """
-    Función de conveniencia para cifrar datos sensibles
-    
-    Args:
-        data: Texto a cifrar
-    
-    Returns:
-        dict con datos cifrados
-    """
+    """Función de conveniencia para cifrar datos sensibles"""
     if not data:
         return None
     return encryption_service.encrypt(data)
 
 
 def decrypt_sensitive_data(encrypted_dict: dict) -> str:
-    """
-    Función de conveniencia para descifrar datos sensibles
-    
-    Args:
-        encrypted_dict: dict con datos cifrados
-    
-    Returns:
-        Texto plano
-    """
+    """Función de conveniencia para descifrar datos sensibles"""
     if not encrypted_dict:
         return ""
     return encryption_service.decrypt(encrypted_dict)
