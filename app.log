@@ -1148,3 +1148,30 @@ INFO 2025-10-11 17:14:08,508 autoreload 2908 14348 C:\Users\LuisF\Desktop\Trabaj
 INFO 2025-10-11 17:14:08,987 autoreload 30448 26728 Watching for file changes with StatReloader
 INFO 2025-10-11 17:14:53,715 autoreload 30448 26728 C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\admin.py changed, reloading.
 INFO 2025-10-11 17:14:54,190 autoreload 29728 24712 Watching for file changes with StatReloader
+INFO 2025-10-11 17:14:56,930 basehttp 29728 6196 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 17:14:59,650 middleware 29728 6196 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:14:59,663 basehttp 29728 6196 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 17:15:01,030 middleware 29728 6196 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:01,040 basehttp 29728 6196 "GET /admin-dashboard/users/ HTTP/1.1" 200 6577
+INFO 2025-10-11 17:15:03,141 middleware 29728 6196 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:03,195 basehttp 29728 6196 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 17:15:03,264 middleware 29728 6196 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:03,269 basehttp 29728 6196 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:15:05,255 middleware 29728 6196 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:05,277 basehttp 29728 6196 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 17:15:05,324 middleware 29728 6196 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:05,329 basehttp 29728 6196 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:15:08,731 middleware 29728 6196 IMPORTANT Request: GET /admin/auth/user/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:08,745 basehttp 29728 6196 "GET /admin/auth/user/ HTTP/1.1" 200 14360
+INFO 2025-10-11 17:15:08,787 middleware 29728 6196 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:08,792 basehttp 29728 6196 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:15:08,805 basehttp 29728 6196 "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:15:08,821 basehttp 29728 6196 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 17:15:15,679 middleware 29728 6196 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:15,690 basehttp 29728 6196 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 17:15:15,725 middleware 29728 6196 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:15,730 basehttp 29728 6196 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 17:15:18,305 middleware 29728 6196 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:18,317 basehttp 29728 6196 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 15195
+INFO 2025-10-11 17:15:18,356 middleware 29728 6196 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 17:15:18,361 basehttp 29728 6196 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
