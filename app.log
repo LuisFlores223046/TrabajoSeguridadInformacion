@@ -1322,3 +1322,838 @@ WARNING 2025-10-11 19:00:23,671 middleware 10756 5432 ERROR Response: 404 for /.
 WARNING 2025-10-11 19:00:23,671 log 10756 5432 Not Found: /.well-known/appspecific/com.chrome.devtools.json
 WARNING 2025-10-11 19:00:23,672 basehttp 10756 5432 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
 INFO 2025-10-11 19:02:46,521 autoreload 31932 26992 Watching for file changes with StatReloader
+INFO 2025-10-11 19:02:48,471 basehttp 31932 21952 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 19:02:51,046 middleware 31932 21952 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:02:51,060 basehttp 31932 21952 "GET /admin-dashboard/ HTTP/1.1" 200 14263
+INFO 2025-10-11 19:02:52,842 encryption 31932 21952 Cargando claves RSA desde archivos PEM...
+INFO 2025-10-11 19:02:52,885 encryption 31932 21952 Claves RSA cargadas correctamente.
+INFO 2025-10-11 19:02:52,888 basehttp 31932 21952 "GET /encryption-demo/ HTTP/1.1" 200 26525
+INFO 2025-10-11 19:02:57,391 basehttp 31932 21952 "GET /encryption-demo/ HTTP/1.1" 200 26525
+INFO 2025-10-11 19:03:27,782 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 4 caracteres
+INFO 2025-10-11 19:03:27,784 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:03:27,784 views_encryption_demo 31932 21952 Usuario admin cifró texto de 4 caracteres
+INFO 2025-10-11 19:03:27,785 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 965
+INFO 2025-10-11 19:03:36,000 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:03:36,001 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:03:36,001 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:03:36,002 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 383
+INFO 2025-10-11 19:03:41,499 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:03:41,500 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:03:41,501 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:03:41,501 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:03:46,937 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 6 caracteres
+INFO 2025-10-11 19:03:46,937 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:03:46,937 views_encryption_demo 31932 21952 Usuario admin cifró texto de 6 caracteres
+INFO 2025-10-11 19:03:46,938 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 967
+INFO 2025-10-11 19:03:51,650 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:03:51,651 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:03:51,651 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:03:51,652 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 386
+INFO 2025-10-11 19:04:14,643 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:04:14,644 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:04:14,645 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:04:14,645 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 385
+INFO 2025-10-11 19:04:50,758 basehttp 31932 21952 "GET /encryption-demo/ HTTP/1.1" 200 25218
+INFO 2025-10-11 19:04:56,972 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 4 caracteres
+INFO 2025-10-11 19:04:56,973 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:04:56,973 views_encryption_demo 31932 21952 Usuario admin cifró texto de 4 caracteres
+INFO 2025-10-11 19:04:56,973 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 964
+INFO 2025-10-11 19:05:04,040 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 344 caracteres
+INFO 2025-10-11 19:05:04,041 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:05:04,041 views_encryption_demo 31932 21952 Usuario admin cifró texto de 344 caracteres
+INFO 2025-10-11 19:05:04,041 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 1757
+INFO 2025-10-11 19:05:06,545 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:05:06,546 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:05:06,546 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:05:06,546 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 726
+INFO 2025-10-11 19:05:17,212 basehttp 31932 21952 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 19:05:56,374 middleware 31932 21952 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:05:56,387 basehttp 31932 21952 "GET /admin-dashboard/ HTTP/1.1" 200 14263
+INFO 2025-10-11 19:05:58,797 middleware 31932 21952 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:05:58,807 basehttp 31932 21952 "GET /admin-dashboard/users/ HTTP/1.1" 200 7319
+INFO 2025-10-11 19:05:59,868 middleware 31932 21952 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:05:59,917 basehttp 31932 21952 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 19:05:59,979 middleware 31932 21952 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:05:59,983 basehttp 31932 21952 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 19:06:02,372 middleware 31932 21952 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:06:02,394 basehttp 31932 21952 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 19:06:02,446 middleware 31932 21952 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:06:02,450 basehttp 31932 21952 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 19:06:05,796 middleware 31932 21952 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:06:05,807 basehttp 31932 21952 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 15213
+INFO 2025-10-11 19:06:05,848 middleware 31932 21952 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:06:05,852 basehttp 31932 21952 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 19:06:24,399 basehttp 31932 21952 "GET /encryption-demo/ HTTP/1.1" 200 25218
+INFO 2025-10-11 19:06:37,242 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 9 caracteres
+INFO 2025-10-11 19:06:37,242 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:06:37,242 views_encryption_demo 31932 21952 Usuario admin cifró texto de 9 caracteres
+INFO 2025-10-11 19:06:37,243 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 970
+INFO 2025-10-11 19:06:53,046 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:06:53,046 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:06:53,047 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:06:53,047 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 389
+INFO 2025-10-11 19:07:07,074 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 19:07:07,074 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:07:07,074 views_encryption_demo 31932 21952 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 19:07:07,075 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 19:07:17,444 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:07:17,445 models 31932 21952 Error descifrando teléfono para admin: Decryption failed
+INFO 2025-10-11 19:07:17,446 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:07:17,446 models 31932 21952 Error descifrando dirección para admin: Decryption failed
+INFO 2025-10-11 19:07:17,450 basehttp 31932 21952 "GET /my-account/ HTTP/1.1" 200 23876
+INFO 2025-10-11 19:07:19,919 middleware 31932 21952 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:07:19,929 basehttp 31932 21952 "GET /admin-dashboard/ HTTP/1.1" 200 14263
+INFO 2025-10-11 19:07:21,991 basehttp 31932 21952 "GET / HTTP/1.1" 200 35949
+INFO 2025-10-11 19:07:43,769 middleware 31932 21952 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:07:43,778 basehttp 31932 21952 "GET /admin-dashboard/ HTTP/1.1" 200 14263
+INFO 2025-10-11 19:07:44,740 middleware 31932 21952 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:07:44,744 basehttp 31932 21952 "GET /admin-dashboard/users/ HTTP/1.1" 200 7319
+INFO 2025-10-11 19:07:46,759 middleware 31932 21952 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:07:46,790 basehttp 31932 21952 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 19:07:46,857 middleware 31932 21952 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:07:46,861 basehttp 31932 21952 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 19:07:48,960 middleware 31932 21952 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:07:48,971 basehttp 31932 21952 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 19:07:49,020 middleware 31932 21952 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:07:49,025 basehttp 31932 21952 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 19:07:51,316 middleware 31932 21952 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:07:51,325 basehttp 31932 21952 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 15213
+INFO 2025-10-11 19:07:51,358 middleware 31932 21952 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:07:51,361 basehttp 31932 21952 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 19:08:06,616 basehttp 31932 21952 "GET /encryption-demo/ HTTP/1.1" 200 25218
+INFO 2025-10-11 19:08:12,462 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 4 caracteres
+INFO 2025-10-11 19:08:12,462 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:08:12,462 views_encryption_demo 31932 21952 Usuario admin cifró texto de 4 caracteres
+INFO 2025-10-11 19:08:12,463 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 964
+INFO 2025-10-11 19:08:21,882 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:08:21,883 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:08:21,883 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:08:21,884 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:08:30,874 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:08:30,875 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:08:30,875 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:08:30,876 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:08:37,170 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 24 caracteres
+INFO 2025-10-11 19:08:37,170 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:08:37,170 views_encryption_demo 31932 21952 Usuario admin cifró texto de 24 caracteres
+INFO 2025-10-11 19:08:37,171 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 1007
+INFO 2025-10-11 19:08:46,349 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:08:46,350 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:08:46,350 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:08:46,351 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 405
+INFO 2025-10-11 19:09:21,514 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 14 caracteres
+INFO 2025-10-11 19:09:21,514 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:09:21,515 views_encryption_demo 31932 21952 Usuario admin cifró texto de 14 caracteres
+INFO 2025-10-11 19:09:21,515 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 977
+INFO 2025-10-11 19:09:25,972 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:09:25,973 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:09:25,973 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:09:25,974 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 395
+INFO 2025-10-11 19:09:32,500 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:09:32,501 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:09:32,501 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:09:32,502 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 395
+INFO 2025-10-11 19:09:39,618 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:09:39,619 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:09:39,619 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:09:39,620 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 395
+INFO 2025-10-11 19:09:45,243 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:09:45,244 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:09:45,244 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:09:45,245 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 395
+INFO 2025-10-11 19:09:46,364 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:09:46,365 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:09:46,365 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:09:46,366 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 395
+INFO 2025-10-11 19:09:46,689 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:09:46,690 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:09:46,690 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:09:46,691 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 395
+INFO 2025-10-11 19:11:08,133 basehttp 31932 21952 "GET /encryption-demo/ HTTP/1.1" 200 25143
+INFO 2025-10-11 19:11:14,284 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 4 caracteres
+INFO 2025-10-11 19:11:14,285 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:11:14,285 views_encryption_demo 31932 21952 Usuario admin cifró texto de 4 caracteres
+INFO 2025-10-11 19:11:14,285 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 965
+INFO 2025-10-11 19:11:18,143 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:11:18,144 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:11:18,145 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:11:18,145 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:13:51,252 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 4 caracteres
+INFO 2025-10-11 19:13:51,252 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:13:51,253 views_encryption_demo 31932 21952 Usuario admin cifró texto de 4 caracteres
+INFO 2025-10-11 19:13:51,253 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 965
+INFO 2025-10-11 19:13:59,572 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:13:59,573 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:13:59,573 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:13:59,573 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:14:08,218 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:14:08,219 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:14:08,219 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:14:08,220 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:14:10,922 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:14:10,922 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:14:10,923 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:14:10,923 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:17:07,815 basehttp 31932 21952 "GET /encryption-demo/ HTTP/1.1" 200 29618
+INFO 2025-10-11 19:17:12,595 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 4 caracteres
+INFO 2025-10-11 19:17:12,595 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:17:12,596 views_encryption_demo 31932 21952 Usuario admin cifró texto de 4 caracteres
+INFO 2025-10-11 19:17:12,596 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 965
+INFO 2025-10-11 19:17:31,900 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:17:31,901 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:17:31,902 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:17:31,902 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:17:35,617 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:17:35,618 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:17:35,618 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:17:35,619 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:17:45,088 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:17:45,088 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:17:45,089 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:17:45,089 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:17:50,210 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:17:50,211 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:17:50,211 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:17:50,212 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 384
+INFO 2025-10-11 19:17:59,138 encryption 31932 21952 CIFRADO HÍBRIDO: Iniciando cifrado de 1 caracteres
+INFO 2025-10-11 19:17:59,138 encryption 31932 21952 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:17:59,139 views_encryption_demo 31932 21952 Usuario admin cifró texto de 1 caracteres
+INFO 2025-10-11 19:17:59,140 basehttp 31932 21952 "POST /encrypt-demo-text/ HTTP/1.1" 200 962
+INFO 2025-10-11 19:18:05,806 encryption 31932 21952 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:18:05,807 encryption 31932 21952 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:18:05,807 views_encryption_demo 31932 21952 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:18:05,808 basehttp 31932 21952 "POST /decrypt-demo-text/ HTTP/1.1" 200 381
+INFO 2025-10-11 19:43:35,091 basehttp 31932 29556 "GET / HTTP/1.1" 200 35204
+INFO 2025-10-11 19:43:35,199 basehttp 31932 29556 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,205 basehttp 31932 29556 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,229 basehttp 31932 29556 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,237 basehttp 31932 29556 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,238 basehttp 31932 15932 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,239 basehttp 31932 32860 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,239 basehttp 31932 29556 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,240 basehttp 31932 26852 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,247 basehttp 31932 26852 "GET /media/products/ai.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,251 basehttp 31932 26852 "GET /media/products/images.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:35,251 basehttp 31932 29556 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 19:43:36,961 middleware 31932 26852 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:43:36,965 basehttp 31932 26852 "GET /login/ HTTP/1.1" 200 12371
+INFO 2025-10-11 19:43:42,027 middleware 31932 26852 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:43:43,002 views 31932 26852 Usuario admin inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 19:43:43,009 basehttp 31932 26852 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-11 19:43:43,016 middleware 31932 26852 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 19:43:43,031 basehttp 31932 26852 "GET /admin-dashboard/ HTTP/1.1" 200 14263
+INFO 2025-10-11 19:43:44,358 basehttp 31932 26852 "GET /encryption-demo/ HTTP/1.1" 200 40454
+INFO 2025-10-11 19:43:56,232 encryption 31932 26852 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 19:43:56,232 encryption 31932 26852 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:43:56,233 views_encryption_demo 31932 26852 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 19:43:56,233 basehttp 31932 26852 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 19:44:20,566 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:44:20,568 encryption 31932 26852 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:44:20,568 views_encryption_demo 31932 26852 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:44:20,568 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 19:44:37,089 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:44:37,090 encryption 31932 26852 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:44:37,090 views_encryption_demo 31932 26852 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:44:37,091 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 19:44:47,144 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:44:47,145 encryption 31932 26852 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:44:47,145 views_encryption_demo 31932 26852 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:44:47,146 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 19:45:50,546 encryption 31932 26852 CIFRADO HÍBRIDO: Iniciando cifrado de 344 caracteres
+INFO 2025-10-11 19:45:50,547 encryption 31932 26852 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:45:50,547 views_encryption_demo 31932 26852 Usuario admin cifró texto de 344 caracteres
+INFO 2025-10-11 19:45:50,548 basehttp 31932 26852 "POST /encrypt-demo-text/ HTTP/1.1" 200 1757
+INFO 2025-10-11 19:46:04,625 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:46:04,627 encryption 31932 26852 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:46:04,627 views_encryption_demo 31932 26852 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:46:04,627 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 200 726
+INFO 2025-10-11 19:46:22,302 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:46:22,304 encryption 31932 26852 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:46:22,304 views_encryption_demo 31932 26852 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:46:22,305 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 200 726
+INFO 2025-10-11 19:46:35,087 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:46:35,088 encryption 31932 26852 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:46:35,088 views_encryption_demo 31932 26852 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:46:35,088 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 200 726
+INFO 2025-10-11 19:47:06,744 basehttp 31932 26852 "GET /encryption-demo/ HTTP/1.1" 200 42335
+INFO 2025-10-11 19:47:09,233 encryption 31932 26852 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 19:47:09,233 encryption 31932 26852 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:47:09,234 views_encryption_demo 31932 26852 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 19:47:09,234 basehttp 31932 26852 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 19:51:32,162 basehttp 31932 26852 "GET /encryption-demo/ HTTP/1.1" 200 49263
+INFO 2025-10-11 19:51:36,508 encryption 31932 26852 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 19:51:36,508 encryption 31932 26852 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:51:36,508 views_encryption_demo 31932 26852 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 19:51:36,509 basehttp 31932 26852 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 19:52:01,088 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:52:01,089 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Decryption failed
+WARNING 2025-10-11 19:52:01,089 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:52:01,091 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:52:01,091 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 19:52:03,775 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:52:03,776 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Decryption failed
+WARNING 2025-10-11 19:52:03,776 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:52:03,776 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:52:03,777 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 19:52:04,283 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:52:04,284 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Decryption failed
+WARNING 2025-10-11 19:52:04,285 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:52:04,285 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:52:04,285 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 19:52:04,473 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:52:04,474 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Decryption failed
+WARNING 2025-10-11 19:52:04,474 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:52:04,474 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:52:04,475 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 19:52:04,619 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:52:04,620 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Decryption failed
+WARNING 2025-10-11 19:52:04,621 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:52:04,621 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:52:04,621 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 19:52:04,786 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:52:04,787 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Decryption failed
+WARNING 2025-10-11 19:52:04,787 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:52:04,787 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:52:04,788 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 19:52:11,434 basehttp 31932 26852 "GET /encryption-demo/ HTTP/1.1" 200 49263
+INFO 2025-10-11 19:52:13,705 encryption 31932 26852 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 19:52:13,705 encryption 31932 26852 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:52:13,705 views_encryption_demo 31932 26852 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 19:52:13,706 basehttp 31932 26852 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 19:52:17,990 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:52:17,991 encryption 31932 26852 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:52:17,991 views_encryption_demo 31932 26852 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:52:17,992 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 200 425
+INFO 2025-10-11 19:52:39,941 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:52:39,942 encryption 31932 26852 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:52:39,942 views_encryption_demo 31932 26852 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:52:39,943 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 19:55:15,543 basehttp 31932 26852 "GET /encryption-demo/ HTTP/1.1" 200 57298
+INFO 2025-10-11 19:55:18,960 encryption 31932 26852 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 19:55:18,960 encryption 31932 26852 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:55:18,960 views_encryption_demo 31932 26852 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 19:55:18,961 basehttp 31932 26852 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 19:55:38,156 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:55:38,156 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 19:55:38,156 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:55:38,157 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:55:38,157 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 19:55:38,899 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:55:38,900 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 19:55:38,900 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:55:38,900 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:55:38,901 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 19:55:39,068 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:55:39,068 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 19:55:39,068 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:55:39,069 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:55:39,069 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 19:55:39,219 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:55:39,220 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 19:55:39,220 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:55:39,220 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:55:39,220 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 19:55:39,356 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:55:39,356 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 19:55:39,356 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:55:39,357 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:55:39,357 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 19:55:39,498 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:55:39,498 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 19:55:39,498 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:55:39,499 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:55:39,499 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 19:55:39,636 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:55:39,636 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 19:55:39,636 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:55:39,636 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:55:39,637 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 19:55:39,785 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:55:39,785 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 19:55:39,785 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:55:39,786 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:55:39,786 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 19:55:39,911 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 19:55:39,912 views_encryption_demo 31932 26852 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 19:55:39,912 middleware 31932 26852 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 19:55:39,912 log 31932 26852 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 19:55:39,913 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 19:55:42,180 encryption 31932 26852 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 19:55:42,182 encryption 31932 26852 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 19:55:42,182 views_encryption_demo 31932 26852 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 19:55:42,182 basehttp 31932 26852 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 20:01:23,833 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 57123
+INFO 2025-10-11 20:01:32,428 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:01:32,429 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:01:32,429 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:01:32,430 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1047
+INFO 2025-10-11 20:02:44,970 encryption 31932 20668 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:02:44,970 views_encryption_demo 31932 20668 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:02:44,971 middleware 31932 20668 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:02:44,971 log 31932 20668 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:02:44,972 basehttp 31932 20668 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:02:45,343 encryption 31932 20668 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:02:45,343 views_encryption_demo 31932 20668 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:02:45,344 middleware 31932 20668 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:02:45,344 log 31932 20668 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:02:45,344 basehttp 31932 20668 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:02:45,468 encryption 31932 20668 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:02:45,468 views_encryption_demo 31932 20668 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:02:45,468 middleware 31932 20668 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:02:45,468 log 31932 20668 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:02:45,469 basehttp 31932 20668 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:02:48,718 encryption 31932 20668 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:02:48,719 encryption 31932 20668 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:02:48,719 views_encryption_demo 31932 20668 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:02:48,720 basehttp 31932 20668 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 20:03:29,463 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 54796
+INFO 2025-10-11 20:03:47,641 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 53473
+INFO 2025-10-11 20:03:51,354 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:03:51,354 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:03:51,354 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:03:51,355 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:05:20,398 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 53345
+INFO 2025-10-11 20:05:22,204 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:05:22,205 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:05:22,205 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:05:22,205 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:05:53,329 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 53108
+INFO 2025-10-11 20:05:54,697 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:05:54,698 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:05:54,698 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:05:54,698 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:06:32,518 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 52818
+INFO 2025-10-11 20:06:33,692 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:06:33,693 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:06:33,693 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:06:33,694 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:06:51,790 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 52738
+INFO 2025-10-11 20:06:53,297 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:06:53,297 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:06:53,297 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:06:53,298 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+WARNING 2025-10-11 20:07:37,724 middleware 31932 20668 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:07:37,724 log 31932 20668 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:07:37,724 basehttp 31932 20668 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+WARNING 2025-10-11 20:08:48,579 middleware 31932 20668 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.00s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:08:48,579 log 31932 20668 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:08:48,579 basehttp 31932 20668 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:09:19,811 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 52738
+WARNING 2025-10-11 20:09:19,867 middleware 31932 20668 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:09:19,868 log 31932 20668 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:09:19,868 basehttp 31932 20668 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:09:22,850 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:09:22,850 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:09:22,850 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:09:22,851 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1047
+INFO 2025-10-11 20:09:53,236 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 52738
+INFO 2025-10-11 20:09:54,731 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:09:54,731 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:09:54,732 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:09:54,732 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:10:10,192 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 52738
+INFO 2025-10-11 20:10:11,353 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:10:11,354 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:10:11,354 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:10:11,354 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:10:25,997 basehttp 31932 20668 "GET /encryption-demo/ HTTP/1.1" 200 52738
+INFO 2025-10-11 20:10:27,099 encryption 31932 20668 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:10:27,100 encryption 31932 20668 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:10:27,100 views_encryption_demo 31932 20668 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:10:27,100 basehttp 31932 20668 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+WARNING 2025-10-11 20:10:47,510 middleware 31932 20668 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:10:47,510 log 31932 20668 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:10:47,510 basehttp 31932 20668 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:18:37,905 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 302 0
+INFO 2025-10-11 20:18:37,911 middleware 31932 25544 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:18:37,917 basehttp 31932 25544 "GET /login/?next=/encryption-demo/ HTTP/1.1" 200 12371
+WARNING 2025-10-11 20:18:37,978 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:18:37,978 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:18:37,979 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:18:45,132 middleware 31932 25544 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:18:45,134 basehttp 31932 25544 "GET /login/ HTTP/1.1" 200 12371
+WARNING 2025-10-11 20:18:45,174 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:18:45,174 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:18:45,175 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:18:59,327 middleware 31932 25544 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:19:00,214 views 31932 25544 Usuario admin inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 20:19:00,219 basehttp 31932 25544 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-11 20:19:00,227 middleware 31932 25544 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:19:00,242 basehttp 31932 25544 "GET /admin-dashboard/ HTTP/1.1" 200 14263
+WARNING 2025-10-11 20:19:00,287 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:19:00,287 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:19:00,288 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:19:02,313 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 52738
+WARNING 2025-10-11 20:19:02,353 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:19:02,353 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:19:02,353 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:19:04,567 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:19:04,568 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:19:04,568 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:19:04,569 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:20:05,767 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 52738
+WARNING 2025-10-11 20:20:05,814 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:20:05,814 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:20:05,815 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:20:07,868 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:20:07,868 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:20:07,869 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:20:07,869 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:20:32,941 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 52738
+WARNING 2025-10-11 20:20:32,983 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:20:32,984 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:20:32,984 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:20:38,535 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:20:38,536 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:20:38,536 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:20:38,536 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1047
+INFO 2025-10-11 20:20:42,594 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 52738
+WARNING 2025-10-11 20:20:42,635 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:20:42,635 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:20:42,636 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:20:44,311 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:20:44,312 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:20:44,312 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:20:44,313 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:20:55,945 encryption 31932 25544 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:20:55,945 views_encryption_demo 31932 25544 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (337) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 20:20:55,946 middleware 31932 25544 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:20:55,946 log 31932 25544 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:20:55,946 basehttp 31932 25544 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 20:20:59,860 encryption 31932 25544 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:20:59,861 encryption 31932 25544 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:20:59,861 views_encryption_demo 31932 25544 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:20:59,862 basehttp 31932 25544 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 20:21:51,167 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 51515
+WARNING 2025-10-11 20:21:51,224 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:21:51,224 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:21:51,225 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:21:52,986 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:21:52,987 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:21:52,987 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:21:52,988 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:21:58,240 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 51515
+WARNING 2025-10-11 20:21:58,282 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:21:58,282 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:21:58,283 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:21:59,547 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:21:59,548 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:21:59,548 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:21:59,549 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:22:49,270 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 51516
+WARNING 2025-10-11 20:22:49,326 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:22:49,326 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:22:49,327 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:22:51,581 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:22:51,582 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:22:51,582 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:22:51,582 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:23:06,675 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 51306
+WARNING 2025-10-11 20:23:06,712 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:23:06,712 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:23:06,713 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:23:08,445 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:23:08,446 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:23:08,446 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:23:08,446 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:23:24,168 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 52738
+WARNING 2025-10-11 20:23:24,206 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.00s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:23:24,207 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:23:24,207 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:23:25,623 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:23:25,623 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:23:25,624 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:23:25,624 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:23:52,403 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 52314
+WARNING 2025-10-11 20:23:52,446 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:23:52,447 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:23:52,447 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:23:55,802 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:23:55,803 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:23:55,803 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:23:55,803 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:24:05,668 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 52738
+INFO 2025-10-11 20:24:07,181 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:24:07,181 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:24:07,182 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:24:07,182 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:24:37,481 encryption 31932 25544 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:24:37,481 views_encryption_demo 31932 25544 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:24:37,482 middleware 31932 25544 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:24:37,482 log 31932 25544 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:24:37,482 basehttp 31932 25544 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:24:37,914 encryption 31932 25544 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:24:37,915 views_encryption_demo 31932 25544 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:24:37,915 middleware 31932 25544 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:24:37,915 log 31932 25544 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:24:37,916 basehttp 31932 25544 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:24:38,074 encryption 31932 25544 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:24:38,075 views_encryption_demo 31932 25544 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:24:38,075 middleware 31932 25544 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:24:38,075 log 31932 25544 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:24:38,076 basehttp 31932 25544 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:24:40,670 encryption 31932 25544 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:24:40,671 encryption 31932 25544 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:24:40,671 views_encryption_demo 31932 25544 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:24:40,672 basehttp 31932 25544 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+WARNING 2025-10-11 20:24:45,633 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.00s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:24:45,634 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:24:45,634 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:25:26,545 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 52528
+WARNING 2025-10-11 20:25:26,595 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:25:26,596 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:25:26,597 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:25:28,513 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:25:28,514 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:25:28,514 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:25:28,516 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:25:40,337 basehttp 31932 25544 "GET /encryption-demo/ HTTP/1.1" 200 52738
+WARNING 2025-10-11 20:25:40,374 middleware 31932 25544 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.00s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:25:40,374 log 31932 25544 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:25:40,375 basehttp 31932 25544 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:25:41,741 encryption 31932 25544 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:25:41,741 encryption 31932 25544 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:25:41,741 views_encryption_demo 31932 25544 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:25:41,742 basehttp 31932 25544 "POST /encrypt-demo-text/ HTTP/1.1" 200 1047
+INFO 2025-10-11 20:32:17,049 basehttp 31932 24740 "GET /encryption-demo/ HTTP/1.1" 200 52738
+WARNING 2025-10-11 20:32:17,094 middleware 31932 24740 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:32:17,094 log 31932 24740 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:32:17,095 basehttp 31932 24740 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:33:13,043 encryption 31932 24740 CIFRADO HÍBRIDO: Iniciando cifrado de 15 caracteres
+INFO 2025-10-11 20:33:13,043 encryption 31932 24740 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:33:13,043 views_encryption_demo 31932 24740 Usuario admin cifró texto de 15 caracteres
+INFO 2025-10-11 20:33:13,044 basehttp 31932 24740 "POST /encrypt-demo-text/ HTTP/1.1" 200 978
+INFO 2025-10-11 20:33:31,053 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:33:31,054 encryption 31932 24740 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:33:31,054 views_encryption_demo 31932 24740 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:33:31,055 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 200 396
+INFO 2025-10-11 20:33:43,228 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:33:43,228 views_encryption_demo 31932 24740 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:33:43,228 middleware 31932 24740 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:33:43,228 log 31932 24740 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:33:43,229 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:33:45,272 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:33:45,273 views_encryption_demo 31932 24740 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:33:45,273 middleware 31932 24740 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:33:45,273 log 31932 24740 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:33:45,274 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:33:45,705 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:33:45,706 views_encryption_demo 31932 24740 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:33:45,706 middleware 31932 24740 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:33:45,706 log 31932 24740 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:33:45,706 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:33:46,062 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:33:46,063 views_encryption_demo 31932 24740 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:33:46,063 middleware 31932 24740 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:33:46,063 log 31932 24740 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:33:46,064 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:33:48,010 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:33:48,011 views_encryption_demo 31932 24740 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:33:48,011 middleware 31932 24740 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:33:48,011 log 31932 24740 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:33:48,012 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:33:51,046 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:33:51,047 encryption 31932 24740 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:33:51,047 views_encryption_demo 31932 24740 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:33:51,048 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 200 396
+INFO 2025-10-11 20:34:10,135 encryption 31932 24740 CIFRADO HÍBRIDO: Iniciando cifrado de 38 caracteres
+INFO 2025-10-11 20:34:10,135 encryption 31932 24740 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:34:10,135 views_encryption_demo 31932 24740 Usuario admin cifró texto de 38 caracteres
+INFO 2025-10-11 20:34:10,136 basehttp 31932 24740 "POST /encrypt-demo-text/ HTTP/1.1" 200 1046
+INFO 2025-10-11 20:34:14,946 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:34:14,947 encryption 31932 24740 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:34:14,947 views_encryption_demo 31932 24740 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:34:14,948 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 200 424
+INFO 2025-10-11 20:34:33,781 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:34:33,781 views_encryption_demo 31932 24740 Error en decrypt_demo_text: Invalid base64-encoded string: number of data characters (341) cannot be 1 more than a multiple of 4
+WARNING 2025-10-11 20:34:33,782 middleware 31932 24740 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:34:33,782 log 31932 24740 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:34:33,782 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 500 132
+INFO 2025-10-11 20:34:38,521 encryption 31932 24740 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:34:38,522 encryption 31932 24740 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:34:38,522 views_encryption_demo 31932 24740 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:34:38,523 basehttp 31932 24740 "POST /decrypt-demo-text/ HTTP/1.1" 200 424
+INFO 2025-10-11 20:35:23,499 middleware 31932 24740 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:23,512 basehttp 31932 24740 "GET /admin-dashboard/ HTTP/1.1" 200 14263
+INFO 2025-10-11 20:35:24,731 basehttp 31932 24740 "GET /encryption-demo/ HTTP/1.1" 200 52738
+INFO 2025-10-11 20:35:27,196 middleware 31932 24740 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:27,206 basehttp 31932 24740 "GET /admin-dashboard/ HTTP/1.1" 200 14263
+INFO 2025-10-11 20:35:28,105 middleware 31932 24740 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:28,110 basehttp 31932 24740 "GET /admin-dashboard/users/ HTTP/1.1" 200 7318
+INFO 2025-10-11 20:35:29,812 middleware 31932 24740 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:29,875 basehttp 31932 24740 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 20:35:29,937 basehttp 31932 24740 "GET /static/admin/css/base.css HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,941 basehttp 31932 24740 "GET /static/admin/css/dark_mode.css HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,941 basehttp 31932 5568 "GET /static/admin/js/theme.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,943 middleware 31932 17400 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:29,946 basehttp 31932 28604 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,946 basehttp 31932 5568 "GET /static/admin/js/jquery.init.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,946 basehttp 31932 10000 "GET /static/admin/css/forms.css HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,948 basehttp 31932 24740 "GET /static/admin/js/calendar.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,949 basehttp 31932 25868 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,949 basehttp 31932 28604 "GET /static/admin/css/responsive.css HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,950 basehttp 31932 10000 "GET /static/admin/js/admin/DateTimeShortcuts.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,950 basehttp 31932 5568 "GET /static/admin/js/core.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,951 basehttp 31932 24740 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,953 basehttp 31932 25868 "GET /static/admin/js/SelectBox.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,955 basehttp 31932 28604 "GET /static/admin/js/actions.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,957 basehttp 31932 5568 "GET /static/admin/js/urlify.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,957 basehttp 31932 10000 "GET /static/admin/js/SelectFilter2.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,957 basehttp 31932 24740 "GET /static/admin/js/prepopulate.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,957 basehttp 31932 17400 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 20:35:29,958 basehttp 31932 25868 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,967 basehttp 31932 17400 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,990 basehttp 31932 17400 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,992 basehttp 31932 17400 "GET /static/admin/css/widgets.css HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:29,992 basehttp 31932 25868 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:30,004 basehttp 31932 25868 "GET /static/admin/js/change_form.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:30,910 basehttp 31932 25868 "GET /static/admin/img/search.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:30,917 basehttp 31932 17400 "GET /static/admin/img/icon-calendar.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:30,918 basehttp 31932 25868 "GET /static/admin/img/selector-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:30,920 basehttp 31932 25868 "GET /static/admin/img/icon-clock.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:34,072 middleware 31932 25868 IMPORTANT Request: GET /admin/auth/user/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:34,095 basehttp 31932 25868 "GET /admin/auth/user/ HTTP/1.1" 200 14360
+INFO 2025-10-11 20:35:34,140 basehttp 31932 25868 "GET /static/admin/css/changelists.css HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:34,146 middleware 31932 25868 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:34,151 basehttp 31932 25868 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 20:35:34,151 basehttp 31932 17400 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:34,154 basehttp 31932 17400 "GET /static/admin/img/icon-no.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:34,164 basehttp 31932 17400 "GET /static/admin/js/filters.js HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:34,177 basehttp 31932 17400 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:34,179 basehttp 31932 17400 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:34,185 basehttp 31932 17400 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 304 0
+INFO 2025-10-11 20:35:35,770 middleware 31932 17400 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:35,784 basehttp 31932 17400 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 20:35:35,818 middleware 31932 17400 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:35,823 basehttp 31932 17400 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 20:35:38,414 middleware 31932 17400 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:38,425 basehttp 31932 17400 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 15213
+INFO 2025-10-11 20:35:38,458 middleware 31932 17400 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:35:38,462 basehttp 31932 17400 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 20:38:13,817 basehttp 31932 17400 "GET /encryption-demo/ HTTP/1.1" 200 52738
+WARNING 2025-10-11 20:38:19,554 middleware 31932 17400 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.00s) - IP: 127.0.0.1
+WARNING 2025-10-11 20:38:19,554 log 31932 17400 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 20:38:19,555 basehttp 31932 17400 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 20:38:32,149 encryption 31932 17400 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:38:32,150 encryption 31932 17400 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:38:32,150 views_encryption_demo 31932 17400 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:38:32,151 basehttp 31932 17400 "POST /encrypt-demo-text/ HTTP/1.1" 200 1047
+INFO 2025-10-11 20:38:53,124 basehttp 31932 17400 "GET /encryption-demo/ HTTP/1.1" 200 51946
+INFO 2025-10-11 20:38:54,103 encryption 31932 17400 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:38:54,103 encryption 31932 17400 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:38:54,103 views_encryption_demo 31932 17400 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:38:54,104 basehttp 31932 17400 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:39:13,288 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:39:13,289 encryption 31932 17400 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:39:13,289 views_encryption_demo 31932 17400 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:39:13,290 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 20:40:16,196 basehttp 31932 17400 "GET /encryption-demo/ HTTP/1.1" 200 51946
+INFO 2025-10-11 20:40:18,108 encryption 31932 17400 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 20:40:18,109 encryption 31932 17400 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:40:18,109 views_encryption_demo 31932 17400 Usuario admin cifró texto de 45 caracteres
+INFO 2025-10-11 20:40:18,110 basehttp 31932 17400 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 20:41:22,237 encryption 31932 17400 CIFRADO HÍBRIDO: Iniciando cifrado de 10 caracteres
+INFO 2025-10-11 20:41:22,237 encryption 31932 17400 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:41:22,237 views_encryption_demo 31932 17400 Usuario admin cifró texto de 10 caracteres
+INFO 2025-10-11 20:41:22,238 basehttp 31932 17400 "POST /encrypt-demo-text/ HTTP/1.1" 200 973
+INFO 2025-10-11 20:41:40,698 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:41:40,699 encryption 31932 17400 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:41:40,699 views_encryption_demo 31932 17400 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:41:40,700 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 200 391
+INFO 2025-10-11 20:41:55,805 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:41:55,805 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Ciphertext length must be equal to key size.
+WARNING 2025-10-11 20:41:55,805 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:41:55,806 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:41:55,806 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 76
+INFO 2025-10-11 20:42:03,107 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:42:03,108 encryption 31932 17400 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:42:03,108 views_encryption_demo 31932 17400 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:42:03,108 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 200 391
+INFO 2025-10-11 20:42:18,926 encryption 31932 17400 CIFRADO HÍBRIDO: Iniciando cifrado de 9 caracteres
+INFO 2025-10-11 20:42:18,927 encryption 31932 17400 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:42:18,927 views_encryption_demo 31932 17400 Usuario admin cifró texto de 9 caracteres
+INFO 2025-10-11 20:42:18,928 basehttp 31932 17400 "POST /encrypt-demo-text/ HTTP/1.1" 200 970
+INFO 2025-10-11 20:42:22,040 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 20:42:22,041 encryption 31932 17400 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:42:22,041 views_encryption_demo 31932 17400 Usuario admin descifró texto exitosamente
+INFO 2025-10-11 20:42:22,041 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 200 389
+INFO 2025-10-11 20:42:32,625 encryption 31932 17400 CIFRADO HÍBRIDO: Iniciando cifrado de 9 caracteres
+INFO 2025-10-11 20:42:32,625 encryption 31932 17400 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 20:42:32,625 views_encryption_demo 31932 17400 Usuario admin cifró texto de 9 caracteres
+INFO 2025-10-11 20:42:32,626 basehttp 31932 17400 "POST /encrypt-demo-text/ HTTP/1.1" 200 970
+INFO 2025-10-11 20:42:40,508 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:40,508 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:40,508 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:40,508 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:40,509 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:41,173 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:41,173 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:41,174 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:41,174 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:41,174 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:41,322 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:41,323 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:41,323 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:41,323 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:41,323 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:41,469 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:41,469 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:41,470 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:41,470 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:41,470 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:41,610 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:41,610 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:41,610 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:41,610 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:41,611 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:41,751 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:41,752 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:41,752 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:41,752 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:41,752 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:41,879 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:41,879 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:41,879 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:41,879 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:41,880 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:42,017 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:42,017 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:42,018 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:42,018 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:42,018 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:42,157 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:42,158 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:42,158 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:42,158 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:42,158 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:42,291 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:42,292 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:42,292 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:42,292 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:42,292 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:42,431 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:42,431 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:42,431 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:42,431 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:42,432 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:42,581 encryption 31932 17400 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 20:42:42,582 views_encryption_demo 31932 17400 Error en decrypt_demo_text: Incorrect padding
+WARNING 2025-10-11 20:42:42,582 middleware 31932 17400 ERROR Response: 500 for /decrypt-demo-text/ (0.00s) - IP: 127.0.0.1
+ERROR 2025-10-11 20:42:42,582 log 31932 17400 Internal Server Error: /decrypt-demo-text/
+ERROR 2025-10-11 20:42:42,582 basehttp 31932 17400 "POST /decrypt-demo-text/ HTTP/1.1" 500 49
+INFO 2025-10-11 20:42:46,482 middleware 31932 17400 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:42:46,494 basehttp 31932 17400 "GET /admin-dashboard/ HTTP/1.1" 200 14263
+INFO 2025-10-11 20:42:48,185 middleware 31932 17400 IMPORTANT Request: GET /admin-dashboard/users/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:42:48,190 basehttp 31932 17400 "GET /admin-dashboard/users/ HTTP/1.1" 200 7318
+INFO 2025-10-11 20:42:51,112 middleware 31932 17400 IMPORTANT Request: GET /admin/auth/user/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:42:51,159 basehttp 31932 17400 "GET /admin/auth/user/6/change/ HTTP/1.1" 200 25419
+INFO 2025-10-11 20:42:51,218 middleware 31932 17400 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:42:51,223 basehttp 31932 17400 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 20:42:53,951 middleware 31932 17400 IMPORTANT Request: GET /admin/store/customer/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:42:53,971 basehttp 31932 17400 "GET /admin/store/customer/ HTTP/1.1" 200 14232
+INFO 2025-10-11 20:42:54,023 middleware 31932 17400 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:42:54,027 basehttp 31932 17400 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 20:42:59,437 middleware 31932 17400 IMPORTANT Request: GET /admin/store/customer/6/change/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:42:59,447 basehttp 31932 17400 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 15213
+INFO 2025-10-11 20:42:59,485 middleware 31932 17400 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 20:42:59,488 basehttp 31932 17400 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
