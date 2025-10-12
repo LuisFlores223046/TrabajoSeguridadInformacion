@@ -1175,3 +1175,150 @@ INFO 2025-10-11 17:15:18,305 middleware 29728 6196 IMPORTANT Request: GET /admin
 INFO 2025-10-11 17:15:18,317 basehttp 29728 6196 "GET /admin/store/customer/6/change/ HTTP/1.1" 200 15195
 INFO 2025-10-11 17:15:18,356 middleware 29728 6196 IMPORTANT Request: GET /admin/jsi18n/ from 127.0.0.1 by Anonymous
 INFO 2025-10-11 17:15:18,361 basehttp 29728 6196 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-11 18:55:14,543 autoreload 10756 12908 Watching for file changes with StatReloader
+INFO 2025-10-11 18:55:16,738 basehttp 10756 5432 "GET / HTTP/1.1" 200 35204
+INFO 2025-10-11 18:55:25,506 basehttp 10756 5432 "GET /encryption-demo/ HTTP/1.1" 302 0
+INFO 2025-10-11 18:55:25,512 middleware 10756 5432 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 18:55:25,519 basehttp 10756 5432 "GET /login/?next=/encryption-demo/ HTTP/1.1" 200 12371
+INFO 2025-10-11 18:55:48,594 middleware 10756 5432 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 18:55:49,519 views 10756 5432 Usuario cliente1 inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 18:55:49,525 basehttp 10756 5432 "POST /login/?next=/encryption-demo/ HTTP/1.1" 302 0
+INFO 2025-10-11 18:55:49,541 basehttp 10756 5432 "GET / HTTP/1.1" 200 35725
+INFO 2025-10-11 18:55:58,500 encryption 10756 5432 Cargando claves RSA desde archivos PEM...
+INFO 2025-10-11 18:55:58,543 encryption 10756 5432 Claves RSA cargadas correctamente.
+INFO 2025-10-11 18:55:58,547 basehttp 10756 5432 "GET /encryption-demo/ HTTP/1.1" 200 29580
+INFO 2025-10-11 18:56:21,982 encryption 10756 5432 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 18:56:21,983 encryption 10756 5432 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 18:56:21,983 views_encryption_demo 10756 5432 Usuario cliente1 cifró texto de 45 caracteres
+INFO 2025-10-11 18:56:21,983 basehttp 10756 5432 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 18:56:31,003 encryption 10756 5432 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 18:56:31,004 encryption 10756 5432 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 18:56:31,005 views_encryption_demo 10756 5432 Usuario cliente1 descifró texto exitosamente
+INFO 2025-10-11 18:56:31,005 basehttp 10756 5432 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 18:56:40,226 encryption 10756 5432 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 18:56:40,227 encryption 10756 5432 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 18:56:40,227 views_encryption_demo 10756 5432 Usuario cliente1 descifró texto exitosamente
+INFO 2025-10-11 18:56:40,227 basehttp 10756 5432 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 18:56:49,751 encryption 10756 5432 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 18:56:49,751 encryption 10756 5432 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 18:56:49,752 views_encryption_demo 10756 5432 Usuario cliente1 descifró texto exitosamente
+INFO 2025-10-11 18:56:49,752 basehttp 10756 5432 "POST /decrypt-demo-text/ HTTP/1.1" 200 426
+INFO 2025-10-11 18:56:51,229 encryption 10756 5432 CIFRADO HÍBRIDO: Iniciando cifrado de 15 caracteres
+INFO 2025-10-11 18:56:51,229 encryption 10756 5432 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 18:56:51,229 views_encryption_demo 10756 5432 Usuario cliente1 cifró texto de 15 caracteres
+INFO 2025-10-11 18:56:51,230 basehttp 10756 5432 "POST /encrypt-demo-text/ HTTP/1.1" 200 978
+INFO 2025-10-11 18:56:52,668 encryption 10756 5432 CIFRADO HÍBRIDO: Iniciando cifrado de 15 caracteres
+INFO 2025-10-11 18:56:52,669 encryption 10756 5432 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 18:56:52,669 views_encryption_demo 10756 5432 Usuario cliente1 cifró texto de 15 caracteres
+INFO 2025-10-11 18:56:52,670 basehttp 10756 5432 "POST /encrypt-demo-text/ HTTP/1.1" 200 978
+INFO 2025-10-11 18:57:00,731 encryption 10756 5432 DESCIFRADO HÍBRIDO: Iniciando descifrado
+INFO 2025-10-11 18:57:00,732 encryption 10756 5432 DESCIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 18:57:00,733 views_encryption_demo 10756 5432 Usuario cliente1 descifró texto exitosamente
+INFO 2025-10-11 18:57:00,733 basehttp 10756 5432 "POST /decrypt-demo-text/ HTTP/1.1" 200 396
+ERROR 2025-10-11 18:58:16,673 log 10756 5432 Internal Server Error: /encryption-demo/
+Traceback (most recent call last):
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\base.py", line 510, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\store\views_encryption_demo.py", line 52, in encryption_demo
+    return render(request, 'store/encryption_demo.html', context)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\backends\django.py", line 79, in get_template
+    return Template(self.engine.get_template(template_name), self)
+                    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\engine.py", line 177, in get_template
+    template, origin = self.find_template(template_name)
+                       ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\base.py", line 196, in compile_nodelist
+    nodelist = parser.parse()
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\loader_tags.py", line 299, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\base.py", line 518, in parse
+    raise self.error(token, e)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\base.py", line 516, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\loader_tags.py", line 234, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\base.py", line 512, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\LuisF\Desktop\TrabajoSeguridadInformacion\env\Lib\site-packages\django\template\base.py", line 567, in invalid_block_tag
+    raise self.error(
+    ...<8 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 351: 'endif', expected 'endblock'. Did you forget to register or load this tag?
+WARNING 2025-10-11 18:58:16,680 middleware 10756 5432 ERROR Response: 500 for /encryption-demo/ (0.05s) - IP: 127.0.0.1
+ERROR 2025-10-11 18:58:16,681 basehttp 10756 5432 "GET /encryption-demo/ HTTP/1.1" 500 201586
+INFO 2025-10-11 18:58:35,051 basehttp 10756 5432 "GET /encryption-demo/ HTTP/1.1" 200 26301
+INFO 2025-10-11 18:58:39,934 encryption 10756 5432 CIFRADO HÍBRIDO: Iniciando cifrado de 45 caracteres
+INFO 2025-10-11 18:58:39,934 encryption 10756 5432 CIFRADO HÍBRIDO: Completado exitosamente
+INFO 2025-10-11 18:58:39,935 views_encryption_demo 10756 5432 Usuario cliente1 cifró texto de 45 caracteres
+INFO 2025-10-11 18:58:39,935 basehttp 10756 5432 "POST /encrypt-demo-text/ HTTP/1.1" 200 1048
+INFO 2025-10-11 18:58:48,373 encryption 10756 5432 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 18:58:48,374 models 10756 5432 Error descifrando teléfono para cliente1: Decryption failed
+INFO 2025-10-11 18:58:48,374 encryption 10756 5432 DESCIFRADO HÍBRIDO: Iniciando descifrado
+ERROR 2025-10-11 18:58:48,375 models 10756 5432 Error descifrando dirección para cliente1: Decryption failed
+INFO 2025-10-11 18:58:48,382 basehttp 10756 5432 "GET /my-account/ HTTP/1.1" 200 23686
+INFO 2025-10-11 18:58:50,318 views 10756 5432 Usuario cliente1 cerró sesión
+INFO 2025-10-11 18:58:50,318 basehttp 10756 5432 "GET /logout/ HTTP/1.1" 302 0
+INFO 2025-10-11 18:58:50,324 middleware 10756 5432 IMPORTANT Request: GET /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 18:58:50,327 basehttp 10756 5432 "GET /login/ HTTP/1.1" 200 12371
+INFO 2025-10-11 18:58:56,558 middleware 10756 5432 IMPORTANT Request: POST /login/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 18:58:57,493 views 10756 5432 Usuario admin inició sesión exitosamente desde IP: 127.0.0.1
+INFO 2025-10-11 18:58:57,499 basehttp 10756 5432 "POST /login/ HTTP/1.1" 302 0
+INFO 2025-10-11 18:58:57,506 middleware 10756 5432 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 18:58:57,522 basehttp 10756 5432 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+INFO 2025-10-11 18:59:41,677 middleware 10756 5432 IMPORTANT Request: GET /admin-dashboard/products/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 18:59:41,688 basehttp 10756 5432 "GET /admin-dashboard/products/ HTTP/1.1" 200 22963
+INFO 2025-10-11 18:59:41,779 basehttp 10756 5432 "GET /media/products/breakfast_blend.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,786 basehttp 10756 5432 "GET /media/products/Coffee-Image.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,793 basehttp 10756 5432 "GET /media/products/1-2-scaled-e1691638236735-600x600.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,800 basehttp 10756 5432 "GET /media/products/DSC_4084-scaled.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,802 basehttp 10756 30548 "GET /media/products/Best-Decaf-Espresso-Beans-900x601.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,802 basehttp 10756 5432 "GET /media/products/377240011_0_640x640.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,810 basehttp 10756 5432 "GET /media/products/cafedeespecialidad-espresso-003.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,817 basehttp 10756 5432 "GET /media/products/yirgacheffe-coffee.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,821 basehttp 10756 5432 "GET /media/products/ai.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,828 basehttp 10756 30548 "GET /media/products/images.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,831 basehttp 10756 34024 "GET /media/products/R_YrG9Jj6.jpg HTTP/1.1" 304 0
+INFO 2025-10-11 18:59:41,882 basehttp 10756 5432 "GET /media/products/konacoffee.jpg HTTP/1.1" 200 65411
+INFO 2025-10-11 18:59:43,103 middleware 10756 5432 IMPORTANT Request: GET /admin-dashboard/ from 127.0.0.1 by Anonymous
+INFO 2025-10-11 18:59:43,115 basehttp 10756 5432 "GET /admin-dashboard/ HTTP/1.1" 200 13521
+WARNING 2025-10-11 19:00:23,671 middleware 10756 5432 ERROR Response: 404 for /.well-known/appspecific/com.chrome.devtools.json (0.01s) - IP: 127.0.0.1
+WARNING 2025-10-11 19:00:23,671 log 10756 5432 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-11 19:00:23,672 basehttp 10756 5432 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 13539
+INFO 2025-10-11 19:02:46,521 autoreload 31932 26992 Watching for file changes with StatReloader

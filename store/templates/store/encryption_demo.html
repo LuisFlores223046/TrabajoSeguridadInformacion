@@ -5,351 +5,761 @@
 
 {% block extra_css %}
 <style>
-    .encryption-box {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        border-radius: 15px;
-        padding: 30px;
+    * {
+        box-sizing: border-box;
+    }
+    
+    .page-header {
+        background: #3e2723;
         color: white;
+        padding: 50px 0;
+        margin-bottom: 40px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .page-header h1 {
+        font-size: 32px;
+        font-weight: 400;
+        margin: 0;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    
+    .page-header p {
+        margin: 15px 0 0 0;
+        font-size: 16px;
+        opacity: 0.95;
+    }
+    
+    .section-card {
+        background: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 2px;
+        padding: 35px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    
+    .section-title {
+        font-size: 22px;
+        font-weight: 400;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 3px solid #6d4c41;
+    }
+    
+    .step-indicator {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        position: relative;
+    }
+    
+    .step-indicator::before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #e0e0e0;
+        z-index: 0;
+    }
+    
+    .step {
+        flex: 1;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+    }
+    
+    .step-circle {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #e0e0e0;
+        color: #999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 10px;
+        font-weight: 400;
+        font-size: 16px;
+        transition: all 0.3s;
+    }
+    
+    .step.active .step-circle {
+        background: #6d4c41;
+        color: white;
+        box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.2);
+    }
+    
+    .step.completed .step-circle {
+        background: #8d6e63;
+        color: white;
+    }
+    
+    .step-label {
+        font-size: 12px;
+        color: #7f8c8d;
+        font-weight: 500;
+    }
+    
+    .step.active .step-label {
+        color: #6d4c41;
+        font-weight: 400;
+    }
+    
+    .input-section {
         margin-bottom: 30px;
     }
     
-    .key-info {
-        background: white;
-        color: #333;
-        border-radius: 10px;
-        padding: 20px;
+    .form-label-custom {
+        font-weight: 400;
+        margin-bottom: 10px;
+        color: #2c3e50;
+        font-size: 14px;
+        display: block;
+    }
+    
+    textarea.form-control-custom {
+        width: 100%;
+        border: 2px solid #ddd;
+        border-radius: 2px;
+        padding: 15px;
+        font-size: 14px;
+        font-family: 'Courier New', monospace;
+        transition: border-color 0.3s;
+        resize: vertical;
+    }
+    
+    textarea.form-control-custom:focus {
+        border-color: #6d4c41;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .hint-text {
+        color: #7f8c8d;
+        font-size: 12px;
+        margin-top: 8px;
+        display: block;
+    }
+    
+    .btn-custom {
+        padding: 12px 28px;
+        border-radius: 2px;
+        border: none;
+        font-size: 15px;
+        font-weight: 400;
+        transition: all 0.3s;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .btn-primary-custom {
+        background: #3e2723;
+        color: white;
+        box-shadow: 0 1px 3px rgba(62, 39, 35, 0.08);
+    }
+    
+    .btn-primary-custom:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(102, 126, 234, 0.5);
+    }
+    
+    .btn-success-custom {
+        background: linear-gradient(135deg, #8d6e63 0%, #229954 100%);
+        color: white;
+        box-shadow: 0 1px 3px rgba(62, 39, 35, 0.08);
+    }
+    
+    .btn-success-custom:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(39, 174, 96, 0.5);
+    }
+    
+    .btn-secondary-custom {
+        background: #95a5a6;
+        color: white;
+    }
+    
+    .btn-secondary-custom:hover:not(:disabled) {
+        background: #7f8c8d;
+    }
+    
+    .btn-custom:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none !important;
+    }
+    
+    .button-group {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
         margin-top: 20px;
     }
     
-    .encrypted-output {
-        background: #f8f9fa;
-        border: 2px dashed #6c757d;
-        border-radius: 8px;
+    .result-box {
+        background: #fafafa;
+        border: 2px solid #e9ecef;
+        border-radius: 2px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .result-title {
+        font-size: 14px;
+        font-weight: 400;
+        color: #2c3e50;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .editable-result {
+        background: #fff9e6 !important;
+        border: 3px dashed #8d6e63 !important;
+        min-height: 120px !important;
+        resize: vertical !important;
+        cursor: text !important;
+        font-family: 'Courier New', monospace !important;
+        font-size: 13px !important;
+        padding: 15px !important;
+        transition: all 0.3s !important;
+        line-height: 1.8 !important;
+        color: #2c3e50 !important;
+    }
+    
+    .editable-result:focus {
+        outline: none !important;
+        border-color: #6d4c41 !important;
+        border-style: solid !important;
+        background: #fffbf0 !important;
+        box-shadow: 0 0 0 4px rgba(243, 156, 18, 0.15) !important;
+    }
+    
+    .editable-result:hover {
+        border-color: #6d4c41 !important;
+        background: #fffdf5 !important;
+    }
+    
+    .result-content {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 2px;
         padding: 15px;
         font-family: 'Courier New', monospace;
         font-size: 12px;
         word-break: break-all;
         max-height: 200px;
         overflow-y: auto;
+        color: #2c3e50;
+        line-height: 1.6;
     }
     
-    .process-step {
-        background: #e3f2fd;
-        border-left: 4px solid #2196F3;
-        padding: 15px;
-        margin: 10px 0;
-        border-radius: 5px;
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin: 25px 0;
     }
     
-    .algorithm-badge {
-        background: #28a745;
+    .stat-card {
+        background: #3e2723;
         color: white;
-        padding: 5px 15px;
-        border-radius: 20px;
-        font-weight: bold;
-        margin-right: 10px;
+        padding: 20px;
+        border-radius: 2px;
+        text-align: center;
+        box-shadow: 0 1px 3px rgba(62, 39, 35, 0.08);
     }
     
-    .stats-card {
-        background: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    .stat-value {
+        font-size: 28px;
+        font-weight: 300;
+        margin: 0 0 5px 0;
+    }
+    
+    .stat-label {
+        font-size: 12px;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .alert-custom {
+        padding: 16px 20px;
+        border-radius: 2px;
         margin-bottom: 20px;
+        border-left: 4px solid;
+        animation: slideIn 0.3s ease-out;
+    }
+    
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    .alert-success {
+        background: #f1f8e9;
+        border-color: #8d6e63;
+        color: #155724;
+    }
+    
+    .alert-error {
+        background: #ffebee;
+        border-color: #a1887f;
+        color: #721c24;
+    }
+    
+    .alert-warning {
+        background: #fff8e1;
+        border-color: #8d6e63;
+        color: #856404;
+    }
+    
+    .alert-info {
+        background: #efebe9;
+        border-color: #6d4c41;
+        color: #0c5460;
+    }
+    
+    .process-list {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+    }
+    
+    .process-item {
+        padding: 12px 15px 12px 45px;
+        background: #fafafa;
+        margin-bottom: 10px;
+        border-radius: 2px;
+        border-left: 4px solid #6d4c41;
+        font-size: 13px;
+        color: #2c3e50;
+        position: relative;
+    }
+    
+    .process-item::before {
+        content: '✓';
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #8d6e63;
+        font-weight: 300;
+        font-size: 16px;
+    }
+    
+    .icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+    }
+    
+    .loading-spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255,255,255,0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 0.6s linear infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    .info-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 2px;
+        font-size: 11px;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .badge-aes {
+        background: #6d4c41;
+        color: white;
+    }
+    
+    .badge-rsa {
+        background: #a1887f;
+        color: white;
+    }
+    
+    .section-divider {
+        margin: 40px 0;
+        border-top: 2px dashed #e0e0e0;
+    }
+    
+    .highlight-box {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        border: 2px solid #6d4c41;
+        border-radius: 2px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+    
+    .highlight-box h4 {
+        color: #6d4c41;
+        font-size: 16px;
+        font-weight: 400;
+        margin: 0 0 10px 0;
     }
     
     .comparison-table {
-        font-size: 12px;
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
     }
     
+    .comparison-table th,
     .comparison-table td {
-        vertical-align: middle;
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .comparison-table th {
+        background: #fafafa;
+        font-weight: 400;
+        color: #2c3e50;
+    }
+    
+    .comparison-table tr:hover {
+        background: #fafafa;
     }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <!-- Header -->
-    <div class="encryption-box text-center">
-        <h1 class="mb-3">
-            <i class="fas fa-shield-alt me-2"></i>
-            Demostración de Cifrado Híbrido AES-RSA
-        </h1>
-        <p class="lead">Sistema de cifrado de clave pública implementado en aplicación web Django</p>
-        <div class="mt-3">
-            <span class="algorithm-badge">RSA-2048</span>
-            <span class="algorithm-badge" style="background: #dc3545;">AES-256</span>
-            <span class="algorithm-badge" style="background: #ffc107; color: #333;">Híbrido</span>
-        </div>
+<div class="page-header">
+    <div class="container">
+        <h1>☕ Demostración de Cifrado Híbrido AES-RSA</h1>
     </div>
-
-    <!-- Información de Claves RSA -->
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">
-                <i class="fas fa-key me-2"></i>
-                Información de Claves RSA del Servidor
-            </h4>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>Algoritmo</h5>
-                    <p><strong>{{ public_key_info.algorithm }}</strong></p>
-                    
-                    <h5>Tamaño de Clave</h5>
-                    <p><strong>{{ public_key_info.key_size }} bits</strong> - Seguridad Alta</p>
-                    
-                    <h5>Exponente Público</h5>
-                    <p><strong>{{ public_key_info.public_exponent }}</strong> (Estándar)</p>
-                </div>
-                <div class="col-md-6">
-                    <h5>Clave Pública (PEM)</h5>
-                    <div class="encrypted-output" style="max-height: 150px;">
-                        {{ public_key_info.pem }}
-                    </div>
-                    <small class="text-muted">
-                        <i class="fas fa-info-circle me-1"></i>
-                        Esta clave pública puede compartirse de forma segura
-                    </small>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Demostración Interactiva -->
-    <div class="card mb-4">
-        <div class="card-header bg-success text-white">
-            <h4 class="mb-0">
-                <i class="fas fa-flask me-2"></i>
-                Prueba el Cifrado Híbrido
-            </h4>
-        </div>
-        <div class="card-body">
-            <form id="encryption-demo-form">
-                {% csrf_token %}
-                <div class="mb-3">
-                    <label for="demo-text" class="form-label">Texto a Cifrar</label>
-                    <textarea 
-                        class="form-control" 
-                        id="demo-text" 
-                        rows="3" 
-                        placeholder="Escribe cualquier texto para cifrarlo...">{{ demo_text }}</textarea>
-                    <small class="text-muted">Puedes escribir cualquier cosa: números de teléfono, direcciones, mensajes secretos, etc.</small>
-                </div>
-                
-                <div class="d-grid gap-2 d-md-flex">
-                    <button type="button" class="btn btn-primary" id="encrypt-btn">
-                        <i class="fas fa-lock me-2"></i>Cifrar Texto
-                    </button>
-                    <button type="button" class="btn btn-warning" id="decrypt-btn" disabled>
-                        <i class="fas fa-unlock me-2"></i>Descifrar Texto
-                    </button>
-                    <button type="button" class="btn btn-secondary" id="clear-btn">
-                        <i class="fas fa-eraser me-2"></i>Limpiar
-                    </button>
-                </div>
-            </form>
-
-            <!-- Resultados del Cifrado -->
-            <div id="encryption-results" style="display: none;" class="mt-4">
-                <h5>Resultados del Cifrado</h5>
-                
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="stats-card text-center">
-                            <h6>Texto Original</h6>
-                            <h3 id="original-length">0</h3>
-                            <small>caracteres</small>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stats-card text-center">
-                            <h6>Datos Cifrados</h6>
-                            <h3 id="encrypted-length">0</h3>
-                            <small>caracteres (Base64)</small>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="stats-card text-center">
-                            <h6>Tiempo de Cifrado</h6>
-                            <h3 id="encryption-time">0</h3>
-                            <small>milisegundos</small>
-                        </div>
-                    </div>
-                </div>
-
-                <h6 class="mt-3">Datos Cifrados con AES:</h6>
-                <div class="encrypted-output" id="encrypted-data-output"></div>
-
-                <h6 class="mt-3">Clave AES Cifrada con RSA:</h6>
-                <div class="encrypted-output" id="encrypted-key-output"></div>
-
-                <h6 class="mt-3">Vector de Inicialización (IV):</h6>
-                <div class="encrypted-output" id="iv-output"></div>
-
-                <h6 class="mt-4">Proceso de Cifrado:</h6>
-                <div id="encryption-process"></div>
-            </div>
-
-            <!-- Resultados del Descifrado -->
-            <div id="decryption-results" style="display: none;" class="mt-4">
-                <h5>Resultados del Descifrado</h5>
-                
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle me-2"></i>
-                    <strong>Texto Descifrado:</strong>
-                    <p class="mb-0 mt-2" id="decrypted-text-output" style="font-size: 16px;"></p>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="stats-card text-center">
-                            <h6>Caracteres Recuperados</h6>
-                            <h3 id="decrypted-length">0</h3>
-                            <small>caracteres</small>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="stats-card text-center">
-                            <h6>Tiempo de Descifrado</h6>
-                            <h3 id="decryption-time">0</h3>
-                            <small>milisegundos</small>
-                        </div>
-                    </div>
-                </div>
-
-                <h6 class="mt-3">Proceso de Descifrado:</h6>
-                <div id="decryption-process"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Explicación Técnica -->
-    <div class="card mb-4">
-        <div class="card-header bg-info text-white">
-            <h4 class="mb-0">
-                <i class="fas fa-book me-2"></i>
-                ¿Cómo Funciona el Cifrado Híbrido?
-            </h4>
-        </div>
-        <div class="card-body">
-            <h5>Conceptos Clave:</h5>
-            
-            <div class="process-step">
-                <h6><strong>1. RSA (Rivest-Shamir-Adleman)</strong></h6>
-                <p>
-                    <strong>Tipo:</strong> Cifrado Asimétrico (Clave Pública/Privada)<br>
-                    <strong>Uso:</strong> Cifrar la clave AES<br>
-                    <strong>Ventaja:</strong> No necesitas compartir la clave privada<br>
-                    <strong>Desventaja:</strong> Lento, solo puede cifrar datos pequeños (~190 bytes)
-                </p>
-            </div>
-
-            <div class="process-step">
-                <h6><strong>2. AES (Advanced Encryption Standard)</strong></h6>
-                <p>
-                    <strong>Tipo:</strong> Cifrado Simétrico (Una sola clave)<br>
-                    <strong>Uso:</strong> Cifrar los datos reales (texto, direcciones, etc.)<br>
-                    <strong>Ventaja:</strong> Muy rápido, puede cifrar datos grandes<br>
-                    <strong>Desventaja:</strong> Debes compartir la clave de forma segura
-                </p>
-            </div>
-
-            <div class="process-step">
-                <h6><strong>3. Sistema Híbrido: Lo Mejor de Ambos Mundos</strong></h6>
-                <p>
-                    <strong>Solución:</strong> Combinar RSA + AES<br>
-                    1. Generar clave AES aleatoria<br>
-                    2. Cifrar datos con AES (rápido)<br>
-                    3. Cifrar la clave AES con RSA (seguro)<br>
-                    4. Enviar ambos juntos<br>
-                    <br>
-                    <strong>Resultado:</strong> Velocidad de AES + Seguridad de RSA
-                </p>
-            </div>
-
-            <h5 class="mt-4">Aplicación en esta App:</h5>
-            <ul>
-                <li>Números de teléfono cifrados con AES-256</li>
-                <li>Direcciones postales cifradas con AES-256</li>
-                <li>Claves AES protegidas con RSA-2048</li>
-                <li>Almacenamiento seguro en Base64</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Estado de Cifrado del Usuario -->
-    {% if encryption_status %}
-    <div class="card">
-        <div class="card-header bg-warning">
-            <h4 class="mb-0">
-                <i class="fas fa-user-shield me-2"></i>
-                Estado de Tu Información Cifrada
-            </h4>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-6">
-                    <h6>Teléfono</h6>
-                    {% if encryption_status.phone_encrypted %}
-                        <span class="badge bg-success">
-                            <i class="fas fa-check me-1"></i>Cifrado
-                        </span>
-                        <small class="text-muted">({{ encryption_status.phone_size }} caracteres cifrados)</small>
-                    {% else %}
-                        <span class="badge bg-secondary">
-                            <i class="fas fa-times me-1"></i>Sin cifrar
-                        </span>
-                    {% endif %}
-                </div>
-                <div class="col-md-6">
-                    <h6>Dirección</h6>
-                    {% if encryption_status.address_encrypted %}
-                        <span class="badge bg-success">
-                            <i class="fas fa-check me-1"></i>Cifrado
-                        </span>
-                        <small class="text-muted">({{ encryption_status.address_size }} caracteres cifrados)</small>
-                    {% else %}
-                        <span class="badge bg-secondary">
-                            <i class="fas fa-times me-1"></i>Sin cifrar
-                        </span>
-                    {% endif %}
-                </div>
-            </div>
-            
-            <div class="mt-3">
-                <a href="{% url 'my_account' %}" class="btn btn-primary">
-                    <i class="fas fa-edit me-2"></i>Actualizar Información Personal
-                </a>
-            </div>
-        </div>
-    </div>
-    {% endif %}
 </div>
 
+<div class="container">
+    <!-- Indicador de Pasos -->
+    <div class="section-card">
+        <div class="step-indicator">
+            <div class="step" id="step-1">
+                <div class="step-circle">1</div>
+                <div class="step-label">Mensaje en Claro</div>
+            </div>
+            <div class="step" id="step-2">
+                <div class="step-circle">2</div>
+                <div class="step-label">Cifrado AES</div>
+            </div>
+            <div class="step" id="step-3">
+                <div class="step-circle">3</div>
+                <div class="step-label">Cifrado RSA</div>
+            </div>
+            <div class="step" id="step-4">
+                <div class="step-circle">4</div>
+                <div class="step-label">Descifrado RSA</div>
+            </div>
+            <div class="step" id="step-5">
+                <div class="step-circle">5</div>
+                <div class="step-label">Descifrado AES</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASO 1: Entrada de Mensaje -->
+    <div class="section-card">
+        <h2 class="section-title">📝 Paso 1: Ingresa el Mensaje en Claro</h2>
+        
+        <div class="input-section">
+            <label class="form-label-custom">Mensaje Original</label>
+            <textarea 
+                class="form-control-custom" 
+                id="plaintext-input" 
+                rows="5" 
+                placeholder="Escribe aquí el mensaje que deseas cifrar...">{{ demo_text }}</textarea>
+            <span class="hint-text">Este es el mensaje en texto plano que será cifrado</span>
+        </div>
+        
+        <div class="button-group">
+            <button type="button" class="btn-custom btn-primary-custom" id="btn-encrypt-aes">
+                <span class="icon">🔒</span>
+                Iniciar Cifrado (AES + RSA)
+            </button>
+            <button type="button" class="btn-custom btn-secondary-custom" id="btn-reset">
+                <span class="icon">🔄</span>
+                Reiniciar Demo
+            </button>
+        </div>
+    </div>
+
+
+    <!-- PASO 2 y 3: Resultados del Cifrado -->
+    <div class="section-card" id="encryption-results" style="display: none;">
+        <h2 class="section-title">🔐 Pasos 2 y 3: Cifrado Completado</h2>
+        
+        <div id="encryption-alert"></div>
+        
+        <!-- Estadísticas -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="stat-original-length">0</div>
+                <div class="stat-label">Caracteres Originales</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-encrypted-length">0</div>
+                <div class="stat-label">Caracteres Cifrados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-encryption-time">0 ms</div>
+                <div class="stat-label">Tiempo de Cifrado</div>
+            </div>
+        </div>
+
+
+        <!-- Paso 2: Datos Cifrados con AES -->
+        <div class="result-box">
+            <div class="result-title">
+                <span class="icon">🔑</span>
+                <span class="info-badge badge-aes">PASO 2: AES-256</span>
+                Mensaje Cifrado con AES (EDITABLE)
+            </div>
+            <textarea 
+                class="result-content editable-result" 
+                id="encrypted-data-display" 
+                rows="5"
+                placeholder="Los datos cifrados aparecerán aquí..."></textarea>
+            <div style="margin-top: 8px; font-size: 12px; color: #6d4c41;">
+            </div>
+        </div>
+
+        <!-- Paso 3: Clave AES Cifrada con RSA -->
+        <div class="result-box">
+            <div class="result-title">
+                <span class="icon">🔐</span>
+                <span class="info-badge badge-rsa">PASO 3: RSA-2048</span>
+                Clave AES Cifrada con RSA (EDITABLE)
+            </div>
+            <textarea 
+                class="result-content editable-result" 
+                id="encrypted-key-display" 
+                rows="5"
+                placeholder="La clave cifrada aparecerá aquí..."></textarea>
+            <div style="margin-top: 8px; font-size: 12px; color: #6d4c41;">
+            </div>
+        </div>
+
+        <!-- Vector de Inicialización -->
+        <div class="result-box">
+            <div class="result-title">
+                <span class="icon">🎲</span>
+                Vector de Inicialización IV (EDITABLE)
+            </div>
+            <textarea 
+                class="result-content editable-result" 
+                id="iv-display" 
+                rows="3"
+                placeholder="El IV aparecerá aquí..."></textarea>
+            <div style="margin-top: 8px; font-size: 12px; color: #6d4c41;">
+            </div>
+        </div>
+
+        <!-- Botones de Acción Rápida -->
+        <div class="highlight-box" style="background: #fff9e6; border-color: #8d6e63;">
+            <div class="button-group">
+                <button type="button" class="btn-custom" id="btn-corrupt-data" 
+                    style="background: #6d4c41; color: white;">
+                    <span class="icon">💥</span>
+                    Corromper Datos (25% de cambios)
+                </button>
+                <button type="button" class="btn-custom" id="btn-restore-data" 
+                    style="background: #8d6e63; color: white;">
+                    <span class="icon">♻️</span>
+                    Restaurar Originales
+                </button>
+                <button type="button" class="btn-custom" id="btn-show-diff" 
+                    style="background: #6d4c41; color: white;">
+                    <span class="icon">🔍</span>
+                    Ver Diferencias
+                </button>
+            </div>
+        </div>
+
+        <!-- Sección de Diferencias (inicialmente oculta) -->
+        <div id="differences-section" style="display: none; margin-top: 20px;">
+            <div class="highlight-box" style="background: #fff9e6; border-color: #6d4c41;">
+                <h4 style="color: #6d4c41;">🔍 Comparación Visual de Cambios</h4>
+                <div id="differences-content" style="font-family: monospace; font-size: 12px; line-height: 2;"></div>
+            </div>
+        </div>
+
+        <!-- Proceso de Cifrado -->
+        <div class="highlight-box">
+            <h4>📋 Proceso de Cifrado Ejecutado</h4>
+            <ul class="process-list" id="encryption-process"></ul>
+        </div>
+
+        <!-- Botón para Descifrar -->
+        <div class="button-group">
+            <button type="button" class="btn-custom btn-success-custom" id="btn-decrypt">
+                <span class="icon">🔓</span>
+                Descifrar Mensaje (RSA + AES)
+            </button>
+        </div>
+    </div>
+
+    <!-- PASO 4 y 5: Resultados del Descifrado -->
+    <div class="section-card" id="decryption-results" style="display: none;">
+        <h2 class="section-title">🔓 Pasos 4 y 5: Descifrado Completado</h2>
+        
+        <div id="decryption-alert"></div>
+        
+        <!-- Estadísticas de Descifrado -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="stat-decrypted-length">0</div>
+                <div class="stat-label">Caracteres Recuperados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-decryption-time">0 ms</div>
+                <div class="stat-label">Tiempo de Descifrado</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="stat-verification">❓</div>
+                <div class="stat-label">Verificación</div>
+            </div>
+        </div>
+
+        <!-- Mensaje Descifrado -->
+        <div class="result-box">
+            <div class="result-title">
+                <span class="icon">✅</span>
+                Mensaje Descifrado (Texto Recuperado)
+            </div>
+            <div class="result-content" id="decrypted-message-display"></div>
+        </div>
+
+        <!-- Proceso de Descifrado -->
+        <div class="highlight-box">
+            <h4>📋 Proceso de Descifrado Ejecutado</h4>
+            <ul class="process-list" id="decryption-process"></ul>
+        </div>
+
+        <!-- Comparación -->
+        <div class="highlight-box">
+            <h4>🔍 Comparación: Mensaje Original vs Descifrado</h4>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Campo</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Mensaje Original:</strong></td>
+                        <td id="comparison-original"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mensaje Descifrado:</strong></td>
+                        <td id="comparison-decrypted"></td>
+                    </tr>
+                    <tr>
+                        <td><strong>¿Coinciden?</strong></td>
+                        <td id="comparison-result"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    let encryptedData = null;
-    
-    const encryptBtn = document.getElementById('encrypt-btn');
-    const decryptBtn = document.getElementById('decrypt-btn');
-    const clearBtn = document.getElementById('clear-btn');
-    const demoText = document.getElementById('demo-text');
-    
-    // Cifrar texto
-    encryptBtn.addEventListener('click', async function() {
-        const text = demoText.value.trim();
+    // Estado de la aplicación
+    let state = {
+        originalMessage: '',
+        encryptedData: null,
+        isEncrypted: false
+    };
+
+    // Elementos del DOM
+    const elements = {
+        plaintextInput: document.getElementById('plaintext-input'),
+        btnEncryptAES: document.getElementById('btn-encrypt-aes'),
+        btnDecrypt: document.getElementById('btn-decrypt'),
+        btnReset: document.getElementById('btn-reset'),
+        encryptionResults: document.getElementById('encryption-results'),
+        decryptionResults: document.getElementById('decryption-results'),
+        steps: {
+            step1: document.getElementById('step-1'),
+            step2: document.getElementById('step-2'),
+            step3: document.getElementById('step-3'),
+            step4: document.getElementById('step-4'),
+            step5: document.getElementById('step-5')
+        }
+    };
+
+    // Función para actualizar el estado de los pasos
+    function updateSteps(activeStep) {
+        // Resetear todos los pasos
+        Object.values(elements.steps).forEach(step => {
+            step.classList.remove('active', 'completed');
+        });
+
+        // Marcar pasos completados
+        for (let i = 1; i < activeStep; i++) {
+            elements.steps[`step${i}`].classList.add('completed');
+        }
+
+        // Marcar paso activo
+        if (activeStep <= 5) {
+            elements.steps[`step${activeStep}`].classList.add('active');
+        }
+    }
+
+    // PASO 1: Inicializar con paso 1 activo
+    updateSteps(1);
+
+    // PASO 2 y 3: Cifrar con AES y RSA
+    elements.btnEncryptAES.addEventListener('click', async function() {
+        const plaintext = elements.plaintextInput.value.trim();
         
-        if (!text) {
-            alert('Por favor ingresa un texto para cifrar');
+        // Validación del mensaje
+        if (!plaintext) {
+            showAlert('encryption-alert', 'error', '❌ Error: Debes ingresar un mensaje para cifrar');
             return;
         }
-        
-        encryptBtn.disabled = true;
-        encryptBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Cifrando...';
-        
+
+        if (plaintext.length < 1) {
+            showAlert('encryption-alert', 'error', '❌ Error: El mensaje debe tener al menos 1 carácter');
+            return;
+        }
+
+        // Guardar mensaje original
+        state.originalMessage = plaintext;
+
+        // Deshabilitar botón y mostrar loading
+        elements.btnEncryptAES.disabled = true;
+        const originalText = elements.btnEncryptAES.innerHTML;
+        elements.btnEncryptAES.innerHTML = '<span class="loading-spinner"></span> Cifrando...';
+
         try {
             const response = await fetch('/encrypt-demo-text/', {
                 method: 'POST',
@@ -357,36 +767,70 @@ document.addEventListener('DOMContentLoaded', function() {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
-                body: JSON.stringify({ text: text })
+                body: JSON.stringify({ text: plaintext })
             });
-            
+
+            if (!response.ok) {
+                throw new Error(`Error del servidor: ${response.status}`);
+            }
+
             const data = await response.json();
             
-            if (data.success) {
-                encryptedData = data;
-                displayEncryptionResults(data);
-                decryptBtn.disabled = false;
-            } else {
-                alert('Error: ' + data.error);
+            if (!data.success) {
+                throw new Error(data.error || 'Error desconocido en el cifrado');
             }
+
+            // Verificar que tengamos todos los datos necesarios
+            if (!data.encrypted_data || !data.encrypted_key || !data.iv) {
+                throw new Error('Datos de cifrado incompletos');
+            }
+
+            // Guardar datos cifrados
+            state.encryptedData = data;
+            state.isEncrypted = true;
+
+            // Mostrar resultados del cifrado
+            displayEncryptionResults(data);
+
+            // Actualizar a paso 3 (cifrado completado)
+            updateSteps(4);
+
+            // Scroll suave a resultados
+            elements.encryptionResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
         } catch (error) {
-            alert('Error de red: ' + error);
+            console.error('Error en cifrado:', error);
+            showAlert('encryption-alert', 'error', `❌ Error al cifrar: ${error.message}`);
+            updateSteps(1);
         } finally {
-            encryptBtn.disabled = false;
-            encryptBtn.innerHTML = '<i class="fas fa-lock me-2"></i>Cifrar Texto';
+            elements.btnEncryptAES.disabled = false;
+            elements.btnEncryptAES.innerHTML = originalText;
         }
     });
-    
-    // Descifrar texto
-    decryptBtn.addEventListener('click', async function() {
-        if (!encryptedData) {
-            alert('Primero debes cifrar un texto');
+
+    // PASO 4 y 5: Descifrar con RSA y AES
+    elements.btnDecrypt.addEventListener('click', async function() {
+        if (!state.isEncrypted || !state.encryptedData) {
+            showAlert('encryption-alert', 'error', '❌ Error: Primero debes cifrar un mensaje');
             return;
         }
-        
-        decryptBtn.disabled = true;
-        decryptBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Descifrando...';
-        
+
+        // 🔥 OBTENER LOS VALORES ACTUALES DE LOS TEXTAREAS (pueden haber sido editados)
+        const currentEncryptedData = document.getElementById('encrypted-data-display').value.trim();
+        const currentEncryptedKey = document.getElementById('encrypted-key-display').value.trim();
+        const currentIV = document.getElementById('iv-display').value.trim();
+
+        // Validar que no estén vacíos
+        if (!currentEncryptedData || !currentEncryptedKey || !currentIV) {
+            showAlert('decryption-alert', 'error', '❌ Error: Los campos de cifrado no pueden estar vacíos');
+            return;
+        }
+
+        // Deshabilitar botón y mostrar loading
+        elements.btnDecrypt.disabled = true;
+        const originalText = elements.btnDecrypt.innerHTML;
+        elements.btnDecrypt.innerHTML = '<span class="loading-spinner"></span> Descifrando...';
+
         try {
             const response = await fetch('/decrypt-demo-text/', {
                 method: 'POST',
@@ -395,73 +839,349 @@ document.addEventListener('DOMContentLoaded', function() {
                     'X-CSRFToken': '{{ csrf_token }}'
                 },
                 body: JSON.stringify({
-                    encrypted_data: encryptedData.encrypted_data,
-                    encrypted_key: encryptedData.encrypted_key,
-                    iv: encryptedData.iv
+                    encrypted_data: currentEncryptedData,
+                    encrypted_key: currentEncryptedKey,
+                    iv: currentIV
                 })
             });
-            
+
+            if (!response.ok) {
+                throw new Error(`Error del servidor: ${response.status}`);
+            }
+
             const data = await response.json();
             
-            if (data.success) {
-                displayDecryptionResults(data);
-            } else {
-                alert('Error: ' + data.error);
+            if (!data.success) {
+                throw new Error(data.error || 'Error desconocido en el descifrado');
             }
+
+            // Mostrar resultados del descifrado
+            displayDecryptionResults(data);
+
+            // Actualizar a paso 5 completado
+            updateSteps(6);
+
+            // Scroll suave a resultados
+            elements.decryptionResults.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
         } catch (error) {
-            alert('Error de red: ' + error);
+            console.error('Error en descifrado:', error);
+            showAlert('decryption-alert', 'error', `❌ Error al descifrar: ${error.message}`);
         } finally {
-            decryptBtn.disabled = false;
-            decryptBtn.innerHTML = '<i class="fas fa-unlock me-2"></i>Descifrar Texto';
+            elements.btnDecrypt.disabled = false;
+            elements.btnDecrypt.innerHTML = originalText;
         }
     });
-    
-    // Limpiar
-    clearBtn.addEventListener('click', function() {
-        demoText.value = '{{ demo_text }}';
-        document.getElementById('encryption-results').style.display = 'none';
-        document.getElementById('decryption-results').style.display = 'none';
-        decryptBtn.disabled = true;
-        encryptedData = null;
+
+    // Botón Reset
+    elements.btnReset.addEventListener('click', function() {
+        // Resetear estado
+        state = {
+            originalMessage: '',
+            encryptedData: null,
+            isEncrypted: false
+        };
+
+        // Resetear UI
+        elements.plaintextInput.value = '{{ demo_text }}';
+        elements.encryptionResults.style.display = 'none';
+        elements.decryptionResults.style.display = 'none';
+        
+        // Resetear pasos
+        updateSteps(1);
+
+        // Scroll al inicio
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    
-    function displayEncryptionResults(data) {
-        document.getElementById('encryption-results').style.display = 'block';
-        document.getElementById('decryption-results').style.display = 'none';
-        
-        document.getElementById('original-length').textContent = data.original_length;
-        document.getElementById('encrypted-length').textContent = data.encrypted_data_length;
-        document.getElementById('encryption-time').textContent = data.encryption_time_ms;
-        
-        document.getElementById('encrypted-data-output').textContent = data.encrypted_data;
-        document.getElementById('encrypted-key-output').textContent = data.encrypted_key;
-        document.getElementById('iv-output').textContent = data.iv;
-        
-        let processHTML = '';
-        data.process_explanation.forEach(step => {
-            processHTML += `<div class="process-step"><small>${step}</small></div>`;
-        });
-        document.getElementById('encryption-process').innerHTML = processHTML;
-        
-        // Scroll suave al resultado
-        document.getElementById('encryption-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+    // 🔥 BOTÓN CORROMPER DATOS (para pruebas)
+    document.addEventListener('click', function(e) {
+        if (e.target && e.target.id === 'btn-corrupt-data') {
+            if (!state.isEncrypted) {
+                alert('❌ Primero debes cifrar un mensaje');
+                return;
+            }
+
+            // Obtener campos
+            const encDataField = document.getElementById('encrypted-data-display');
+            const encKeyField = document.getElementById('encrypted-key-display');
+            const ivField = document.getElementById('iv-display');
+
+            // Guardar valores actuales para mostrar diferencias
+            const originalData = encDataField.value;
+            const originalKey = encKeyField.value;
+            const originalIV = ivField.value;
+
+            // Corromper de manera MÁS VISIBLE
+            encDataField.value = corruptStringVisibly(encDataField.value);
+            encKeyField.value = corruptStringVisibly(encKeyField.value);
+            ivField.value = corruptStringVisibly(ivField.value);
+
+            // Calcular cuántos caracteres cambiaron
+            const dataChanges = countDifferences(originalData, encDataField.value);
+            const keyChanges = countDifferences(originalKey, encKeyField.value);
+            const ivChanges = countDifferences(originalIV, ivField.value);
+
+            // Resaltar campos que cambiaron
+            encDataField.style.background = '#ffcccc';
+            encKeyField.style.background = '#ffcccc';
+            ivField.style.background = '#ffcccc';
+
+            // Volver al color normal después de 2 segundos
+            setTimeout(() => {
+                encDataField.style.background = '#fff9e6';
+                encKeyField.style.background = '#fff9e6';
+                ivField.style.background = '#fff9e6';
+            }, 2000);
+
+            showAlert('encryption-alert', 'warning', 
+                `⚠️ <strong>¡Datos Corrompidos!</strong><br>` +
+                `Se modificaron:<br>` +
+                `• <strong>${dataChanges} caracteres</strong> en Mensaje Cifrado<br>` +
+                `• <strong>${keyChanges} caracteres</strong> en Clave AES<br>` +
+                `• <strong>${ivChanges} caracteres</strong> en IV<br><br>` +
+                `Los campos se han marcado en ROJO momentáneamente.<br>` +
+                `Ahora intenta descifrar para ver el error.`
+            );
+        }
+
+        if (e.target && e.target.id === 'btn-restore-data') {
+            if (!state.isEncrypted || !state.encryptedData) {
+                alert('❌ No hay datos para restaurar');
+                return;
+            }
+
+            // Restaurar valores originales
+            document.getElementById('encrypted-data-display').value = state.encryptedData.encrypted_data;
+            document.getElementById('encrypted-key-display').value = state.encryptedData.encrypted_key;
+            document.getElementById('iv-display').value = state.encryptedData.iv;
+
+            // Resaltar en verde
+            const fields = ['encrypted-data-display', 'encrypted-key-display', 'iv-display'];
+            fields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                field.style.background = '#d4edda';
+            });
+
+            setTimeout(() => {
+                fields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    field.style.background = '#fff9e6';
+                });
+            }, 2000);
+
+            // Ocultar diferencias si estaban visibles
+            document.getElementById('differences-section').style.display = 'none';
+
+            showAlert('encryption-alert', 'success', 
+                '✅ <strong>Datos Restaurados</strong><br>' +
+                'Se han restaurado los valores originales del cifrado (marcados en VERDE).<br>' +
+                'Ahora el descifrado debería funcionar correctamente.'
+            );
+        }
+
+        if (e.target && e.target.id === 'btn-show-diff') {
+            if (!state.isEncrypted || !state.encryptedData) {
+                alert('❌ Primero debes cifrar un mensaje');
+                return;
+            }
+
+            // Obtener valores actuales
+            const currentData = document.getElementById('encrypted-data-display').value;
+            const currentKey = document.getElementById('encrypted-key-display').value;
+            const currentIV = document.getElementById('iv-display').value;
+
+            // Comparar con originales
+            const dataDiff = highlightDifferences(state.encryptedData.encrypted_data, currentData);
+            const keyDiff = highlightDifferences(state.encryptedData.encrypted_key, currentKey);
+            const ivDiff = highlightDifferences(state.encryptedData.iv, currentIV);
+
+            // Mostrar diferencias
+            const diffContent = document.getElementById('differences-content');
+            diffContent.innerHTML = `
+                <div style="margin-bottom: 20px;">
+                    <strong style="color: #2c3e50;">📊 Mensaje Cifrado con AES:</strong><br>
+                    <div style="background: white; padding: 10px; border-radius: 2px; margin-top: 5px; word-break: break-all;">
+                        ${dataDiff.html}
+                    </div>
+                    <small style="color: #7f8c8d;">${dataDiff.changes} caracteres modificados de ${state.encryptedData.encrypted_data.length}</small>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <strong style="color: #2c3e50;">🔐 Clave AES Cifrada con RSA:</strong><br>
+                    <div style="background: white; padding: 10px; border-radius: 2px; margin-top: 5px; word-break: break-all;">
+                        ${keyDiff.html}
+                    </div>
+                    <small style="color: #7f8c8d;">${keyDiff.changes} caracteres modificados de ${state.encryptedData.encrypted_key.length}</small>
+                </div>
+                
+                <div>
+                    <strong style="color: #2c3e50;">🎲 Vector de Inicialización IV:</strong><br>
+                    <div style="background: white; padding: 10px; border-radius: 2px; margin-top: 5px; word-break: break-all;">
+                        ${ivDiff.html}
+                    </div>
+                    <small style="color: #7f8c8d;">${ivDiff.changes} caracteres modificados de ${state.encryptedData.iv.length}</small>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: #fff8e1; border-radius: 2px; border-left: 4px solid #8d6e63;">
+                    <strong style="color: #856404;">📌 Leyenda:</strong><br>
+                    <span style="background: #f1f8e9; padding: 2px 6px; border-radius: 3px;">Verde</span> = Caracteres sin cambios<br>
+                    <span style="background: #ffebee; padding: 2px 6px; border-radius: 3px;">Rojo</span> = Caracteres modificados
+                </div>
+            `;
+
+            // Mostrar sección
+            document.getElementById('differences-section').style.display = 'block';
+            document.getElementById('differences-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    });
+
+    // Función para resaltar diferencias entre dos strings
+    function highlightDifferences(original, current) {
+        let html = '';
+        let changes = 0;
+        const maxLength = Math.max(original.length, current.length);
+
+        for (let i = 0; i < maxLength; i++) {
+            const origChar = original[i] || '';
+            const currChar = current[i] || '';
+
+            if (origChar !== currChar) {
+                html += `<span style="background: #ffebee; color: #721c24; padding: 2px 4px; border-radius: 2px; font-weight: bold;">${currChar || '∅'}</span>`;
+                changes++;
+            } else {
+                html += `<span style="background: #f1f8e9; padding: 2px 4px;">${origChar}</span>`;
+            }
+        }
+
+        return { html, changes };
     }
-    
-    function displayDecryptionResults(data) {
-        document.getElementById('decryption-results').style.display = 'block';
+
+    // Función para corromper un string de manera MÁS VISIBLE
+    function corruptStringVisibly(str) {
+        if (!str || str.length < 10) return str;
         
-        document.getElementById('decrypted-text-output').textContent = data.decrypted_text;
-        document.getElementById('decrypted-length').textContent = data.decrypted_length;
-        document.getElementById('decryption-time').textContent = data.decryption_time_ms;
+        let arr = str.split('');
+        // Cambiar MUCHOS más caracteres (20-30%) para que sea obvio
+        const numChanges = Math.min(Math.floor(arr.length * 0.25), 50); // 25% de caracteres o máximo 50
         
+        const changedPositions = new Set();
+        
+        for (let i = 0; i < numChanges; i++) {
+            let pos;
+            do {
+                pos = Math.floor(Math.random() * arr.length);
+            } while (changedPositions.has(pos));
+            
+            changedPositions.add(pos);
+            
+            // Cambiar por caracteres COMPLETAMENTE DIFERENTES
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+            let newChar;
+            do {
+                newChar = chars[Math.floor(Math.random() * chars.length)];
+            } while (newChar === arr[pos]);
+            
+            arr[pos] = newChar;
+        }
+        
+        return arr.join('');
+    }
+
+    // Función para contar diferencias entre dos strings
+    function countDifferences(str1, str2) {
+        if (str1.length !== str2.length) return Math.abs(str1.length - str2.length);
+        
+        let count = 0;
+        for (let i = 0; i < str1.length; i++) {
+            if (str1[i] !== str2[i]) count++;
+        }
+        return count;
+    }
+
+    // Función para mostrar resultados del cifrado
+    function displayEncryptionResults(data) {
+        // Mostrar sección
+        elements.encryptionResults.style.display = 'block';
+        elements.decryptionResults.style.display = 'none';
+
+        // Mostrar alerta de éxito
+        showAlert('encryption-alert', 'success', 
+            `✅ <strong>Cifrado Exitoso</strong><br>` +
+            `El mensaje ha sido cifrado correctamente usando AES-256 y la clave AES ha sido protegida con RSA-2048.`
+        );
+
+        // Actualizar estadísticas
+        document.getElementById('stat-original-length').textContent = data.original_length;
+        document.getElementById('stat-encrypted-length').textContent = data.encrypted_data_length;
+        document.getElementById('stat-encryption-time').textContent = data.encryption_time_ms + ' ms';
+
+        // Mostrar datos cifrados EN TEXTAREAS EDITABLES
+        document.getElementById('encrypted-data-display').value = data.encrypted_data;
+        document.getElementById('encrypted-key-display').value = data.encrypted_key;
+        document.getElementById('iv-display').value = data.iv;
+
+        // Mostrar proceso
         let processHTML = '';
-        data.process_explanation.forEach(step => {
-            processHTML += `<div class="process-step"><small>${step}</small></div>`;
-        });
+        if (data.process_explanation && Array.isArray(data.process_explanation)) {
+            data.process_explanation.forEach(step => {
+                processHTML += `<li class="process-item">${step}</li>`;
+            });
+        }
+        document.getElementById('encryption-process').innerHTML = processHTML;
+    }
+
+    // Función para mostrar resultados del descifrado
+    function displayDecryptionResults(data) {
+        // Mostrar sección
+        elements.decryptionResults.style.display = 'block';
+
+        // Verificar si el mensaje descifrado coincide con el original
+        const matches = data.decrypted_text === state.originalMessage;
+
+        // Mostrar alerta según resultado
+        if (matches) {
+            showAlert('decryption-alert', 'success', 
+                `✅ <strong>Descifrado Exitoso - Verificación Correcta</strong><br>` +
+                `El mensaje ha sido descifrado correctamente y coincide 100% con el mensaje original.`
+            );
+        } else {
+            showAlert('decryption-alert', 'error', 
+                `❌ <strong>Error: Los Mensajes No Coinciden</strong><br>` +
+                `El mensaje descifrado es diferente al original. Esto puede indicar un problema en el cifrado/descifrado.`
+            );
+        }
+
+        // Actualizar estadísticas
+        document.getElementById('stat-decrypted-length').textContent = data.decrypted_length;
+        document.getElementById('stat-decryption-time').textContent = data.decryption_time_ms + ' ms';
+        document.getElementById('stat-verification').textContent = matches ? '✅' : '❌';
+
+        // Mostrar mensaje descifrado
+        document.getElementById('decrypted-message-display').textContent = data.decrypted_text;
+
+        // Mostrar proceso de descifrado
+        let processHTML = '';
+        if (data.process_explanation && Array.isArray(data.process_explanation)) {
+            data.process_explanation.forEach(step => {
+                processHTML += `<li class="process-item">${step}</li>`;
+            });
+        }
         document.getElementById('decryption-process').innerHTML = processHTML;
-        
-        // Scroll suave al resultado
-        document.getElementById('decryption-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // Actualizar comparación
+        document.getElementById('comparison-original').textContent = state.originalMessage;
+        document.getElementById('comparison-decrypted').textContent = data.decrypted_text;
+        document.getElementById('comparison-result').innerHTML = matches 
+            ? '<span style="color: #8d6e63; font-weight: 400;">✅ SÍ - Los mensajes son idénticos</span>'
+            : '<span style="color: #a1887f; font-weight: 400;">❌ NO - Los mensajes son diferentes</span>';
+    }
+
+    // Función para mostrar alertas
+    function showAlert(containerId, type, message) {
+        const container = document.getElementById(containerId);
+        const alertClass = `alert-custom alert-${type}`;
+        container.innerHTML = `<div class="${alertClass}">${message}</div>`;
     }
 });
 </script>
