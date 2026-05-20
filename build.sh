@@ -17,3 +17,6 @@ python manage.py migrate --noinput
 if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ]; then
     python manage.py createsuperuser --noinput || true
 fi
+
+# Cargar datos iniciales solo si no hay productos en la base de datos
+python manage.py shell -c "import sys; from store.models import Product; sys.exit(0 if Product.objects.exists() else 1)" || python manage.py loaddata store/fixtures/initial_data.json

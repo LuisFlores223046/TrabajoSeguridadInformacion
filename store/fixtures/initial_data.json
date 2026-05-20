@@ -1,0 +1,270 @@
+[
+{
+  "model": "store.category",
+  "pk": 4,
+  "fields": {
+    "name": "Single Origin",
+    "description": "Cafés de origen único, cultivados en regiones específicas y con características distintivas que reflejan su terroir. Cada bolsa ofrece una experiencia única de sabores auténticos de su lugar de origen."
+  }
+},
+{
+  "model": "store.category",
+  "pk": 5,
+  "fields": {
+    "name": "Blends",
+    "description": "Mezclas cuidadosamente elaboradas combinando granos de diferentes orígenes para crear perfiles de sabor equilibrados y consistentes. Perfectos para quienes buscan una taza de café armoniosa y versátil."
+  }
+},
+{
+  "model": "store.category",
+  "pk": 6,
+  "fields": {
+    "name": "Espresso",
+    "description": "Cafés específicamente tostados y formulados para preparaciones de espresso. Con cuerpo intenso y crema perfecta, ideales para extracciones bajo presión y la base de tus bebidas favoritas."
+  }
+},
+{
+  "model": "store.category",
+  "pk": 7,
+  "fields": {
+    "name": "Decaf",
+    "description": "Todo el sabor sin la cafeína. Nuestros cafés descafeinados utilizan el proceso Swiss Water, que elimina la cafeína sin químicos, manteniendo los sabores auténticos del café."
+  }
+},
+{
+  "model": "store.category",
+  "pk": 8,
+  "fields": {
+    "name": "Specialty Coffees",
+    "description": "Cafés de edición limitada, raros y premiados que representan la máxima expresión de calidad en el mundo del café. Experiencias exclusivas para verdaderos entusiastas."
+  }
+},
+{
+  "model": "store.product",
+  "pk": 4,
+  "fields": {
+    "name": "Ethiopian Yirgacheffe",
+    "category": 4,
+    "description": "Un café brillante y complejo con notas florales, toques cítricos y una acidez similar al vino. Cuerpo medio con un final limpio y dulce. Cultivado en altitudes elevadas en la región de Yirgacheffe, considerada la cuna del café.",
+    "price": "14.99",
+    "stock": 50,
+    "image": "products/yirgacheffe-coffee.jpg",
+    "roast_level": "medium",
+    "origin": "Ethiopia",
+    "format": "whole_bean",
+    "weight": 340,
+    "is_available": true,
+    "created_at": "2025-05-01T20:44:12.155Z",
+    "updated_at": "2025-05-01T20:44:12.155Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 5,
+  "fields": {
+    "name": "Colombian Supremo",
+    "category": 4,
+    "description": "Equilibrado con cuerpo completo y notas dulces a caramelo. Presenta una acidez brillante con toques de frutas tropicales y un final limpio. Cultivado en la región cafetera central de Colombia a más de 1,500 metros sobre el nivel del mar.",
+    "price": "13.99",
+    "stock": 102,
+    "image": "products/Coffee-Image.jpg",
+    "roast_level": "medium",
+    "origin": "Colombia",
+    "format": "whole_bean",
+    "weight": 340,
+    "is_available": true,
+    "created_at": "2025-05-01T20:50:19.836Z",
+    "updated_at": "2025-05-07T03:15:00.186Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 6,
+  "fields": {
+    "name": "Guatemalan Antigua",
+    "category": 4,
+    "description": "Un café sofisticado con complejas notas de sabor a cacao, canela y naranja. Cuerpo medio a completo con un final suave y prolongado. Cultivado en suelos volcánicos de la región de Antigua, conocida por producir algunos de los mejores cafés de Guatemala.",
+    "price": "15.99",
+    "stock": 40,
+    "image": "products/ai.jpg",
+    "roast_level": "medium",
+    "origin": "Guatemala",
+    "format": "whole_bean",
+    "weight": 340,
+    "is_available": true,
+    "created_at": "2025-05-01T20:51:58.804Z",
+    "updated_at": "2025-05-01T20:51:58.804Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 7,
+  "fields": {
+    "name": "Breakfast Blend",
+    "category": 5,
+    "description": "Una mezcla brillante y estimulante con acidez nítida y cuerpo ligero. Perfecto para comenzar tu día con notas de cítricos y chocolate con leche. Combinación de granos latinoamericanos seleccionados para despertar tus sentidos con suavidad.",
+    "price": "12.99",
+    "stock": 124,
+    "image": "products/breakfast_blend.jpg",
+    "roast_level": "light",
+    "origin": "Central & South America",
+    "format": "whole_bean",
+    "weight": 340,
+    "is_available": true,
+    "created_at": "2025-05-01T20:54:14.868Z",
+    "updated_at": "2025-05-07T03:16:54.178Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 8,
+  "fields": {
+    "name": "House Blend",
+    "category": 5,
+    "description": "Nuestra mezcla insignia de tueste medio que ofrece una taza equilibrada y suave con notas de chocolate, nueces y caramelo con un toque de frutosidad. Una combinación versátil perfecta para cualquier momento del día.",
+    "price": "11.99",
+    "stock": 150,
+    "image": "products/images.jpg",
+    "roast_level": "medium",
+    "origin": "Africa & Latin America",
+    "format": "ground",
+    "weight": 340,
+    "is_available": true,
+    "created_at": "2025-05-01T21:01:01.821Z",
+    "updated_at": "2025-05-01T21:01:01.821Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 9,
+  "fields": {
+    "name": "Dark Roast Blend",
+    "category": 5,
+    "description": "Intenso y con cuerpo completo, con notas ahumadas, chocolate amargo y un final persistente. Su baja acidez lo hace perfecto para espresso o prensa francesa. Ideal para amantes de los sabores audaces y robustos.",
+    "price": "12.99",
+    "stock": 85,
+    "image": "products/1-2-scaled-e1691638236735-600x600.jpg",
+    "roast_level": "dark",
+    "origin": "Indonesia & South America",
+    "format": "whole_bean",
+    "weight": 340,
+    "is_available": true,
+    "created_at": "2025-05-01T21:03:16.795Z",
+    "updated_at": "2025-05-01T21:03:16.795Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 10,
+  "fields": {
+    "name": "Espresso Classico",
+    "category": 6,
+    "description": "Mezcla tradicional de espresso con rica crema, cuerpo completo y notas de chocolate negro y almendra tostada. Perfecta para máquinas de espresso. Desarrollada específicamente para extracciones a presión que realzan su dulzor natural.",
+    "price": "13.99",
+    "stock": 60,
+    "image": "products/cafedeespecialidad-espresso-003.jpg",
+    "roast_level": "espresso",
+    "origin": "Brazil & Colombia",
+    "format": "whole_bean",
+    "weight": 250,
+    "is_available": true,
+    "created_at": "2025-05-01T21:05:48.813Z",
+    "updated_at": "2025-05-01T21:05:48.813Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 11,
+  "fields": {
+    "name": "Espresso Capsules - Intensity 10",
+    "category": 6,
+    "description": "Cápsulas compatibles con nuestra mezcla de espresso más fuerte. Audaz, potente, con intensas notas tostadas y una crema espesa. Perfectas para quienes buscan un espresso con carácter en la comodidad de su hogar.",
+    "price": "9.99",
+    "stock": 120,
+    "image": "products/377240011_0_640x640.jpg",
+    "roast_level": "espresso",
+    "origin": "Brazil & Indonesia",
+    "format": "capsule",
+    "weight": 50,
+    "is_available": true,
+    "created_at": "2025-05-01T21:07:53.011Z",
+    "updated_at": "2025-05-01T21:07:53.011Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 12,
+  "fields": {
+    "name": "Decaf Colombian",
+    "category": 7,
+    "description": "Café colombiano descafeinado mediante Proceso Swiss Water con todo el sabor del café regular. Notas de caramelo, nueces y un toque de cítricos. Disfruta de una taza completa por la noche sin preocuparte por el insomnio.",
+    "price": "14.99",
+    "stock": 35,
+    "image": "products/DSC_4084-scaled.jpg",
+    "roast_level": "medium",
+    "origin": "Colombia",
+    "format": "ground",
+    "weight": 340,
+    "is_available": true,
+    "created_at": "2025-05-01T21:10:07.341Z",
+    "updated_at": "2025-05-01T21:10:07.341Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 13,
+  "fields": {
+    "name": "Decaf Espresso",
+    "category": 7,
+    "description": "Mezcla de espresso descafeinado que ofrece un sabor rico y robusto sin la cafeína. Ideal para bebidas de espresso vespertinas. Mantiene el perfil de sabor intenso característico del espresso con notas de chocolate y caramelo.",
+    "price": "15.99",
+    "stock": 30,
+    "image": "products/Best-Decaf-Espresso-Beans-900x601.jpg",
+    "roast_level": "espresso",
+    "origin": "Multi-region",
+    "format": "whole_bean",
+    "weight": 250,
+    "is_available": true,
+    "created_at": "2025-05-01T21:11:38.858Z",
+    "updated_at": "2025-05-01T21:11:38.858Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 14,
+  "fields": {
+    "name": "Panama Geisha",
+    "category": 8,
+    "description": "Café premiado con extraordinario aroma floral, notas de jazmín y sabores de bergamota y frutas tropicales. Excepcionalmente limpio y dulce. Una variedad exclusiva cultivada en altitudes elevadas de Panamá que ha revolucionado el mundo del café de especialidad.",
+    "price": "29.99",
+    "stock": 15,
+    "image": "products/R_YrG9Jj6.jpg",
+    "roast_level": "light",
+    "origin": "Panama",
+    "format": "whole_bean",
+    "weight": 200,
+    "is_available": true,
+    "created_at": "2025-05-01T21:15:01.177Z",
+    "updated_at": "2025-05-01T21:15:01.177Z"
+  }
+},
+{
+  "model": "store.product",
+  "pk": 15,
+  "fields": {
+    "name": "Kona Reserve",
+    "category": 8,
+    "description": "Café premium hawaiano Kona con cuerpo sedoso, notas dulces de miel, caramelo y frutas tropicales. Una experiencia de café verdaderamente lujosa. Cultivado en las laderas del volcán Hualalai en condiciones perfectas que crean uno de los cafés más codiciados del mundo.",
+    "price": "34.99",
+    "stock": 0,
+    "image": "products/konacoffee.jpg",
+    "roast_level": "medium",
+    "origin": "Hawaii",
+    "format": "whole_bean",
+    "weight": 227,
+    "is_available": false,
+    "created_at": "2025-05-01T21:16:31.578Z",
+    "updated_at": "2025-05-07T03:18:25.489Z"
+  }
+}
+]
