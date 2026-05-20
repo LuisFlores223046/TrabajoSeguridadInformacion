@@ -9,6 +9,7 @@ automáticamente si no existen.
 
 import base64
 import os
+import sys as _sys
 import logging
 from pathlib import Path
 
@@ -19,7 +20,12 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 
 logger = logging.getLogger(__name__)
 
-_KEYS_DIR = Path(__file__).resolve().parent.parent / 'keys'
+# En modo ejecutable (PyInstaller) los archivos del bundle son de solo lectura,
+# por lo que las claves deben guardarse junto al .exe (directorio escribible).
+if getattr(_sys, 'frozen', False):
+    _KEYS_DIR = Path(os.environ.get('COFFEE_RUNTIME_DIR', str(Path(_sys.executable).parent))) / 'keys'
+else:
+    _KEYS_DIR = Path(__file__).resolve().parent.parent / 'keys'
 _PRIVATE_KEY_FILE = _KEYS_DIR / 'private_key.pem'
 _PUBLIC_KEY_FILE = _KEYS_DIR / 'public_key.pem'
 

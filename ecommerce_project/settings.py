@@ -1,19 +1,33 @@
 import os
+import sys as _sys
 from pathlib import Path
 from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# ── Modo ejecutable PyInstaller ───────────────────────────────────────────────
+_IS_FROZEN = getattr(_sys, 'frozen', False)
+if _IS_FROZEN:
+    _BUNDLE_DIR  = Path(os.environ.get('COFFEE_BUNDLE_DIR',  str(_sys._MEIPASS)))
+    _RUNTIME_DIR = Path(os.environ.get('COFFEE_RUNTIME_DIR', str(Path(_sys.executable).parent)))
+else:
+    _BUNDLE_DIR  = BASE_DIR
+    _RUNTIME_DIR = BASE_DIR
+# ─────────────────────────────────────────────────────────────────────────────
 
 # --- Entorno ---
 IS_PRODUCTION = 'RENDER' in os.environ
 DEBUG = not IS_PRODUCTION
 
 # --- Secret Key ---
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
-if not SECRET_KEY:
-    if IS_PRODUCTION:
-        raise ImproperlyConfigured('DJANGO_SECRET_KEY no está configurada en las variables de entorno.')
-    SECRET_KEY = 'dev-only-insecure-key-change-before-deploying'
+if _IS_FROZEN:
+    SECRET_KEY = 'coffee-shop-local-demo-only-not-for-production-use'
+else:
+    SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+    if not SECRET_KEY:
+        if IS_PRODUCTION:
+            raise ImproperlyConfigured('DJANGO_SECRET_KEY no está configurada en las variables de entorno.')
+        SECRET_KEY = 'dev-only-insecure-key-change-before-deploying'
 
 # --- Hosts ---
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -50,11 +64,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ecommerce_project.urls'
 
+_TEMPLATE_DIRS = [_BUNDLE_DIR / 'store' / 'templates'] if _IS_FROZEN else []
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': _TEMPLATE_DIRS,
+        'APP_DIRS': not _IS_FROZEN,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.request',
@@ -62,6 +77,11 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
             ],
+            # APP_DIRS y loaders son mutuamente excluyentes en Django
+            **({'loaders': [
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            ]} if _IS_FROZEN else {}),
         },
     },
 ]
@@ -69,10 +89,18 @@ TEMPLATES = [
 WSGI_APPLICATION = 'ecommerce_project.wsgi.application'
 
 # --- Base de datos ---
-# En producción usa DATABASE_URL (PostgreSQL de Render).
-# En desarrollo usa SQLite.
+# Ejecutable local → SQLite junto al .exe
+# Producción      → PostgreSQL via DATABASE_URL
+# Desarrollo      → SQLite en BASE_DIR
 DATABASE_URL = os.environ.get('DATABASE_URL')
-if DATABASE_URL:
+if _IS_FROZEN:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': _RUNTIME_DIR / 'coffeeshop.db',
+        }
+    }
+elif DATABASE_URL:
     import dj_database_url
     DATABASES = {
         'default': dj_database_url.config(default=DATABASE_URL, conn_max_age=600, ssl_require=True)
@@ -114,18 +142,27 @@ USE_TZ = True
 
 # --- Archivos estáticos ---
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-_static_dir = BASE_DIR / 'static'
-STATICFILES_DIRS = [_static_dir] if _static_dir.exists() else []
+if _IS_FROZEN:
+    # Archivos estáticos incluidos en el bundle (solo lectura)
+    STATIC_ROOT = _BUNDLE_DIR / 'staticfiles'
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+    STATICFILES_DIRS = []
+else:
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    _static_dir = BASE_DIR / 'static'
+    STATICFILES_DIRS = [_static_dir] if _static_dir.exists() else []
 
 # --- Archivos media ---
-# En producción las imágenes se copian a staticfiles/media en build.sh
-# y se sirven via WhiteNoise. Para producción real usa Cloudinary o S3.
+# Producción  → sirve desde staticfiles/media via WhiteNoise
+# Ejecutable  → sirve desde directorio escribible junto al .exe
+# Desarrollo  → sirve desde media/ local
 if IS_PRODUCTION:
     MEDIA_URL = '/static/media/'
     MEDIA_ROOT = BASE_DIR / 'staticfiles' / 'media'
+elif _IS_FROZEN:
+    MEDIA_URL = '/media/'
+    MEDIA_ROOT = _RUNTIME_DIR / 'media'
 else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
