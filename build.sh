@@ -12,3 +12,8 @@ if [ -d "media" ] && [ "$(ls -A media 2>/dev/null)" ]; then
 fi
 
 python manage.py migrate --noinput
+
+# Crear superusuario automáticamente si las variables están definidas
+if [ -n "$DJANGO_SUPERUSER_USERNAME" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ]; then
+    python manage.py createsuperuser --noinput || true
+fi
