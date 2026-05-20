@@ -8,7 +8,6 @@ __pycache__/
 db.sqlite3
 *.log
 staticfiles/
-media/
 
 # Claves RSA — NUNCA subir al repo
 keys/
