@@ -50,8 +50,31 @@ all_datas = (
 
 # ── Imports que PyInstaller no detecta automaticamente ────────────────────────
 hidden = (
-    collect_submodules('store') +
-    collect_submodules('ecommerce_project') +
+    # Módulos del proyecto (listados explícitamente para garantizar inclusión)
+    [
+        'store',
+        'store.apps',
+        'store.models',
+        'store.views',
+        'store.urls',
+        'store.forms',
+        'store.admin',
+        'store.middleware',
+        'store.encryption',
+        'store.migrations',
+        'store.migrations.0001_initial',
+        'store.migrations.0002_customer',
+        'store.migrations.0003_order_orderitem',
+        'store.migrations.0004_alter_order_options_remove_order_complete_and_more',
+        'store.migrations.0005_alter_order_options_remove_order_notes_and_more',
+        'store.migrations.0006_alter_category_description_alter_customer_address_and_more',
+        'store.migrations.0007_remove_customer_address_remove_customer_phone_and_more',
+        'store.migrations.0008_alter_product_image_alter_product_weight',
+        'ecommerce_project',
+        'ecommerce_project.settings',
+        'ecommerce_project.urls',
+        'ecommerce_project.wsgi',
+    ] +
     collect_submodules('django.template') +
     collect_submodules('django.contrib.admin') +
     collect_submodules('django.contrib.auth') +
@@ -85,9 +108,12 @@ hidden = (
 )
 
 # ── Analisis principal ────────────────────────────────────────────────────────
+import os as _os
+_PROJECT_ROOT = _os.path.dirname(_os.path.abspath(SPEC))  # noqa: F821
+
 a = Analysis(
     ['launcher.py'],
-    pathex=['.'],
+    pathex=[_PROJECT_ROOT],
     binaries=[],
     datas=all_datas,
     hiddenimports=hidden,

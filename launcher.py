@@ -27,6 +27,17 @@ def _configure_environment():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce_project.settings')
 
 
+def _copy_media_if_needed():
+    """Al primer arranque copia las fotos del bundle al directorio escribible."""
+    if not getattr(sys, 'frozen', False):
+        return
+    import shutil
+    bundle_media  = os.path.join(os.environ['COFFEE_BUNDLE_DIR'],  'media')
+    runtime_media = os.path.join(os.environ['COFFEE_RUNTIME_DIR'], 'media')
+    if os.path.exists(bundle_media) and not os.path.exists(runtime_media):
+        shutil.copytree(bundle_media, runtime_media)
+
+
 def _open_browser():
     time.sleep(3)
     webbrowser.open('http://127.0.0.1:8000')
@@ -45,6 +56,8 @@ def main():
     print("       COFFEE SHOP  —  Sistema de Cafeteria")
     print("=" * 52)
     print()
+
+    _copy_media_if_needed()
 
     print("  [1/3] Preparando base de datos...")
     call_command('migrate', '--noinput', verbosity=0)
