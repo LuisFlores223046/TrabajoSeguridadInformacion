@@ -62,16 +62,31 @@ def main():
     print("  [1/3] Preparando base de datos...")
     call_command('migrate', '--noinput', verbosity=0)
 
-    print("  [2/3] Cargando productos...")
+    print("  [2/3] Cargando productos y usuario admin...")
     try:
         from store.models import Product
         if not Product.objects.exists():
             call_command('loaddata', 'store/fixtures/initial_data.json', verbosity=0)
             print("        Productos cargados correctamente.")
         else:
-            print("        Datos ya existentes.")
+            print("        Productos ya existentes.")
     except Exception as exc:
         print(f"        Aviso: {exc}")
+
+    # Crear superusuario admin si no existe
+    try:
+        from django.contrib.auth.models import User
+        if not User.objects.filter(username='admin').exists():
+            User.objects.create_superuser(
+                username='admin',
+                password='admin1234',
+                email='admin@coffeeshop.com',
+            )
+            print("        Usuario admin creado  (usuario: admin / contraseña: admin1234)")
+        else:
+            print("        Usuario admin ya existente.")
+    except Exception as exc:
+        print(f"        Aviso al crear admin: {exc}")
 
     threading.Thread(target=_open_browser, daemon=True).start()
 
